@@ -20,6 +20,7 @@
 
 import sys
 
+from PySide2.QtCore import QCommandLineParser, QCoreApplication
 from PySide2.QtWidgets import QApplication
 
 from main_window import MainWindow
@@ -33,6 +34,12 @@ if __name__ == "__main__":
     app.setApplicationName('Lotrio-QtPy')
     app.setApplicationDisplayName('Lotrio-QtPy')
     app.setApplicationVersion('0.1.0')
+
+    parser = QCommandLineParser()
+    parser.setApplicationDescription(QCoreApplication.translate('main', f'{app.applicationName()} - A visualization tool for lottery data'))
+    parser.addHelpOption()
+    parser.addVersionOption()
+    parser.process(app)
 
     window = MainWindow()
     window.show()
