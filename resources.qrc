@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/icons/apps/512">
+        <file alias="lotrio.svg">icons/apps/512/lotrio.svg</file>
+    </qresource>
+</RCC>

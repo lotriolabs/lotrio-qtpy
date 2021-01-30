@@ -216,3 +216,4 @@ Thumbs.db
 #
 
 *.pyproject.user*
+resources.py

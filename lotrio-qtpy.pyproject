@@ -2,6 +2,7 @@
     "files": [
         "main_window.py",
         "main.py",
+        "resources.qrc",
         "settings.py"
     ]
 }
