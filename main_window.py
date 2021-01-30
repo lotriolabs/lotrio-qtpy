@@ -18,7 +18,7 @@
 # along with Lotrio-QtPy.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from PySide2.QtCore import QSettings
+from PySide2.QtCore import QByteArray, QSettings
 from PySide2.QtWidgets import QMainWindow
 
 from settings import Settings
@@ -33,6 +33,17 @@ class MainWindow(QMainWindow):
         super().__init__(parent)
 
         self.readSettings()
+
+
+    def setApplicationState(self, state=QByteArray()):
+
+        if state:
+            self.restoreState(state)
+
+
+    def applicationState(self):
+
+        return self.saveState()
 
 
     def closeEvent(self, event):
@@ -50,9 +61,16 @@ class MainWindow(QMainWindow):
 
         self._settings.load(settings)
 
+        applicationState = settings.value('Application/State', QByteArray())
+
+        # Set application properties
+        self.setApplicationState(applicationState)
+
 
     def writeSettings(self):
 
         settings = QSettings()
 
         self._settings.save(settings)
+
+        settings.setValue('Application/State', self.applicationState())
