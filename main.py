@@ -28,6 +28,11 @@ from main_window import MainWindow
 if __name__ == "__main__":
 
     app = QApplication(sys.argv)
+    app.setOrganizationName('LotrioLabs')
+    app.setOrganizationDomain('https://lotriolabs.github.io')
+    app.setApplicationName('Lotrio-QtPy')
+    app.setApplicationDisplayName('Lotrio-QtPy')
+    app.setApplicationVersion('0.1.0')
 
     window = MainWindow()
     window.show()
