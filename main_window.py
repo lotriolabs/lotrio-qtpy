@@ -46,6 +46,21 @@ class MainWindow(QMainWindow):
         return self.saveState()
 
 
+    def setApplicationGeometry(self, geometry=QByteArray()):
+
+        if geometry:
+            self.restoreGeometry(geometry)
+        else:
+            availableGeometry = self.screen().availableGeometry()
+            self.resize(availableGeometry.width() * 2/3, availableGeometry.height() * 2/3)
+            self.move((availableGeometry.width() - self.width()) / 2, (availableGeometry.height() - self.height()) / 2)
+
+
+    def applicationGeometry(self):
+
+        return self.saveGeometry()
+
+
     def closeEvent(self, event):
 
         if True:
@@ -62,9 +77,11 @@ class MainWindow(QMainWindow):
         self._settings.load(settings)
 
         applicationState = settings.value('Application/State', QByteArray())
+        applicationGeometry = settings.value('Application/Geometry', QByteArray())
 
         # Set application properties
         self.setApplicationState(applicationState)
+        self.setApplicationGeometry(applicationGeometry)
 
 
     def writeSettings(self):
@@ -74,3 +91,4 @@ class MainWindow(QMainWindow):
         self._settings.save(settings)
 
         settings.setValue('Application/State', self.applicationState())
+        settings.setValue('Application/Geometry', self.applicationGeometry())
