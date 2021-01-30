@@ -35,8 +35,24 @@ class MainWindow(QMainWindow):
         self.readSettings()
 
 
+    def closeEvent(self, event):
+
+        if True:
+            self.writeSettings()
+            event.accept()
+        else:
+            event.ignore()
+
+
     def readSettings(self):
 
         settings = QSettings()
 
         self._settings.load(settings)
+
+
+    def writeSettings(self):
+
+        settings = QSettings()
+
+        self._settings.save(settings)
