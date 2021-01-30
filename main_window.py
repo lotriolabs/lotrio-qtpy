@@ -18,6 +18,7 @@
 # along with Lotrio-QtPy.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+from PySide2.QtCore import QSettings
 from PySide2.QtWidgets import QMainWindow
 
 from settings import Settings
@@ -30,3 +31,12 @@ class MainWindow(QMainWindow):
 
     def __init__(self, parent=None):
         super().__init__(parent)
+
+        self.readSettings()
+
+
+    def readSettings(self):
+
+        settings = QSettings()
+
+        self._settings.load(settings)
