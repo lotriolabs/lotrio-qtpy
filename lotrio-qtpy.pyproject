@@ -1,6 +1,7 @@
 {
     "files": [
         "main_window.py",
-        "main.py"
+        "main.py",
+        "settings.py"
     ]
 }

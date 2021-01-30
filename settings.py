@@ -18,15 +18,25 @@
 # along with Lotrio-QtPy.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from PySide2.QtWidgets import QMainWindow
 
-from settings import Settings
+class Settings:
 
-
-class MainWindow(QMainWindow):
-
-    _settings = Settings()
+    def __init__(self):
+        pass
 
 
-    def __init__(self, parent=None):
-        super().__init__(parent)
+    def load(self, settings):
+
+        settings.beginGroup('Settings')
+
+
+        settings.endGroup()
+
+
+    def save(self, settings):
+
+        settings.beginGroup('Settings')
+        settings.remove('')
+
+
+        settings.endGroup()
