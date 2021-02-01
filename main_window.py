@@ -20,7 +20,7 @@
 
 from PySide2.QtCore import QByteArray, QSettings
 from PySide2.QtGui import QIcon, QKeySequence
-from PySide2.QtWidgets import QAction, QMainWindow
+from PySide2.QtWidgets import QAction, QApplication, QMainWindow
 
 from settings import Settings
 
@@ -46,6 +46,13 @@ class MainWindow(QMainWindow):
     def createActions(self):
 
         # Actions: Application
+        self.actionAbout = QAction(self.tr(f'About {QApplication.applicationName()}'), self)
+        self.actionAbout.setObjectName('actionAbout')
+        self.actionAbout.setIcon(QIcon(':/icons/apps/512/lotrio.svg'))
+        self.actionAbout.setIconText(self.tr('About'))
+        self.actionAbout.setToolTip(self.tr('Brief description of the application'))
+        self.actionAbout.triggered.connect(self.onActionAboutTriggered)
+
         self.actionQuit = QAction(self.tr('Quit'), self)
         self.actionQuit.setObjectName('actionQuit')
         self.actionQuit.setIcon(QIcon.fromTheme('application-exit', QIcon(':/icons/actions/16/application-exit.svg')))
@@ -60,6 +67,8 @@ class MainWindow(QMainWindow):
         # Menu: Application
         menuApplication = self.menuBar().addMenu(self.tr('Application'))
         menuApplication.setObjectName('menuApplication')
+        menuApplication.addAction(self.actionAbout)
+        menuApplication.addSeparator()
         menuApplication.addAction(self.actionQuit)
 
 
@@ -120,3 +129,7 @@ class MainWindow(QMainWindow):
 
         settings.setValue('Application/State', self.applicationState())
         settings.setValue('Application/Geometry', self.applicationGeometry())
+
+
+    def onActionAboutTriggered(self):
+        pass
