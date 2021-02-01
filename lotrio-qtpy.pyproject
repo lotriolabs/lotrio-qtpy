@@ -1,5 +1,6 @@
 {
     "files": [
+        "about_dialog.py",
         "main_window.py",
         "main.py",
         "resources.qrc",

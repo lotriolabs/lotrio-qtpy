@@ -22,6 +22,7 @@ from PySide2.QtCore import QByteArray, QSettings
 from PySide2.QtGui import QIcon, QKeySequence
 from PySide2.QtWidgets import QAction, QApplication, QMainWindow
 
+from about_dialog import AboutDialog
 from settings import Settings
 
 import resources
@@ -115,6 +116,7 @@ class MainWindow(QMainWindow):
 
         applicationState = settings.value('Application/State', QByteArray())
         applicationGeometry = settings.value('Application/Geometry', QByteArray())
+        self.aboutDialogGeometry = settings.value('AboutDialog/Geometry', QByteArray())
 
         # Set application properties
         self.setApplicationState(applicationState)
@@ -129,7 +131,13 @@ class MainWindow(QMainWindow):
 
         settings.setValue('Application/State', self.applicationState())
         settings.setValue('Application/Geometry', self.applicationGeometry())
+        settings.setValue('AboutDialog/Geometry', self.aboutDialogGeometry)
 
 
     def onActionAboutTriggered(self):
-        pass
+
+        dialog = AboutDialog(self)
+        dialog.setDialogGeometry(self.aboutDialogGeometry)
+        dialog.exec_()
+
+        self.aboutDialogGeometry = dialog.dialogGeometry()
