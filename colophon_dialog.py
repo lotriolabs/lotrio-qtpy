@@ -23,6 +23,7 @@ from PySide2.QtWidgets import QDialog, QDialogButtonBox, QTabWidget, QVBoxLayout
 
 from colophon_about_page import ColophonAboutPage
 from colophon_environment_page import ColophonEnvironmentPage
+from colophon_license_page import ColophonLicensePage
 from dialog_title_box import DialogTitleBox
 
 
@@ -40,10 +41,12 @@ class ColophonDialog(QDialog):
         # Content
         aboutPage = ColophonAboutPage()
         environmentPage = ColophonEnvironmentPage()
+        licensePage = ColophonLicensePage()
 
         tabBox = QTabWidget()
         tabBox.addTab(aboutPage, aboutPage.title())
         tabBox.addTab(environmentPage, environmentPage.title())
+        tabBox.addTab(licensePage, licensePage.title())
 
         # Button box
         buttonBox = QDialogButtonBox(QDialogButtonBox.Close)

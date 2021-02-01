@@ -4,6 +4,7 @@
         "colophon_about_page.py",
         "colophon_dialog.py",
         "colophon_environment_page.py",
+        "colophon_license_page.py",
         "dialog_title_box.py",
         "main_window.py",
         "main.py",
