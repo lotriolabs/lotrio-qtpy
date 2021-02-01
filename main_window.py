@@ -19,8 +19,8 @@
 #
 
 from PySide2.QtCore import QByteArray, QSettings
-from PySide2.QtGui import QIcon
-from PySide2.QtWidgets import QMainWindow
+from PySide2.QtGui import QIcon, QKeySequence
+from PySide2.QtWidgets import QAction, QMainWindow
 
 from settings import Settings
 
@@ -37,9 +37,22 @@ class MainWindow(QMainWindow):
 
         self.setWindowIcon(QIcon(':/icons/apps/512/lotrio.svg'))
 
+        self.createActions()
         self.createMenus()
 
         self.readSettings()
+
+
+    def createActions(self):
+
+        # Actions: Application
+        self.actionQuit = QAction(self.tr('Quit'), self)
+        self.actionQuit.setObjectName('actionQuit')
+        self.actionQuit.setIcon(QIcon.fromTheme('application-exit', QIcon(':/icons/actions/16/application-exit.svg')))
+        self.actionQuit.setIconText(self.tr('Quit'))
+        self.actionQuit.setShortcut(QKeySequence.Quit)
+        self.actionQuit.setToolTip(self.tr(f'Quit the application [{self.actionQuit.shortcut().toString(QKeySequence.NativeText)}]'))
+        self.actionQuit.triggered.connect(self.close)
 
 
     def createMenus(self):
@@ -47,6 +60,7 @@ class MainWindow(QMainWindow):
         # Menu: Application
         menuApplication = self.menuBar().addMenu(self.tr('Application'))
         menuApplication.setObjectName('menuApplication')
+        menuApplication.addAction(self.actionQuit)
 
 
     def setApplicationState(self, state=QByteArray()):
