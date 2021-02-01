@@ -37,7 +37,16 @@ class MainWindow(QMainWindow):
 
         self.setWindowIcon(QIcon(':/icons/apps/512/lotrio.svg'))
 
+        self.createMenus()
+
         self.readSettings()
+
+
+    def createMenus(self):
+
+        # Menu: Application
+        menuApplication = self.menuBar().addMenu(self.tr('Application'))
+        menuApplication.setObjectName('menuApplication')
 
 
     def setApplicationState(self, state=QByteArray()):
