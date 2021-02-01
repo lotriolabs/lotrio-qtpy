@@ -1,6 +1,7 @@
 {
     "files": [
         "about_dialog.py",
+        "colophon_about_page.py",
         "colophon_dialog.py",
         "dialog_title_box.py",
         "main_window.py",
