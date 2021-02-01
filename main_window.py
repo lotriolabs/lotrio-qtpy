@@ -23,6 +23,7 @@ from PySide2.QtGui import QIcon, QKeySequence
 from PySide2.QtWidgets import QAction, QApplication, QMainWindow
 
 from about_dialog import AboutDialog
+from colophon_dialog import ColophonDialog
 from settings import Settings
 
 import resources
@@ -123,6 +124,7 @@ class MainWindow(QMainWindow):
         applicationState = settings.value('Application/State', QByteArray())
         applicationGeometry = settings.value('Application/Geometry', QByteArray())
         self.aboutDialogGeometry = settings.value('AboutDialog/Geometry', QByteArray())
+        self.colophonDialogGeometry = settings.value('ColophonDialog/Geometry', QByteArray())
 
         # Set application properties
         self.setApplicationState(applicationState)
@@ -138,6 +140,7 @@ class MainWindow(QMainWindow):
         settings.setValue('Application/State', self.applicationState())
         settings.setValue('Application/Geometry', self.applicationGeometry())
         settings.setValue('AboutDialog/Geometry', self.aboutDialogGeometry)
+        settings.setValue('ColophonDialog/Geometry', self.colophonDialogGeometry)
 
 
     def onActionAboutTriggered(self):
@@ -150,4 +153,9 @@ class MainWindow(QMainWindow):
 
 
     def onActionColophonTriggered(self):
-        pass
+
+        dialog = ColophonDialog(self)
+        dialog.setDialogGeometry(self.colophonDialogGeometry)
+        dialog.exec_()
+
+        self.colophonDialogGeometry = dialog.dialogGeometry()
