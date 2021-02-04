@@ -119,8 +119,12 @@ class PreferencesDialog(QDialog):
 
 
     def updateSettings(self, isDefault=False):
-        pass
+
+        # General: State
+        self.generalPage.setRestoreApplicationState(self._settings.restoreApplicationState(isDefault))
 
 
     def saveSettings(self):
-        pass
+
+        # General: State
+        self._settings.setRestoreApplicationState(self.generalPage.restoreApplicationState())

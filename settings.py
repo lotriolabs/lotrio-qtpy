@@ -22,13 +22,17 @@
 class Settings:
 
     def __init__(self):
-        pass
+
+        # General: State
+        self._restoreApplicationState = True
 
 
     def load(self, settings):
 
         settings.beginGroup('Settings')
 
+        # General: State
+        self.setRestoreApplicationState(self.valueToBool(settings.value('RestoreApplicationState', True)))
 
         settings.endGroup()
 
@@ -38,5 +42,23 @@ class Settings:
         settings.beginGroup('Settings')
         settings.remove('')
 
+        # General: State
+        settings.setValue('RestoreApplicationState', self._restoreApplicationState)
 
         settings.endGroup()
+
+
+    @staticmethod
+    def valueToBool(value):
+
+        return value.lower() == 'true' if isinstance(value, str) else bool(value)
+
+
+    def setRestoreApplicationState(self, value):
+
+        self._restoreApplicationState = value
+
+
+    def restoreApplicationState(self, isDefault=False):
+
+        return self._restoreApplicationState if not isDefault else True
