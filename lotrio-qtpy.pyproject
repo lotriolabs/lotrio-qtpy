@@ -10,6 +10,7 @@
         "dialog_title_box.py",
         "main_window.py",
         "main.py",
+        "preferences_dialog.py",
         "resources.qrc",
         "settings.py"
     ]

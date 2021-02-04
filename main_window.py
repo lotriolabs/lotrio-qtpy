@@ -24,6 +24,7 @@ from PySide2.QtWidgets import QAction, QApplication, QMainWindow
 
 from about_dialog import AboutDialog
 from colophon_dialog import ColophonDialog
+from preferences_dialog import PreferencesDialog
 from settings import Settings
 
 import resources
@@ -134,6 +135,7 @@ class MainWindow(QMainWindow):
         applicationGeometry = settings.value('Application/Geometry', QByteArray())
         self.aboutDialogGeometry = settings.value('AboutDialog/Geometry', QByteArray())
         self.colophonDialogGeometry = settings.value('ColophonDialog/Geometry', QByteArray())
+        self.preferencesDialogGeometry = settings.value('PreferencesDialog/Geometry', QByteArray())
 
         # Set application properties
         self.setApplicationState(applicationState)
@@ -150,6 +152,7 @@ class MainWindow(QMainWindow):
         settings.setValue('Application/Geometry', self.applicationGeometry())
         settings.setValue('AboutDialog/Geometry', self.aboutDialogGeometry)
         settings.setValue('ColophonDialog/Geometry', self.colophonDialogGeometry)
+        settings.setValue('PreferencesDialog/Geometry', self.preferencesDialogGeometry)
 
 
     def onActionAboutTriggered(self):
@@ -171,4 +174,9 @@ class MainWindow(QMainWindow):
 
 
     def onActionPreferencesTriggered(self):
-        pass
+
+        dialog = PreferencesDialog(self)
+        dialog.setDialogGeometry(self.preferencesDialogGeometry)
+        dialog.exec_()
+
+        self.preferencesDialogGeometry = dialog.dialogGeometry()
