@@ -23,16 +23,19 @@ class Settings:
 
     def __init__(self):
 
-        # General: State
+        # General: State & Geometry
         self._restoreApplicationState = True
+        self._restoreApplicationGeometry = True
 
 
     def load(self, settings):
 
         settings.beginGroup('Settings')
 
-        # General: State
+        # General: State & Geometry
         self.setRestoreApplicationState(self.valueToBool(settings.value('RestoreApplicationState', True)))
+        self.setRestoreApplicationGeometry(self.valueToBool(settings.value('RestoreApplicationGeometry', True)))
+
 
         settings.endGroup()
 
@@ -42,8 +45,9 @@ class Settings:
         settings.beginGroup('Settings')
         settings.remove('')
 
-        # General: State
+        # General: State & Geometry
         settings.setValue('RestoreApplicationState', self._restoreApplicationState)
+        settings.setValue('RestoreApplicationGeometry', self._restoreApplicationGeometry)
 
         settings.endGroup()
 
@@ -62,3 +66,13 @@ class Settings:
     def restoreApplicationState(self, isDefault=False):
 
         return self._restoreApplicationState if not isDefault else True
+
+
+    def setRestoreApplicationGeometry(self, value):
+
+        self._restoreApplicationGeometry = value
+
+
+    def restoreApplicationGeometry(self, isDefault=False):
+
+        return self._restoreApplicationGeometry if not isDefault else True

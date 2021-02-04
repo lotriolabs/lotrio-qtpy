@@ -33,20 +33,24 @@ class PreferencesGeneralPage(QWidget):
         # Title
         title = QLabel(self.tr('<strong style="font-size:large;">General</strong>'))
 
-        # State
+        # State & Geometry
         self.chkRestoreApplicationState = QCheckBox(self.tr('Save and restore the application state'))
         self.chkRestoreApplicationState.stateChanged.connect(self.onSettingsChanged)
 
-        stateLayout = QVBoxLayout()
-        stateLayout.addWidget(self.chkRestoreApplicationState)
+        self.chkRestoreApplicationGeometry = QCheckBox(self.tr('Save and restore the application geometry'))
+        self.chkRestoreApplicationGeometry.stateChanged.connect(self.onSettingsChanged)
 
-        stateGroup = QGroupBox(self.tr('State'))
-        stateGroup.setLayout(stateLayout)
+        stateGeometryLayout = QVBoxLayout()
+        stateGeometryLayout.addWidget(self.chkRestoreApplicationState)
+        stateGeometryLayout.addWidget(self.chkRestoreApplicationGeometry)
+
+        stateGeometryGroup = QGroupBox(self.tr('State && Geometry'))
+        stateGeometryGroup.setLayout(stateGeometryLayout)
 
         # Main layout
         self.layout = QVBoxLayout(self)
         self.layout.addWidget(title)
-        self.layout.addWidget(stateGroup)
+        self.layout.addWidget(stateGeometryGroup)
         self.layout.addStretch()
 
 
@@ -73,3 +77,13 @@ class PreferencesGeneralPage(QWidget):
     def restoreApplicationState(self):
 
         return self.chkRestoreApplicationState.isChecked()
+
+
+    def setRestoreApplicationGeometry(self, checked):
+
+        self.chkRestoreApplicationGeometry.setChecked(checked)
+
+
+    def restoreApplicationGeometry(self):
+
+        return self.chkRestoreApplicationGeometry.isChecked()

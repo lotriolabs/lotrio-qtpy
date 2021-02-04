@@ -106,7 +106,7 @@ class MainWindow(QMainWindow):
 
     def setApplicationGeometry(self, geometry=QByteArray()):
 
-        if geometry:
+        if not geometry.isEmpty():
             self.restoreGeometry(geometry)
         else:
             availableGeometry = self.screen().availableGeometry()
@@ -114,7 +114,10 @@ class MainWindow(QMainWindow):
             self.move((availableGeometry.width() - self.width()) / 2, (availableGeometry.height() - self.height()) / 2)
 
 
-    def applicationGeometry(self):
+    def applicationGeometry(self, isDefault=False):
+
+        if isDefault:
+            return QByteArray()
 
         return self.saveGeometry()
 
@@ -134,14 +137,12 @@ class MainWindow(QMainWindow):
 
         self._settings.load(settings)
 
+        # Application properties
         self.setApplicationState(settings.value('Application/State', QByteArray()))
-        applicationGeometry = settings.value('Application/Geometry', QByteArray())
+        self.setApplicationGeometry(settings.value('Application/Geometry', QByteArray()))
         self.aboutDialogGeometry = settings.value('AboutDialog/Geometry', QByteArray())
         self.colophonDialogGeometry = settings.value('ColophonDialog/Geometry', QByteArray())
         self.preferencesDialogGeometry = settings.value('PreferencesDialog/Geometry', QByteArray())
-
-        # Set application properties
-        self.setApplicationGeometry(applicationGeometry)
 
 
     def writeSettings(self):
@@ -150,8 +151,9 @@ class MainWindow(QMainWindow):
 
         self._settings.save(settings)
 
+        # Application properties
         settings.setValue('Application/State', self.applicationState(not self._settings.restoreApplicationState()))
-        settings.setValue('Application/Geometry', self.applicationGeometry())
+        settings.setValue('Application/Geometry', self.applicationGeometry(not self._settings.restoreApplicationGeometry()))
         settings.setValue('AboutDialog/Geometry', self.aboutDialogGeometry)
         settings.setValue('ColophonDialog/Geometry', self.colophonDialogGeometry)
         settings.setValue('PreferencesDialog/Geometry', self.preferencesDialogGeometry)
