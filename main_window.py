@@ -177,6 +177,8 @@ class MainWindow(QMainWindow):
 
         dialog = PreferencesDialog(self)
         dialog.setDialogGeometry(self.preferencesDialogGeometry)
+        dialog.setSettings(self._settings)
         dialog.exec_()
 
+        self._settings = dialog.settings()
         self.preferencesDialogGeometry = dialog.dialogGeometry()

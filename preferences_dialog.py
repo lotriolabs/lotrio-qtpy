@@ -21,8 +21,13 @@
 from PySide2.QtCore import QByteArray
 from PySide2.QtWidgets import QDialog, QDialogButtonBox, QVBoxLayout
 
+from settings import Settings
+
 
 class PreferencesDialog(QDialog):
+
+    _settings = Settings()
+
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -31,13 +36,20 @@ class PreferencesDialog(QDialog):
 
 
         # Button box
-        buttonBox = QDialogButtonBox(QDialogButtonBox.Close)
+        buttonBox = QDialogButtonBox(QDialogButtonBox.RestoreDefaults | QDialogButtonBox.Ok | QDialogButtonBox.Apply | QDialogButtonBox.Cancel)
+        self.buttonApply = buttonBox.button(QDialogButtonBox.Apply)
+        buttonBox.button(QDialogButtonBox.RestoreDefaults).clicked.connect(self.onButtonDefaultsClicked)
+        buttonBox.accepted.connect(self.onButtonOkClicked)
+        buttonBox.button(QDialogButtonBox.Apply).clicked.connect(self.onButtonApplyClicked)
         buttonBox.rejected.connect(self.close)
 
         # Main layout
         layout = QVBoxLayout(self)
         layout.addStretch(1)
         layout.addWidget(buttonBox)
+
+        self.updateSettings()
+        self.buttonApply.setEnabled(False)
 
 
     def setDialogGeometry(self, geometry=QByteArray()):
@@ -51,3 +63,46 @@ class PreferencesDialog(QDialog):
     def dialogGeometry(self):
 
         return self.saveGeometry()
+
+
+    def setSettings(self, settings):
+
+        self._settings = settings
+
+        self.updateSettings()
+        self.buttonApply.setEnabled(False)
+
+
+    def settings(self):
+
+        return self._settings
+
+
+    def onSettingsChanged(self):
+
+        self.buttonApply.setEnabled(True)
+
+
+    def onButtonDefaultsClicked(self):
+
+        self.updateSettings(True)
+
+
+    def onButtonOkClicked(self):
+
+        self.saveSettings()
+        self.close()
+
+
+    def onButtonApplyClicked(self):
+
+        self.saveSettings()
+        self.buttonApply.setEnabled(False)
+
+
+    def updateSettings(self, isDefault=False):
+        pass
+
+
+    def saveSettings(self):
+        pass
