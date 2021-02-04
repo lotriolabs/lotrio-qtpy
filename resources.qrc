@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/icons/actions/16">
+        <file alias="application-configure.svg">icons/actions/16/application-configure.svg</file>
         <file alias="application-exit.svg">icons/actions/16/application-exit.svg</file>
     </qresource>
     <qresource prefix="/icons/apps/512">

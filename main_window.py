@@ -60,6 +60,13 @@ class MainWindow(QMainWindow):
         self.actionColophon.setToolTip(self.tr('Lengthy description of the application'))
         self.actionColophon.triggered.connect(self.onActionColophonTriggered)
 
+        self.actionPreferences = QAction(self.tr('Preferences…'), self)
+        self.actionPreferences.setObjectName('actionPreferences')
+        self.actionPreferences.setIcon(QIcon.fromTheme('configure', QIcon(':/icons/actions/16/application-configure.svg')))
+        self.actionPreferences.setIconText(self.tr('Preferences'))
+        self.actionPreferences.setToolTip(self.tr('Customize the appearance and behavior of the application'))
+        self.actionPreferences.triggered.connect(self.onActionPreferencesTriggered)
+
         self.actionQuit = QAction(self.tr('Quit'), self)
         self.actionQuit.setObjectName('actionQuit')
         self.actionQuit.setIcon(QIcon.fromTheme('application-exit', QIcon(':/icons/actions/16/application-exit.svg')))
@@ -76,6 +83,8 @@ class MainWindow(QMainWindow):
         menuApplication.setObjectName('menuApplication')
         menuApplication.addAction(self.actionAbout)
         menuApplication.addAction(self.actionColophon)
+        menuApplication.addSeparator()
+        menuApplication.addAction(self.actionPreferences)
         menuApplication.addSeparator()
         menuApplication.addAction(self.actionQuit)
 
@@ -159,3 +168,7 @@ class MainWindow(QMainWindow):
         dialog.exec_()
 
         self.colophonDialogGeometry = dialog.dialogGeometry()
+
+
+    def onActionPreferencesTriggered(self):
+        pass
