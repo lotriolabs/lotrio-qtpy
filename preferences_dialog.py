@@ -19,8 +19,9 @@
 #
 
 from PySide2.QtCore import QByteArray
-from PySide2.QtWidgets import QDialog, QDialogButtonBox, QVBoxLayout
+from PySide2.QtWidgets import QDialog, QDialogButtonBox, QHBoxLayout, QListWidget, QStackedWidget, QVBoxLayout
 
+from preferences_general_page import PreferencesGeneralPage
 from settings import Settings
 
 
@@ -34,6 +35,23 @@ class PreferencesDialog(QDialog):
 
         self.setWindowTitle(self.tr('Preferences'))
 
+        # Settings box
+        self.generalPage = PreferencesGeneralPage(self)
+        self.generalPage.setZeroMargins()
+        self.generalPage.settingsChanged.connect(self.onSettingsChanged)
+
+        stackedBox = QStackedWidget()
+        stackedBox.addWidget(self.generalPage)
+        stackedBox.setCurrentIndex(0)
+
+        listBox = QListWidget()
+        listBox.addItem(self.generalPage.title())
+        listBox.setCurrentRow(stackedBox.currentIndex())
+        listBox.currentRowChanged.connect(stackedBox.setCurrentIndex)
+
+        settingsBox = QHBoxLayout()
+        settingsBox.addWidget(listBox, 1)
+        settingsBox.addWidget(stackedBox, 3)
 
         # Button box
         buttonBox = QDialogButtonBox(QDialogButtonBox.RestoreDefaults | QDialogButtonBox.Ok | QDialogButtonBox.Apply | QDialogButtonBox.Cancel)
@@ -45,7 +63,7 @@ class PreferencesDialog(QDialog):
 
         # Main layout
         layout = QVBoxLayout(self)
-        layout.addStretch(1)
+        layout.addLayout(settingsBox)
         layout.addWidget(buttonBox)
 
         self.updateSettings()
