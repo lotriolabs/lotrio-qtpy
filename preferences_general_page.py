@@ -33,24 +33,28 @@ class PreferencesGeneralPage(QWidget):
         # Title
         title = QLabel(self.tr('<strong style="font-size:large;">General</strong>'))
 
-        # State & Geometry
+        # State & Geometries
         self.chkRestoreApplicationState = QCheckBox(self.tr('Save and restore the application state'))
         self.chkRestoreApplicationState.stateChanged.connect(self.onSettingsChanged)
 
         self.chkRestoreApplicationGeometry = QCheckBox(self.tr('Save and restore the application geometry'))
         self.chkRestoreApplicationGeometry.stateChanged.connect(self.onSettingsChanged)
 
-        stateGeometryLayout = QVBoxLayout()
-        stateGeometryLayout.addWidget(self.chkRestoreApplicationState)
-        stateGeometryLayout.addWidget(self.chkRestoreApplicationGeometry)
+        self.chkRestoreDialogGeometry = QCheckBox(self.tr('Save and restore dialog geometries'))
+        self.chkRestoreDialogGeometry.stateChanged.connect(self.onSettingsChanged)
 
-        stateGeometryGroup = QGroupBox(self.tr('State && Geometry'))
-        stateGeometryGroup.setLayout(stateGeometryLayout)
+        stateGeometriesLayout = QVBoxLayout()
+        stateGeometriesLayout.addWidget(self.chkRestoreApplicationState)
+        stateGeometriesLayout.addWidget(self.chkRestoreApplicationGeometry)
+        stateGeometriesLayout.addWidget(self.chkRestoreDialogGeometry)
+
+        stateGeometriesGroup = QGroupBox(self.tr('State && Geometries'))
+        stateGeometriesGroup.setLayout(stateGeometriesLayout)
 
         # Main layout
         self.layout = QVBoxLayout(self)
         self.layout.addWidget(title)
-        self.layout.addWidget(stateGeometryGroup)
+        self.layout.addWidget(stateGeometriesGroup)
         self.layout.addStretch()
 
 
@@ -87,3 +91,13 @@ class PreferencesGeneralPage(QWidget):
     def restoreApplicationGeometry(self):
 
         return self.chkRestoreApplicationGeometry.isChecked()
+
+
+    def setRestoreDialogGeometry(self, checked):
+
+        self.chkRestoreDialogGeometry.setChecked(checked)
+
+
+    def restoreDialogGeometry(self):
+
+        return self.chkRestoreDialogGeometry.isChecked()

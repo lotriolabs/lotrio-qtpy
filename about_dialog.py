@@ -53,7 +53,7 @@ class AboutDialog(QDialog):
 
     def setDialogGeometry(self, geometry=QByteArray()):
 
-        if geometry:
+        if not geometry.isEmpty():
             self.restoreGeometry(geometry)
         else:
             self.resize(480, 320)
