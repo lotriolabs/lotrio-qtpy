@@ -92,14 +92,11 @@ class MainWindow(QMainWindow):
 
     def setApplicationState(self, state=QByteArray()):
 
-        if state:
+        if not state.isEmpty():
             self.restoreState(state)
 
 
-    def applicationState(self, isDefault=False):
-
-        if isDefault:
-            return QByteArray()
+    def applicationState(self):
 
         return self.saveState()
 
@@ -114,10 +111,7 @@ class MainWindow(QMainWindow):
             self.move((availableGeometry.width() - self.width()) / 2, (availableGeometry.height() - self.height()) / 2)
 
 
-    def applicationGeometry(self, isDefault=False):
-
-        if isDefault:
-            return QByteArray()
+    def applicationGeometry(self):
 
         return self.saveGeometry()
 
@@ -138,11 +132,14 @@ class MainWindow(QMainWindow):
         self._settings.load(settings)
 
         # Application properties
-        self.setApplicationState(settings.value('Application/State', QByteArray()))
-        self.setApplicationGeometry(settings.value('Application/Geometry', QByteArray()))
+        state = settings.value('Application/State', QByteArray()) if self._settings.restoreApplicationState() else QByteArray()
+        geometry = settings.value('Application/Geometry', QByteArray()) if self._settings.restoreApplicationState() else QByteArray()
         self.aboutDialogGeometry = settings.value('AboutDialog/Geometry', QByteArray())
         self.colophonDialogGeometry = settings.value('ColophonDialog/Geometry', QByteArray())
         self.preferencesDialogGeometry = settings.value('PreferencesDialog/Geometry', QByteArray())
+
+        self.setApplicationState(state)
+        self.setApplicationGeometry(geometry)
 
 
     def writeSettings(self):
@@ -152,8 +149,11 @@ class MainWindow(QMainWindow):
         self._settings.save(settings)
 
         # Application properties
-        settings.setValue('Application/State', self.applicationState(not self._settings.restoreApplicationState()))
-        settings.setValue('Application/Geometry', self.applicationGeometry(not self._settings.restoreApplicationGeometry()))
+        state = self.applicationState() if self._settings.restoreApplicationState() else QByteArray()
+        geometry = self.applicationGeometry() if self._settings.restoreApplicationGeometry() else QByteArray()
+
+        settings.setValue('Application/State', state)
+        settings.setValue('Application/Geometry', geometry)
         settings.setValue('AboutDialog/Geometry', self.aboutDialogGeometry)
         settings.setValue('ColophonDialog/Geometry', self.colophonDialogGeometry)
         settings.setValue('PreferencesDialog/Geometry', self.preferencesDialogGeometry)
