@@ -216,4 +216,4 @@ Thumbs.db
 #
 
 *.pyproject.user*
-resources.py
+lotrio_qtpy.py

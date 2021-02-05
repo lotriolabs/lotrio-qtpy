@@ -27,7 +27,7 @@ from colophon_dialog import ColophonDialog
 from preferences_dialog import PreferencesDialog
 from settings import Settings
 
-import resources
+import lotrio_qtpy
 
 
 class MainWindow(QMainWindow):
