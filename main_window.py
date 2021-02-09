@@ -42,6 +42,7 @@ class MainWindow(QMainWindow):
 
         self.createActions()
         self.createMenus()
+        self.createToolBars()
 
         self.readSettings()
 
@@ -119,10 +120,23 @@ class MainWindow(QMainWindow):
         menuView.addAction(self.actionFullScreen)
 
 
+    def createToolBars(self):
+
+        # Toolbar: Application
+        self.toolbarApplication = self.addToolBar(self.tr('Application Toolbar'))
+        self.toolbarApplication.setObjectName('toolbarApplication')
+        self.toolbarApplication.addAction(self.actionAbout)
+        self.toolbarApplication.addAction(self.actionPreferences)
+        self.toolbarApplication.addSeparator()
+        self.toolbarApplication.addAction(self.actionQuit)
+
+
     def setApplicationState(self, state=QByteArray()):
 
         if not state.isEmpty():
             self.restoreState(state)
+        else:
+            self.toolbarApplication.setVisible(True)
 
 
     def applicationState(self):
