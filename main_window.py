@@ -93,6 +93,12 @@ class MainWindow(QMainWindow):
         self.actionToolbarApplication.setToolTip(self.tr('Display the Application toolbar'))
         self.actionToolbarApplication.toggled.connect(lambda checked: self.toolbarApplication.setVisible(checked))
 
+        self.actionToolbarView = QAction(self.tr('Show View Toolbar'), self)
+        self.actionToolbarView.setObjectName('actionToolbarView')
+        self.actionToolbarView.setCheckable(True)
+        self.actionToolbarView.setToolTip(self.tr('Display the View toolbar'))
+        self.actionToolbarView.toggled.connect(lambda checked: self.toolbarView.setVisible(checked))
+
 
     def updateActionFullScreen(self):
 
@@ -126,6 +132,7 @@ class MainWindow(QMainWindow):
         menuView.addAction(self.actionFullScreen)
         menuView.addSeparator()
         menuView.addAction(self.actionToolbarApplication)
+        menuView.addAction(self.actionToolbarView)
 
 
     def createToolBars(self):
@@ -143,6 +150,7 @@ class MainWindow(QMainWindow):
         self.toolbarView = self.addToolBar(self.tr('View Toolbar'))
         self.toolbarView.setObjectName('toolbarView')
         self.toolbarView.addAction(self.actionFullScreen)
+        self.toolbarView.visibilityChanged.connect(lambda visible: self.actionToolbarView.setChecked(visible))
 
 
     def setApplicationState(self, state=QByteArray()):
