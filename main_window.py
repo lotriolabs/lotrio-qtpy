@@ -89,6 +89,10 @@ class MainWindow(QMainWindow):
         menuApplication.addSeparator()
         menuApplication.addAction(self.actionQuit)
 
+        # Menu: View
+        menuView = self.menuBar().addMenu(self.tr('View'))
+        menuView.setObjectName('menuView')
+
 
     def setApplicationState(self, state=QByteArray()):
 
