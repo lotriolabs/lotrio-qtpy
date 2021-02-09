@@ -18,7 +18,7 @@
 # along with Lotrio-QtPy.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from PySide2.QtCore import QByteArray, QSettings
+from PySide2.QtCore import QByteArray, QSettings, Qt
 from PySide2.QtGui import QIcon, QKeySequence
 from PySide2.QtWidgets import QAction, QApplication, QMainWindow
 
@@ -44,6 +44,8 @@ class MainWindow(QMainWindow):
         self.createMenus()
 
         self.readSettings()
+
+        self.updateActionFullScreen()
 
 
     def createActions(self):
@@ -76,6 +78,28 @@ class MainWindow(QMainWindow):
         self.actionQuit.setToolTip(self.tr(f'Quit the application [{self.actionQuit.shortcut().toString(QKeySequence.NativeText)}]'))
         self.actionQuit.triggered.connect(self.close)
 
+        # Actions: View
+        self.actionFullScreen = QAction(self)
+        self.actionFullScreen.setObjectName('actionFullScreen')
+        self.actionFullScreen.setIconText(self.tr('Full Screen'))
+        self.actionFullScreen.setCheckable(True)
+        self.actionFullScreen.setShortcuts([QKeySequence(Qt.Key_F11), QKeySequence.FullScreen])
+        self.actionFullScreen.triggered.connect(self.onActionFullScreenTriggered)
+
+
+    def updateActionFullScreen(self):
+
+        if not self.isFullScreen():
+            self.actionFullScreen.setText(self.tr('Full Screen Mode'))
+            self.actionFullScreen.setIcon(QIcon.fromTheme('view-fullscreen', QIcon(':/icons/actions/16/view-fullscreen.svg')))
+            self.actionFullScreen.setChecked(False)
+            self.actionFullScreen.setToolTip(self.tr(f'Display the window in full screen [{self.actionFullScreen.shortcut().toString(QKeySequence.NativeText)}]'))
+        else:
+            self.actionFullScreen.setText(self.tr('Exit Full Screen Mode'))
+            self.actionFullScreen.setIcon(QIcon.fromTheme('view-restore', QIcon(':/icons/actions/16/view-restore.svg')))
+            self.actionFullScreen.setChecked(True)
+            self.actionFullScreen.setToolTip(self.tr(f'Exit the full screen mode [{self.actionFullScreen.shortcut().toString(QKeySequence.NativeText)}]'))
+
 
     def createMenus(self):
 
@@ -92,6 +116,7 @@ class MainWindow(QMainWindow):
         # Menu: View
         menuView = self.menuBar().addMenu(self.tr('View'))
         menuView.setObjectName('menuView')
+        menuView.addAction(self.actionFullScreen)
 
 
     def setApplicationState(self, state=QByteArray()):
@@ -196,3 +221,13 @@ class MainWindow(QMainWindow):
 
         self._settings = dialog.settings()
         self.preferencesDialogGeometry = dialog.dialogGeometry() if self._settings.restoreDialogGeometry() else QByteArray()
+
+
+    def onActionFullScreenTriggered(self):
+
+        if not self.isFullScreen():
+            self.setWindowState(self.windowState() | Qt.WindowFullScreen)
+        else:
+            self.setWindowState(self.windowState() & ~Qt.WindowFullScreen)
+
+        self.updateActionFullScreen()
