@@ -87,6 +87,12 @@ class MainWindow(QMainWindow):
         self.actionFullScreen.setShortcuts([QKeySequence(Qt.Key_F11), QKeySequence.FullScreen])
         self.actionFullScreen.triggered.connect(self.onActionFullScreenTriggered)
 
+        self.actionToolbarApplication = QAction(self.tr('Show Application Toolbar'), self)
+        self.actionToolbarApplication.setObjectName('actionToolbarApplication')
+        self.actionToolbarApplication.setCheckable(True)
+        self.actionToolbarApplication.setToolTip(self.tr('Display the Application toolbar'))
+        self.actionToolbarApplication.toggled.connect(lambda checked: self.toolbarApplication.setVisible(checked))
+
 
     def updateActionFullScreen(self):
 
@@ -118,6 +124,8 @@ class MainWindow(QMainWindow):
         menuView = self.menuBar().addMenu(self.tr('View'))
         menuView.setObjectName('menuView')
         menuView.addAction(self.actionFullScreen)
+        menuView.addSeparator()
+        menuView.addAction(self.actionToolbarApplication)
 
 
     def createToolBars(self):
@@ -129,6 +137,7 @@ class MainWindow(QMainWindow):
         self.toolbarApplication.addAction(self.actionPreferences)
         self.toolbarApplication.addSeparator()
         self.toolbarApplication.addAction(self.actionQuit)
+        self.toolbarApplication.visibilityChanged.connect(lambda visible: self.actionToolbarApplication.setChecked(visible))
 
 
     def setApplicationState(self, state=QByteArray()):
