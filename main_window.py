@@ -139,6 +139,11 @@ class MainWindow(QMainWindow):
         self.toolbarApplication.addAction(self.actionQuit)
         self.toolbarApplication.visibilityChanged.connect(lambda visible: self.actionToolbarApplication.setChecked(visible))
 
+        # Toolbar: View
+        self.toolbarView = self.addToolBar(self.tr('View Toolbar'))
+        self.toolbarView.setObjectName('toolbarView')
+        self.toolbarView.addAction(self.actionFullScreen)
+
 
     def setApplicationState(self, state=QByteArray()):
 
@@ -146,6 +151,7 @@ class MainWindow(QMainWindow):
             self.restoreState(state)
         else:
             self.toolbarApplication.setVisible(True)
+            self.toolbarView.setVisible(False)
 
 
     def applicationState(self):
