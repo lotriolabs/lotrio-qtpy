@@ -150,6 +150,11 @@ class MainWindow(QMainWindow):
         menuApplication.addSeparator()
         menuApplication.addAction(self.actionQuit)
 
+        # Menu: Lotteries
+        menuLotteries = self.menuBar().addMenu(self.tr('Lotteries'))
+        menuLotteries.setObjectName('menuLotteries')
+        menuLotteries.addActions(self.actionLotteries)
+
         # Menu: View
         menuView = self.menuBar().addMenu(self.tr('View'))
         menuView.setObjectName('menuView')
