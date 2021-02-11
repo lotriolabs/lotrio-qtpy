@@ -175,6 +175,11 @@ class MainWindow(QMainWindow):
         self.toolbarApplication.addAction(self.actionQuit)
         self.toolbarApplication.visibilityChanged.connect(lambda visible: self.actionToolbarApplication.setChecked(visible))
 
+        # Toolbar: Lotteries
+        self.toolbarLotteries = self.addToolBar(self.tr('Lotteries Toolbar'))
+        self.toolbarLotteries.setObjectName('toolbarLotteries')
+        self.toolbarLotteries.addActions(self.actionLotteries)
+
         # Toolbar: View
         self.toolbarView = self.addToolBar(self.tr('View Toolbar'))
         self.toolbarView.setObjectName('toolbarView')
@@ -188,6 +193,7 @@ class MainWindow(QMainWindow):
             self.restoreState(state)
         else:
             self.toolbarApplication.setVisible(True)
+            self.toolbarLotteries.setVisible(True)
             self.toolbarView.setVisible(False)
 
 
