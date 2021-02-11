@@ -40,6 +40,8 @@ class MainWindow(QMainWindow):
 
         self.setWindowIcon(QIcon(':/icons/apps/512/lotrio.svg'))
 
+        self.createLotteries()
+
         self.createActions()
         self.createMenus()
         self.createToolBars()
@@ -47,6 +49,15 @@ class MainWindow(QMainWindow):
         self.readSettings()
 
         self.updateActionFullScreen()
+
+
+    def createLotteries(self):
+
+        self.listLotteries = {
+            'eurojackpot': ['euEurojackpot', self.tr('Eurojackpot'), self.tr('Eurojackpot is a transnational European lottery')],
+            'euromillions': ['euEuroMillions', self.tr('EuroMillions'), self.tr('EuroMillions is a transnational European lottery')],
+            'vikinglotto': ['euVikinglotto', self.tr('Vikinglotto'), self.tr('Vikinglotto is a transnational European lottery')]
+        }
 
 
     def createActions(self):
