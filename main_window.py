@@ -90,6 +90,19 @@ class MainWindow(QMainWindow):
         self.actionQuit.setToolTip(self.tr(f'Quit the application [{self.actionQuit.shortcut().toString(QKeySequence.NativeText)}]'))
         self.actionQuit.triggered.connect(self.close)
 
+        # Actions: Lotteries
+        self.actionLotteries = []
+        for it in self.listLotteries:
+
+            lottery = QAction(self.listLotteries[it][1], self)
+            lottery.setObjectName(f'actionLottery_{self.listLotteries[it][0]}')
+            lottery.setIconText(self.listLotteries[it][1])
+            lottery.setCheckable(True)
+            lottery.setToolTip(self.listLotteries[it][2])
+            lottery.toggled.connect(lambda checked: self.onActionLotteriesToggled(lottery.objectName(), checked))
+
+            self.actionLotteries.append(lottery)
+
         # Actions: View
         self.actionFullScreen = QAction(self)
         self.actionFullScreen.setObjectName('actionFullScreen')
@@ -269,6 +282,10 @@ class MainWindow(QMainWindow):
 
         self._settings = dialog.settings()
         self.preferencesDialogGeometry = dialog.dialogGeometry() if self._settings.restoreDialogGeometry() else QByteArray()
+
+
+    def onActionLotteriesToggled(self, lottery, checked):
+        pass
 
 
     def onActionFullScreenTriggered(self):
