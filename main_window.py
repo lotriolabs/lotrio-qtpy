@@ -117,6 +117,12 @@ class MainWindow(QMainWindow):
         self.actionToolbarApplication.setToolTip(self.tr('Display the Application toolbar'))
         self.actionToolbarApplication.toggled.connect(lambda checked: self.toolbarApplication.setVisible(checked))
 
+        self.actionToolbarLotteries = QAction(self.tr('Show Lotteries Toolbar'), self)
+        self.actionToolbarLotteries.setObjectName('actionToolbarLotteries')
+        self.actionToolbarLotteries.setCheckable(True)
+        self.actionToolbarLotteries.setToolTip(self.tr('Display the Lotteries toolbar'))
+        self.actionToolbarLotteries.toggled.connect(lambda checked: self.toolbarLotteries.setVisible(checked))
+
         self.actionToolbarView = QAction(self.tr('Show View Toolbar'), self)
         self.actionToolbarView.setObjectName('actionToolbarView')
         self.actionToolbarView.setCheckable(True)
@@ -161,6 +167,7 @@ class MainWindow(QMainWindow):
         menuView.addAction(self.actionFullScreen)
         menuView.addSeparator()
         menuView.addAction(self.actionToolbarApplication)
+        menuView.addAction(self.actionToolbarLotteries)
         menuView.addAction(self.actionToolbarView)
 
 
@@ -179,6 +186,7 @@ class MainWindow(QMainWindow):
         self.toolbarLotteries = self.addToolBar(self.tr('Lotteries Toolbar'))
         self.toolbarLotteries.setObjectName('toolbarLotteries')
         self.toolbarLotteries.addActions(self.actionLotteries)
+        self.toolbarLotteries.visibilityChanged.connect(lambda visible: self.actionToolbarLotteries.setChecked(visible))
 
         # Toolbar: View
         self.toolbarView = self.addToolBar(self.tr('View Toolbar'))
