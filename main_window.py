@@ -242,7 +242,7 @@ class MainWindow(QMainWindow):
 
         # Application properties
         state = settings.value('Application/State', QByteArray()) if self._settings.restoreApplicationState() else QByteArray()
-        geometry = settings.value('Application/Geometry', QByteArray()) if self._settings.restoreApplicationState() else QByteArray()
+        geometry = settings.value('Application/Geometry', QByteArray()) if self._settings.restoreApplicationGeometry() else QByteArray()
         self.aboutDialogGeometry = settings.value('AboutDialog/Geometry', QByteArray())
         self.colophonDialogGeometry = settings.value('ColophonDialog/Geometry', QByteArray())
         self.preferencesDialogGeometry = settings.value('PreferencesDialog/Geometry', QByteArray())
