@@ -38,7 +38,7 @@ class ColophonLicensePage(QWidget):
                 without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
                 See the GNU General Public License for more details.</p>
             <p>You should have received a copy of the GNU General Public License along with {QApplication.applicationName()}.
-                If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.</p>
+                If not, see <a href="https://www.gnu.org/licenses/" title="Visit license's homepage">https://www.gnu.org/licenses/</a>.</p>
             </body></html>'''))
 
         # Main layout
