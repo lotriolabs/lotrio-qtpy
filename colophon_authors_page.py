@@ -30,10 +30,10 @@ class ColophonAuthorsPage(QWidget):
         textBox.setFrameStyle(QFrame.NoFrame)
         textBox.setStyleSheet('background-color:transparent;')
         textBox.setOpenExternalLinks(True)
-        textBox.setHtml(self.tr('''<html><body><dl>
-            <dt><strong>NotNypical</strong></dt>
-                <dd>Created and developed by <a href="https://notnypical.github.io" title="Visit author's homepage">NotNypical</a>.</dd>
-            </dl></body></html>'''))
+        textBox.setHtml(self.tr('''<html><body>
+            <dl><dt><strong>NotNypical</strong></dt>
+                <dd>Created and developed by <a href="https://notnypical.github.io" title="Visit author's homepage">NotNypical</a>.</dd></dl>
+            </body></html>'''))
 
         # Main layout
         self.layout = QVBoxLayout(self)
