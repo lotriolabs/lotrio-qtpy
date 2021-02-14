@@ -24,7 +24,7 @@ from PySide2.QtWidgets import QCheckBox, QGroupBox, QLabel, QVBoxLayout, QWidget
 
 class PreferencesGeneralPage(QWidget):
 
-    settingsChanged = Signal()
+    preferencesChanged = Signal()
 
 
     def __init__(self, parent=None):
@@ -35,13 +35,13 @@ class PreferencesGeneralPage(QWidget):
 
         # State & Geometries
         self.chkRestoreApplicationState = QCheckBox(self.tr('Save and restore the application state'))
-        self.chkRestoreApplicationState.stateChanged.connect(self.onSettingsChanged)
+        self.chkRestoreApplicationState.stateChanged.connect(self.onPreferencesChanged)
 
         self.chkRestoreApplicationGeometry = QCheckBox(self.tr('Save and restore the application geometry'))
-        self.chkRestoreApplicationGeometry.stateChanged.connect(self.onSettingsChanged)
+        self.chkRestoreApplicationGeometry.stateChanged.connect(self.onPreferencesChanged)
 
         self.chkRestoreDialogGeometry = QCheckBox(self.tr('Save and restore dialog geometries'))
-        self.chkRestoreDialogGeometry.stateChanged.connect(self.onSettingsChanged)
+        self.chkRestoreDialogGeometry.stateChanged.connect(self.onPreferencesChanged)
 
         stateGeometriesLayout = QVBoxLayout()
         stateGeometriesLayout.addWidget(self.chkRestoreApplicationState)
@@ -68,9 +68,9 @@ class PreferencesGeneralPage(QWidget):
         return self.tr('General')
 
 
-    def onSettingsChanged(self):
+    def onPreferencesChanged(self):
 
-        self.settingsChanged.emit()
+        self.preferencesChanged.emit()
 
 
     def setRestoreApplicationState(self, checked):

@@ -21,13 +21,13 @@
 from PySide2.QtCore import QByteArray
 from PySide2.QtWidgets import QDialog, QDialogButtonBox, QHBoxLayout, QListWidget, QStackedWidget, QVBoxLayout
 
+from preferences import Preferences
 from preferences_general_page import PreferencesGeneralPage
-from settings import Settings
 
 
 class PreferencesDialog(QDialog):
 
-    _settings = Settings()
+    _preferences = Preferences()
 
 
     def __init__(self, parent=None):
@@ -35,10 +35,10 @@ class PreferencesDialog(QDialog):
 
         self.setWindowTitle(self.tr('Preferences'))
 
-        # Settings box
+        # Preferences box
         self.generalPage = PreferencesGeneralPage(self)
         self.generalPage.setZeroMargins()
-        self.generalPage.settingsChanged.connect(self.onSettingsChanged)
+        self.generalPage.preferencesChanged.connect(self.onPreferencesChanged)
 
         stackedBox = QStackedWidget()
         stackedBox.addWidget(self.generalPage)
@@ -49,9 +49,9 @@ class PreferencesDialog(QDialog):
         listBox.setCurrentRow(stackedBox.currentIndex())
         listBox.currentRowChanged.connect(stackedBox.setCurrentIndex)
 
-        settingsBox = QHBoxLayout()
-        settingsBox.addWidget(listBox, 1)
-        settingsBox.addWidget(stackedBox, 3)
+        preferencesBox = QHBoxLayout()
+        preferencesBox.addWidget(listBox, 1)
+        preferencesBox.addWidget(stackedBox, 3)
 
         # Button box
         buttonBox = QDialogButtonBox(QDialogButtonBox.RestoreDefaults | QDialogButtonBox.Ok | QDialogButtonBox.Apply | QDialogButtonBox.Cancel)
@@ -63,10 +63,10 @@ class PreferencesDialog(QDialog):
 
         # Main layout
         layout = QVBoxLayout(self)
-        layout.addLayout(settingsBox)
+        layout.addLayout(preferencesBox)
         layout.addWidget(buttonBox)
 
-        self.updateSettings()
+        self.updatePreferences()
         self.buttonApply.setEnabled(False)
 
 
@@ -83,52 +83,52 @@ class PreferencesDialog(QDialog):
         return self.saveGeometry()
 
 
-    def setSettings(self, settings):
+    def setPreferences(self, preferences):
 
-        self._settings = settings
+        self._preferences = preferences
 
-        self.updateSettings()
+        self.updatePreferences()
         self.buttonApply.setEnabled(False)
 
 
-    def settings(self):
+    def preferences(self):
 
-        return self._settings
+        return self._preferences
 
 
-    def onSettingsChanged(self):
+    def onPreferencesChanged(self):
 
         self.buttonApply.setEnabled(True)
 
 
     def onButtonDefaultsClicked(self):
 
-        self.updateSettings(True)
+        self.updatePreferences(True)
 
 
     def onButtonOkClicked(self):
 
-        self.saveSettings()
+        self.savePreferences()
         self.close()
 
 
     def onButtonApplyClicked(self):
 
-        self.saveSettings()
+        self.savePreferences()
         self.buttonApply.setEnabled(False)
 
 
-    def updateSettings(self, isDefault=False):
+    def updatePreferences(self, isDefault=False):
 
         # General: State & Geometries
-        self.generalPage.setRestoreApplicationState(self._settings.restoreApplicationState(isDefault))
-        self.generalPage.setRestoreApplicationGeometry(self._settings.restoreApplicationGeometry(isDefault))
-        self.generalPage.setRestoreDialogGeometry(self._settings.restoreDialogGeometry(isDefault))
+        self.generalPage.setRestoreApplicationState(self._preferences.restoreApplicationState(isDefault))
+        self.generalPage.setRestoreApplicationGeometry(self._preferences.restoreApplicationGeometry(isDefault))
+        self.generalPage.setRestoreDialogGeometry(self._preferences.restoreDialogGeometry(isDefault))
 
 
-    def saveSettings(self):
+    def savePreferences(self):
 
         # General: State & Geometries
-        self._settings.setRestoreApplicationState(self.generalPage.restoreApplicationState())
-        self._settings.setRestoreApplicationGeometry(self.generalPage.restoreApplicationGeometry())
-        self._settings.setRestoreDialogGeometry(self.generalPage.restoreDialogGeometry())
+        self._preferences.setRestoreApplicationState(self.generalPage.restoreApplicationState())
+        self._preferences.setRestoreApplicationGeometry(self.generalPage.restoreApplicationGeometry())
+        self._preferences.setRestoreDialogGeometry(self.generalPage.restoreDialogGeometry())

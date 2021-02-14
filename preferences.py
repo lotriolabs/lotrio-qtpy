@@ -19,7 +19,7 @@
 #
 
 
-class Settings:
+class Preferences:
 
     def __init__(self):
 
@@ -31,7 +31,7 @@ class Settings:
 
     def load(self, settings):
 
-        settings.beginGroup('Settings')
+        settings.beginGroup('Preferences')
 
         # General: State & Geometries
         self.setRestoreApplicationState(self.valueToBool(settings.value('RestoreApplicationState', True)))
@@ -43,7 +43,7 @@ class Settings:
 
     def save(self, settings):
 
-        settings.beginGroup('Settings')
+        settings.beginGroup('Preferences')
         settings.remove('')
 
         # General: State & Geometries

@@ -11,8 +11,8 @@
         "lotrio-qtpy.qrc",
         "main_window.py",
         "main.py",
+        "preferences.py",
         "preferences_dialog.py",
-        "preferences_general_page.py",
-        "settings.py"
+        "preferences_general_page.py"
     ]
 }
