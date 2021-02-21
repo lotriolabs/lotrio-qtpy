@@ -8,7 +8,7 @@
         "colophon_environment_page.py",
         "colophon_license_page.py",
         "dialog_title_box.py",
-        "lotrio-qtpy.qrc",
+        "icons.qrc",
         "main_window.py",
         "main.py",
         "preferences.py",
