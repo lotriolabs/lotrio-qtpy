@@ -13,6 +13,7 @@
         "main.py",
         "preferences.py",
         "preferences_dialog.py",
-        "preferences_general_page.py"
+        "preferences_general_page.py",
+        "preferences_lotteries_page.py"
     ]
 }
