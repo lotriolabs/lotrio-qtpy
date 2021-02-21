@@ -22,6 +22,7 @@ from PySide2.QtCore import QByteArray
 from PySide2.QtWidgets import QDialog, QDialogButtonBox, QHBoxLayout, QListWidget, QStackedWidget, QVBoxLayout
 
 from preferences import Preferences
+from preferences_draws_page import PreferencesDrawsPage
 from preferences_general_page import PreferencesGeneralPage
 from preferences_lotteries_page import PreferencesLotteriesPage
 
@@ -45,14 +46,20 @@ class PreferencesDialog(QDialog):
         self.lotteriesPage.setZeroMargins()
         self.lotteriesPage.preferencesChanged.connect(self.onPreferencesChanged)
 
+        self.drawsPage = PreferencesDrawsPage(self)
+        self.drawsPage.setZeroMargins()
+        self.drawsPage.preferencesChanged.connect(self.onPreferencesChanged)
+
         stackedBox = QStackedWidget()
         stackedBox.addWidget(self.generalPage)
         stackedBox.addWidget(self.lotteriesPage)
+        stackedBox.addWidget(self.drawsPage)
         stackedBox.setCurrentIndex(0)
 
         listBox = QListWidget()
         listBox.addItem(self.generalPage.title())
         listBox.addItem(self.lotteriesPage.title())
+        listBox.addItem(self.drawsPage.title())
         listBox.setCurrentRow(stackedBox.currentIndex())
         listBox.currentRowChanged.connect(stackedBox.setCurrentIndex)
 
