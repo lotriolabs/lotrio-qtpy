@@ -254,6 +254,10 @@ class MainWindow(QMainWindow):
         menuView.addAction(self.actionToolbarLotteries)
         menuView.addAction(self.actionToolbarView)
 
+        # Menu: Help
+        menuHelp = self.menuBar().addMenu(self.tr('Help'))
+        menuHelp.setObjectName('menuHelp')
+
 
     def createToolBars(self):
 
