@@ -24,6 +24,7 @@ from PySide2.QtWidgets import QAction, QApplication, QMainWindow, QMdiArea
 
 from about_dialog import AboutDialog
 from colophon_dialog import ColophonDialog
+from document import Document
 from preferences import Preferences
 from preferences_dialog import PreferencesDialog
 
@@ -173,14 +174,15 @@ class MainWindow(QMainWindow):
 
         # Actions: Lotteries
         self.actionLotteries = []
-        for it in sorted(self.listLotteries):
+        for key, value in sorted(self.listLotteries.items()):
 
-            lottery = QAction(self.listLotteries[it][1], self)
-            lottery.setObjectName(f'actionLottery_{self.listLotteries[it][0]}')
-            lottery.setIconText(self.listLotteries[it][1])
+            lottery = QAction(value[1], self)
+            lottery.setObjectName(f'actionLottery_{value[0]}')
+            lottery.setIconText(value[1])
             lottery.setCheckable(True)
-            lottery.setToolTip(self.listLotteries[it][2])
-            lottery.toggled.connect(lambda checked: self.onActionLotteriesToggled(lottery.objectName(), checked))
+            lottery.setToolTip(value[2])
+            lottery.setData(key)
+            lottery.toggled.connect(lambda checked, lottery=key: self.onActionLotteriesToggled(lottery, checked))
 
             self.actionLotteries.append(lottery)
 
@@ -312,7 +314,9 @@ class MainWindow(QMainWindow):
 
 
     def onActionLotteriesToggled(self, lottery, checked):
-        pass
+
+        if checked:
+            self.openDocument(lottery)
 
 
     def onActionFullScreenTriggered(self):
@@ -327,3 +331,45 @@ class MainWindow(QMainWindow):
 
     def onDocumentActivated(self):
         pass
+
+
+    def createDocument(self):
+
+        document = Document(self)
+        self._documentArea.addSubWindow(document)
+
+        return document
+
+
+    def findDocument(self, documentName):
+
+        for window in self._documentArea.subWindowList():
+            if window.widget().name() == documentName:
+                return window
+
+        return None
+
+
+    def openDocument(self, documentName):
+
+        # Checks whether the given document is already open.
+        document = self.findDocument(documentName)
+        if document:
+            self._documentArea.setActiveSubWindow(document)
+            return True
+
+        return self.loadDocument(documentName)
+
+
+    def loadDocument(self, documentName):
+
+        document = self.createDocument()
+
+        succeeded = document.load(documentName)
+        if succeeded:
+            document.setWindowTitle(self.listLotteries[documentName][1]);
+            document.show()
+        else:
+            document.close()
+
+        return succeeded

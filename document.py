@@ -28,3 +28,15 @@ class Document(QWidget):
         super().__init__(parent)
 
         self.setAttribute(Qt.WA_DeleteOnClose)
+
+
+    def load(self, name):
+
+        self._name = name
+
+        return True
+
+
+    def name(self):
+
+        return self._name
