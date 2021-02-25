@@ -18,11 +18,14 @@
 # along with Lotrio-QtPy.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from PySide2.QtCore import Qt
+from PySide2.QtCore import Signal, Qt
 from PySide2.QtWidgets import QWidget
 
 
 class Document(QWidget):
+
+    documentClosed = Signal(str)
+
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -40,3 +43,14 @@ class Document(QWidget):
     def name(self):
 
         return self._name
+
+
+    def closeEvent(self, event):
+
+        if True:
+            # Document will be closed
+            self.documentClosed.emit(self._name)
+
+            event.accept()
+        else:
+            event.ignore()

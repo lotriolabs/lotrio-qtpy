@@ -59,6 +59,7 @@ class MainWindow(QMainWindow):
         self._documentArea = QMdiArea()
         self._documentArea.setViewMode(QMdiArea.TabbedView)
         self._documentArea.setTabsMovable(True)
+        self._documentArea.setTabsClosable(True)
         self.setCentralWidget(self._documentArea)
         self._documentArea.subWindowActivated.connect(self.onDocumentActivated)
 
@@ -335,9 +336,19 @@ class MainWindow(QMainWindow):
         pass
 
 
+    def onDocumentClosed(self, documentName):
+
+        for actionLottery in self.actionLotteries:
+            if actionLottery.objectName() == f"actionLottery_{self.listLotteries[documentName][0]}":
+                actionLottery.setChecked(False)
+                return
+
+
     def createDocument(self):
 
         document = Document(self)
+        document.documentClosed.connect(self.onDocumentClosed)
+
         self._documentArea.addSubWindow(document)
 
         return document
