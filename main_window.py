@@ -20,7 +20,7 @@
 
 from PySide2.QtCore import QByteArray, QSettings, Qt
 from PySide2.QtGui import QIcon, QKeySequence
-from PySide2.QtWidgets import QAction, QApplication, QMainWindow
+from PySide2.QtWidgets import QAction, QApplication, QMainWindow, QMdiArea
 
 from about_dialog import AboutDialog
 from colophon_dialog import ColophonDialog
@@ -48,10 +48,18 @@ class MainWindow(QMainWindow):
         self.createMenus()
         self.createToolBars()
 
+        # Application properties
         self.setApplicationState(self._applicationState)
         self.setApplicationGeometry(self._applicationGeometry)
 
         self.updateActionFullScreen()
+
+        # Central widget
+        self._documentArea = QMdiArea()
+        self._documentArea.setViewMode(QMdiArea.TabbedView)
+        self._documentArea.setTabsMovable(True)
+        self.setCentralWidget(self._documentArea)
+        self._documentArea.subWindowActivated.connect(self.onDocumentActivated)
 
 
     def setApplicationState(self, state=QByteArray()):
@@ -315,3 +323,7 @@ class MainWindow(QMainWindow):
             self.setWindowState(self.windowState() & ~Qt.WindowFullScreen)
 
         self.updateActionFullScreen()
+
+
+    def onDocumentActivated(self):
+        pass
