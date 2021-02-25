@@ -72,6 +72,7 @@ class MainWindow(QMainWindow):
             self.toolbarApplication.setVisible(True)
             self.toolbarLotteries.setVisible(True)
             self.toolbarView.setVisible(False)
+            self.toolbarHelp.setVisible(False)
 
 
     def applicationState(self):
@@ -213,6 +214,12 @@ class MainWindow(QMainWindow):
         self.actionToolbarView.setToolTip(self.tr('Display the View toolbar'))
         self.actionToolbarView.toggled.connect(lambda checked: self.toolbarView.setVisible(checked))
 
+        self.actionToolbarHelp = QAction(self.tr('Show Help Toolbar'), self)
+        self.actionToolbarHelp.setObjectName('actionToolbarHelp')
+        self.actionToolbarHelp.setCheckable(True)
+        self.actionToolbarHelp.setToolTip(self.tr('Display the Help toolbar'))
+        self.actionToolbarHelp.toggled.connect(lambda checked: self.toolbarHelp.setVisible(checked))
+
 
     def updateActionFullScreen(self):
 
@@ -253,6 +260,7 @@ class MainWindow(QMainWindow):
         menuView.addAction(self.actionToolbarApplication)
         menuView.addAction(self.actionToolbarLotteries)
         menuView.addAction(self.actionToolbarView)
+        menuView.addAction(self.actionToolbarHelp)
 
         # Menu: Help
         menuHelp = self.menuBar().addMenu(self.tr('Help'))
@@ -281,6 +289,11 @@ class MainWindow(QMainWindow):
         self.toolbarView.setObjectName('toolbarView')
         self.toolbarView.addAction(self.actionFullScreen)
         self.toolbarView.visibilityChanged.connect(lambda visible: self.actionToolbarView.setChecked(visible))
+
+        # Toolbar: Help
+        self.toolbarHelp = self.addToolBar(self.tr('Help Toolbar'))
+        self.toolbarHelp.setObjectName('toolbarHelp')
+        self.toolbarHelp.visibilityChanged.connect(lambda visible: self.actionToolbarHelp.setChecked(visible))
 
 
     def onActionAboutTriggered(self):
