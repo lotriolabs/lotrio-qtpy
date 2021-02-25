@@ -317,6 +317,8 @@ class MainWindow(QMainWindow):
 
         if checked:
             self.openDocument(lottery)
+        else:
+            self.closeDocument(lottery)
 
 
     def onActionFullScreenTriggered(self):
@@ -353,9 +355,9 @@ class MainWindow(QMainWindow):
     def openDocument(self, documentName):
 
         # Checks whether the given document is already open.
-        document = self.findDocument(documentName)
-        if document:
-            self._documentArea.setActiveSubWindow(document)
+        window = self.findDocument(documentName)
+        if window:
+            self._documentArea.setActiveSubWindow(window)
             return True
 
         return self.loadDocument(documentName)
@@ -371,5 +373,16 @@ class MainWindow(QMainWindow):
             document.show()
         else:
             document.close()
+
+        return succeeded
+
+
+    def closeDocument(self, documentName):
+
+        succeeded = False
+
+        window = self.findDocument(documentName)
+        if window:
+            succeeded = window.close()
 
         return succeeded
