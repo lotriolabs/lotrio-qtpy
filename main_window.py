@@ -183,8 +183,8 @@ class MainWindow(QMainWindow):
             lottery.setIconText(value[1])
             lottery.setCheckable(True)
             lottery.setToolTip(value[2])
-            lottery.setData(key)
-            lottery.toggled.connect(lambda checked, lottery=key: self.onActionLotteriesToggled(lottery, checked))
+            lottery.setData(f'{key}/{value[1]}')
+            lottery.toggled.connect(lambda checked, lottery=lottery.data(): self.onActionLotteriesToggled(lottery, checked))
 
             self.actionLotteries.append(lottery)
 
@@ -356,7 +356,7 @@ class MainWindow(QMainWindow):
     def onDocumentAboutToClose(self, canonicalName):
 
         for actionLottery in self.actionLotteries:
-            if actionLottery.objectName() == f"actionLottery_{self.listLotteries[canonicalName][0]}":
+            if actionLottery.data() == canonicalName:
                 actionLottery.setChecked(False)
                 return
 
@@ -372,31 +372,38 @@ class MainWindow(QMainWindow):
         return document
 
 
-    def findDocument(self, documentName):
+    def findDocument(self, canonicalName):
 
         for window in self._documentArea.subWindowList():
-            if window.widget().canonicalName() == documentName:
+            if window.widget().canonicalName() == canonicalName:
                 return window
 
         return None
 
 
-    def openDocument(self, documentName):
+    def activeDocument(self):
+
+        window = self.documentArea.activeSubWindow()
+
+        return window.widget() if window else None
+
+
+    def openDocument(self, canonicalName):
 
         # Checks whether the given document is already open.
-        window = self.findDocument(documentName)
+        window = self.findDocument(canonicalName)
         if window:
             self._documentArea.setActiveSubWindow(window)
             return True
 
-        return self.loadDocument(documentName)
+        return self.loadDocument(canonicalName)
 
 
-    def loadDocument(self, documentName):
+    def loadDocument(self, canonicalName):
 
         document = self.createDocument()
 
-        succeeded = document.load(documentName)
+        succeeded = document.load(canonicalName)
         if succeeded:
             document.updateDocumentTitle()
             document.show()
@@ -406,11 +413,11 @@ class MainWindow(QMainWindow):
         return succeeded
 
 
-    def closeDocument(self, documentName):
+    def closeDocument(self, canonicalName):
 
         succeeded = False
 
-        window = self.findDocument(documentName)
+        window = self.findDocument(canonicalName)
         if window:
             succeeded = window.close()
 
