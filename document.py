@@ -18,7 +18,7 @@
 # along with Lotrio-QtPy.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from PySide2.QtCore import Signal, Qt
+from PySide2.QtCore import QFileInfo, Signal, Qt
 from PySide2.QtWidgets import QWidget
 
 from preferences import Preferences
@@ -52,6 +52,18 @@ class Document(QWidget):
     def canonicalName(self):
 
         return self._canonicalName
+
+
+    def documentTitle(self):
+
+        return self.windowTitle()
+
+
+    def updateDocumentTitle(self):
+
+        fileName = QFileInfo(self._canonicalName).fileName() if self._canonicalName else self.tr('Untitled')
+
+        self.setWindowTitle(fileName)
 
 
     def load(self, canonicalName):

@@ -398,7 +398,7 @@ class MainWindow(QMainWindow):
 
         succeeded = document.load(documentName)
         if succeeded:
-            document.setWindowTitle(self.listLotteries[documentName][1]);
+            document.updateDocumentTitle()
             document.show()
         else:
             document.close()
