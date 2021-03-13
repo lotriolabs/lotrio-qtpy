@@ -353,10 +353,10 @@ class MainWindow(QMainWindow):
         pass
 
 
-    def onDocumentClosed(self, documentName):
+    def onDocumentAboutToClose(self, canonicalName):
 
         for actionLottery in self.actionLotteries:
-            if actionLottery.objectName() == f"actionLottery_{self.listLotteries[documentName][0]}":
+            if actionLottery.objectName() == f"actionLottery_{self.listLotteries[canonicalName][0]}":
                 actionLottery.setChecked(False)
                 return
 
@@ -365,7 +365,7 @@ class MainWindow(QMainWindow):
 
         document = Document(self)
         document.setPreferences(self._preferences)
-        document.documentClosed.connect(self.onDocumentClosed)
+        document.aboutToClose.connect(self.onDocumentAboutToClose)
 
         self._documentArea.addSubWindow(document)
 

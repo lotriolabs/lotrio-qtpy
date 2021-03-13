@@ -18,7 +18,7 @@
 # along with Lotrio-QtPy.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from PySide2.QtCore import QFileInfo, Signal, Qt
+from PySide2.QtCore import QFileInfo, Qt, Signal
 from PySide2.QtWidgets import QWidget
 
 from preferences import Preferences
@@ -28,7 +28,7 @@ class Document(QWidget):
 
     _preferences = Preferences()
 
-    documentClosed = Signal(str)
+    aboutToClose = Signal(str)
 
 
     def __init__(self, parent=None):
@@ -77,7 +77,7 @@ class Document(QWidget):
 
         if True:
             # Document will be closed
-            self.documentClosed.emit(self._canonicalName)
+            self.aboutToClose.emit(self._canonicalName)
 
             event.accept()
         else:
