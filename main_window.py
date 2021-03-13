@@ -367,7 +367,8 @@ class MainWindow(QMainWindow):
         document.setPreferences(self._preferences)
         document.aboutToClose.connect(self.onDocumentAboutToClose)
 
-        self._documentArea.addSubWindow(document)
+        window = self._documentArea.addSubWindow(document)
+        window.setWindowIcon(QIcon())
 
         return document
 
