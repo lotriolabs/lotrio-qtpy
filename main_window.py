@@ -54,6 +54,7 @@ class MainWindow(QMainWindow):
         self.setApplicationGeometry(self._applicationGeometry)
 
         self.updateActionFullScreen()
+        self.updateMenus()
 
         # Central widget
         self._documentArea = QMdiArea()
@@ -296,6 +297,12 @@ class MainWindow(QMainWindow):
         self.toolbarHelp.visibilityChanged.connect(lambda visible: self.actionToolbarHelp.setChecked(visible))
 
 
+    def updateMenus(self, cntWindows=0):
+
+        hasDocument = cntWindows >= 1
+        hasDocuments = cntWindows >= 2
+
+
     def updateTitleBar(self):
 
         title = None
@@ -363,9 +370,13 @@ class MainWindow(QMainWindow):
     def onDocumentActivated(self):
 
         self.updateTitleBar()
+        self.updateMenus(len(self._documentArea.subWindowList()))
 
 
     def onDocumentAboutToClose(self, canonicalName):
+
+        # Update menu items; delete emitter from the list
+        self.updateMenus(len(self._documentArea.subWindowList())-1)
 
         for actionLottery in self.actionLotteries:
             if actionLottery.data() == canonicalName:
@@ -423,6 +434,7 @@ class MainWindow(QMainWindow):
             document.show()
 
             self.updateTitleBar()
+            self.updateMenus(len(self._documentArea.subWindowList()))
         else:
             document.close()
 
