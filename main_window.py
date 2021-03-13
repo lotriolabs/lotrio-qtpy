@@ -192,6 +192,13 @@ class MainWindow(QMainWindow):
 
             self.actionLotteries.append(lottery)
 
+        self.actionClose = QAction(self.tr('Close'), self)
+        self.actionClose.setObjectName('actionClose')
+        self.actionClose.setIcon(QIcon.fromTheme('document-close', QIcon(':/icons/actions/16/document-close.svg')))
+        self.actionClose.setShortcut(QKeySequence.Close)
+        self.actionClose.setToolTip(f'Close document [{self.actionClose.shortcut().toString(QKeySequence.NativeText)}]')
+        self.actionClose.triggered.connect(self.onActionCloseTriggered)
+
         # Actions: View
         self.actionFullScreen = QAction(self)
         self.actionFullScreen.setObjectName('actionFullScreen')
@@ -255,6 +262,8 @@ class MainWindow(QMainWindow):
         menuLotteries = self.menuBar().addMenu(self.tr('Lotteries'))
         menuLotteries.setObjectName('menuLotteries')
         menuLotteries.addActions(self.actionLotteries)
+        menuLotteries.addSeparator()
+        menuLotteries.addAction(self.actionClose)
 
         # Menu: View
         menuView = self.menuBar().addMenu(self.tr('View'))
@@ -304,6 +313,8 @@ class MainWindow(QMainWindow):
 
         hasDocument = cntWindows >= 1
         hasDocuments = cntWindows >= 2
+
+        self.actionClose.setEnabled(hasDocument)
 
 
     def updateTitleBar(self):
@@ -358,6 +369,11 @@ class MainWindow(QMainWindow):
             self.openDocument(lottery)
         else:
             self.closeDocument(lottery)
+
+
+    def onActionCloseTriggered(self):
+
+        self._documentArea.closeActiveSubWindow()
 
 
     def onActionFullScreenTriggered(self):
