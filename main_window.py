@@ -364,6 +364,7 @@ class MainWindow(QMainWindow):
     def createDocument(self):
 
         document = Document(self)
+        document.setPreferences(self._preferences)
         document.documentClosed.connect(self.onDocumentClosed)
 
         self._documentArea.addSubWindow(document)

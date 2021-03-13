@@ -21,8 +21,12 @@
 from PySide2.QtCore import Signal, Qt
 from PySide2.QtWidgets import QWidget
 
+from preferences import Preferences
+
 
 class Document(QWidget):
+
+    _preferences = Preferences()
 
     documentClosed = Signal(str)
 
@@ -31,6 +35,11 @@ class Document(QWidget):
         super().__init__(parent)
 
         self.setAttribute(Qt.WA_DeleteOnClose)
+
+
+    def setPreferences(self, preferences):
+
+        self._preferences = preferences
 
 
     def load(self, name):
