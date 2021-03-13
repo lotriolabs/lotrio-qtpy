@@ -99,6 +99,7 @@ class MainWindow(QMainWindow):
     def closeEvent(self, event):
 
         if True:
+            # Application properties
             self._applicationState = self.applicationState() if self._preferences.restoreApplicationState() else QByteArray()
             self._applicationGeometry = self.applicationGeometry() if self._preferences.restoreApplicationGeometry() else QByteArray()
 
@@ -112,28 +113,30 @@ class MainWindow(QMainWindow):
 
         settings = QSettings()
 
+        # Preferences
         self._preferences.load(settings)
 
-        # Application properties
+        # Application and dialog properties
         self._applicationState = settings.value('Application/State', QByteArray()) if self._preferences.restoreApplicationState() else QByteArray()
         self._applicationGeometry = settings.value('Application/Geometry', QByteArray()) if self._preferences.restoreApplicationGeometry() else QByteArray()
-        self.aboutDialogGeometry = settings.value('AboutDialog/Geometry', QByteArray())
-        self.colophonDialogGeometry = settings.value('ColophonDialog/Geometry', QByteArray())
-        self.preferencesDialogGeometry = settings.value('PreferencesDialog/Geometry', QByteArray())
+        self._aboutDialogGeometry = settings.value('AboutDialog/Geometry', QByteArray())
+        self._colophonDialogGeometry = settings.value('ColophonDialog/Geometry', QByteArray())
+        self._preferencesDialogGeometry = settings.value('PreferencesDialog/Geometry', QByteArray())
 
 
     def saveSettings(self):
 
         settings = QSettings()
 
+        # Preferences
         self._preferences.save(settings)
 
-        # Application properties
+        # Application and dialog properties
         settings.setValue('Application/State', self._applicationState)
         settings.setValue('Application/Geometry', self._applicationGeometry)
-        settings.setValue('AboutDialog/Geometry', self.aboutDialogGeometry)
-        settings.setValue('ColophonDialog/Geometry', self.colophonDialogGeometry)
-        settings.setValue('PreferencesDialog/Geometry', self.preferencesDialogGeometry)
+        settings.setValue('AboutDialog/Geometry', self._aboutDialogGeometry)
+        settings.setValue('ColophonDialog/Geometry', self._colophonDialogGeometry)
+        settings.setValue('PreferencesDialog/Geometry', self._preferencesDialogGeometry)
 
 
     def createLotteries(self):
@@ -316,29 +319,29 @@ class MainWindow(QMainWindow):
 
     def onActionAboutTriggered(self):
 
-        geometry = self.aboutDialogGeometry if self._preferences.restoreDialogGeometry() else QByteArray()
+        geometry = self._aboutDialogGeometry if self._preferences.restoreDialogGeometry() else QByteArray()
 
         dialog = AboutDialog(self)
         dialog.setDialogGeometry(geometry)
         dialog.exec_()
 
-        self.aboutDialogGeometry = dialog.dialogGeometry() if self._preferences.restoreDialogGeometry() else QByteArray()
+        self._aboutDialogGeometry = dialog.dialogGeometry() if self._preferences.restoreDialogGeometry() else QByteArray()
 
 
     def onActionColophonTriggered(self):
 
-        geometry = self.colophonDialogGeometry if self._preferences.restoreDialogGeometry() else QByteArray()
+        geometry = self._colophonDialogGeometry if self._preferences.restoreDialogGeometry() else QByteArray()
 
         dialog = ColophonDialog(self)
         dialog.setDialogGeometry(geometry)
         dialog.exec_()
 
-        self.colophonDialogGeometry = dialog.dialogGeometry() if self._preferences.restoreDialogGeometry() else QByteArray()
+        self._colophonDialogGeometry = dialog.dialogGeometry() if self._preferences.restoreDialogGeometry() else QByteArray()
 
 
     def onActionPreferencesTriggered(self):
 
-        geometry = self.preferencesDialogGeometry if self._preferences.restoreDialogGeometry() else QByteArray()
+        geometry = self._preferencesDialogGeometry if self._preferences.restoreDialogGeometry() else QByteArray()
 
         dialog = PreferencesDialog(self)
         dialog.setDialogGeometry(geometry)
@@ -346,7 +349,7 @@ class MainWindow(QMainWindow):
         dialog.exec_()
 
         self._preferences = dialog.preferences()
-        self.preferencesDialogGeometry = dialog.dialogGeometry() if self._preferences.restoreDialogGeometry() else QByteArray()
+        self._preferencesDialogGeometry = dialog.dialogGeometry() if self._preferences.restoreDialogGeometry() else QByteArray()
 
 
     def onActionLotteriesToggled(self, lottery, checked):
@@ -367,10 +370,13 @@ class MainWindow(QMainWindow):
         self.updateActionFullScreen()
 
 
-    def onDocumentActivated(self):
+    def onDocumentActivated(self, window):
 
         self.updateTitleBar()
         self.updateMenus(len(self._documentArea.subWindowList()))
+
+        if not window:
+            return
 
 
     def onDocumentAboutToClose(self, canonicalName):
