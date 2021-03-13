@@ -375,7 +375,7 @@ class MainWindow(QMainWindow):
     def findDocument(self, documentName):
 
         for window in self._documentArea.subWindowList():
-            if window.widget().name() == documentName:
+            if window.widget().canonicalName() == documentName:
                 return window
 
         return None

@@ -34,6 +34,8 @@ class Document(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
 
+        self._canonicalName = None
+
         self.setAttribute(Qt.WA_DeleteOnClose)
 
 
@@ -42,23 +44,28 @@ class Document(QWidget):
         self._preferences = preferences
 
 
-    def load(self, name):
+    def setCanonicalName(self, canonicalName):
 
-        self._name = name
+        self._canonicalName = canonicalName
+
+
+    def canonicalName(self):
+
+        return self._canonicalName
+
+
+    def load(self, canonicalName):
+
+        self.setCanonicalName(canonicalName)
 
         return True
-
-
-    def name(self):
-
-        return self._name
 
 
     def closeEvent(self, event):
 
         if True:
             # Document will be closed
-            self.documentClosed.emit(self._name)
+            self.documentClosed.emit(self._canonicalName)
 
             event.accept()
         else:
