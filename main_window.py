@@ -199,6 +199,11 @@ class MainWindow(QMainWindow):
         self.actionClose.setToolTip(f'Close document [{self.actionClose.shortcut().toString(QKeySequence.NativeText)}]')
         self.actionClose.triggered.connect(self.onActionCloseTriggered)
 
+        self.actionCloseOther = QAction(self.tr('Close Other'), self)
+        self.actionCloseOther.setObjectName('actionCloseOther')
+        self.actionCloseOther.setToolTip('Close all other documents')
+        self.actionCloseOther.triggered.connect(self.onActionCloseOtherTriggered)
+
         # Actions: View
         self.actionFullScreen = QAction(self)
         self.actionFullScreen.setObjectName('actionFullScreen')
@@ -264,6 +269,7 @@ class MainWindow(QMainWindow):
         menuLotteries.addActions(self.actionLotteries)
         menuLotteries.addSeparator()
         menuLotteries.addAction(self.actionClose)
+        menuLotteries.addAction(self.actionCloseOther)
 
         # Menu: View
         menuView = self.menuBar().addMenu(self.tr('View'))
@@ -315,6 +321,7 @@ class MainWindow(QMainWindow):
         hasDocuments = cntWindows >= 2
 
         self.actionClose.setEnabled(hasDocument)
+        self.actionCloseOther.setEnabled(hasDocuments)
 
 
     def updateTitleBar(self):
@@ -374,6 +381,13 @@ class MainWindow(QMainWindow):
     def onActionCloseTriggered(self):
 
         self._documentArea.closeActiveSubWindow()
+
+
+    def onActionCloseOtherTriggered(self):
+
+        for window in self._documentArea.subWindowList():
+            if window != self._documentArea.activeSubWindow():
+                window.close()
 
 
     def onActionFullScreenTriggered(self):
