@@ -296,6 +296,17 @@ class MainWindow(QMainWindow):
         self.toolbarHelp.visibilityChanged.connect(lambda visible: self.actionToolbarHelp.setChecked(visible))
 
 
+    def updateTitleBar(self):
+
+        title = None
+
+        document = self.activeDocument()
+        if document:
+            title = document.documentTitle()
+
+        self.setWindowTitle(title)
+
+
     def onActionAboutTriggered(self):
 
         geometry = self.aboutDialogGeometry if self._preferences.restoreDialogGeometry() else QByteArray()
@@ -350,7 +361,8 @@ class MainWindow(QMainWindow):
 
 
     def onDocumentActivated(self):
-        pass
+
+        self.updateTitleBar()
 
 
     def onDocumentAboutToClose(self, canonicalName):
@@ -385,7 +397,7 @@ class MainWindow(QMainWindow):
 
     def activeDocument(self):
 
-        window = self.documentArea.activeSubWindow()
+        window = self._documentArea.activeSubWindow()
 
         return window.widget() if window else None
 
@@ -409,6 +421,8 @@ class MainWindow(QMainWindow):
         if succeeded:
             document.updateDocumentTitle()
             document.show()
+
+            self.updateTitleBar()
         else:
             document.close()
 
