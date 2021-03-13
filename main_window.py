@@ -369,6 +369,7 @@ class MainWindow(QMainWindow):
 
         window = self._documentArea.addSubWindow(document)
         window.setWindowIcon(QIcon())
+        window.showMaximized()
 
         return document
 
