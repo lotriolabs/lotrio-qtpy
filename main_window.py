@@ -182,15 +182,15 @@ class MainWindow(QMainWindow):
         self.actionLotteries = []
         for key, value in sorted(self.listLotteries.items()):
 
-            lottery = QAction(value[1], self)
-            lottery.setObjectName(f'actionLottery_{value[0]}')
-            lottery.setIconText(value[1])
-            lottery.setCheckable(True)
-            lottery.setToolTip(value[2])
-            lottery.setData(f'{key}/{value[1]}')
-            lottery.toggled.connect(lambda checked, lottery=lottery.data(): self.onActionLotteriesToggled(lottery, checked))
+            actionLottery = QAction(value[1], self)
+            actionLottery.setObjectName(f'actionLottery_{value[0]}')
+            actionLottery.setIconText(value[1])
+            actionLottery.setCheckable(True)
+            actionLottery.setToolTip(value[2])
+            actionLottery.setData(f'{key}/{value[1]}')
+            actionLottery.toggled.connect(lambda checked, lottery=actionLottery.data(): self.onActionLotteriesToggled(lottery, checked))
 
-            self.actionLotteries.append(lottery)
+            self.actionLotteries.append(actionLottery)
 
         self.actionClose = QAction(self.tr('Close'), self)
         self.actionClose.setObjectName('actionClose')
@@ -241,20 +241,6 @@ class MainWindow(QMainWindow):
         self.actionToolbarHelp.setCheckable(True)
         self.actionToolbarHelp.setToolTip(self.tr('Display the Help toolbar'))
         self.actionToolbarHelp.toggled.connect(lambda checked: self.toolbarHelp.setVisible(checked))
-
-
-    def updateActionFullScreen(self):
-
-        if not self.isFullScreen():
-            self.actionFullScreen.setText(self.tr('Full Screen Mode'))
-            self.actionFullScreen.setIcon(QIcon.fromTheme('view-fullscreen', QIcon(':/icons/actions/16/view-fullscreen.svg')))
-            self.actionFullScreen.setChecked(False)
-            self.actionFullScreen.setToolTip(self.tr(f'Display the window in full screen [{self.actionFullScreen.shortcut().toString(QKeySequence.NativeText)}]'))
-        else:
-            self.actionFullScreen.setText(self.tr('Exit Full Screen Mode'))
-            self.actionFullScreen.setIcon(QIcon.fromTheme('view-restore', QIcon(':/icons/actions/16/view-restore.svg')))
-            self.actionFullScreen.setChecked(True)
-            self.actionFullScreen.setToolTip(self.tr(f'Exit the full screen mode [{self.actionFullScreen.shortcut().toString(QKeySequence.NativeText)}]'))
 
 
     def createMenus(self):
@@ -320,6 +306,20 @@ class MainWindow(QMainWindow):
         self.toolbarHelp = self.addToolBar(self.tr('Help Toolbar'))
         self.toolbarHelp.setObjectName('toolbarHelp')
         self.toolbarHelp.visibilityChanged.connect(lambda visible: self.actionToolbarHelp.setChecked(visible))
+
+
+    def updateActionFullScreen(self):
+
+        if not self.isFullScreen():
+            self.actionFullScreen.setText(self.tr('Full Screen Mode'))
+            self.actionFullScreen.setIcon(QIcon.fromTheme('view-fullscreen', QIcon(':/icons/actions/16/view-fullscreen.svg')))
+            self.actionFullScreen.setChecked(False)
+            self.actionFullScreen.setToolTip(self.tr(f'Display the window in full screen [{self.actionFullScreen.shortcut().toString(QKeySequence.NativeText)}]'))
+        else:
+            self.actionFullScreen.setText(self.tr('Exit Full Screen Mode'))
+            self.actionFullScreen.setIcon(QIcon.fromTheme('view-restore', QIcon(':/icons/actions/16/view-restore.svg')))
+            self.actionFullScreen.setChecked(True)
+            self.actionFullScreen.setToolTip(self.tr(f'Exit the full screen mode [{self.actionFullScreen.shortcut().toString(QKeySequence.NativeText)}]'))
 
 
     def updateMenus(self, cntWindows=0):
@@ -424,7 +424,7 @@ class MainWindow(QMainWindow):
 
     def onDocumentAboutToClose(self, canonicalName):
 
-        # Update menu items; delete emitter from the list
+        # Update menu items but first delete the emitter from the list
         self.updateMenus(len(self._documentArea.subWindowList())-1)
 
         for actionLottery in self.actionLotteries:
@@ -464,9 +464,9 @@ class MainWindow(QMainWindow):
 
     def openDocument(self, canonicalName):
 
-        # Checks whether the given document is already open.
         window = self.findDocument(canonicalName)
         if window:
+            # Given document is already open; activate the window
             self._documentArea.setActiveSubWindow(window)
             return True
 
@@ -482,6 +482,7 @@ class MainWindow(QMainWindow):
             document.updateDocumentTitle()
             document.show()
 
+            # Update application
             self.updateTitleBar()
             self.updateMenus(len(self._documentArea.subWindowList()))
         else:

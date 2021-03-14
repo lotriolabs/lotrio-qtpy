@@ -66,13 +66,6 @@ class Document(QWidget):
         self.setWindowTitle(fileName)
 
 
-    def load(self, canonicalName):
-
-        self.setCanonicalName(canonicalName)
-
-        return True
-
-
     def closeEvent(self, event):
 
         if True:
@@ -82,3 +75,11 @@ class Document(QWidget):
             event.accept()
         else:
             event.ignore()
+
+
+    def load(self, canonicalName):
+
+        self.setCanonicalName(canonicalName)
+
+
+        return True
