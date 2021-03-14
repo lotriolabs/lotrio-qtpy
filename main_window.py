@@ -62,7 +62,7 @@ class MainWindow(QMainWindow):
         self._documentArea.setTabsMovable(True)
         self._documentArea.setTabsClosable(True)
         self.setCentralWidget(self._documentArea)
-        self._documentArea.subWindowActivated.connect(self.onDocumentActivated)
+        self._documentArea.subWindowActivated.connect(self.onDocumentWindowActivated)
 
 
     def setApplicationState(self, state=QByteArray()):
@@ -413,7 +413,7 @@ class MainWindow(QMainWindow):
         self.updateActionFullScreen()
 
 
-    def onDocumentActivated(self, window):
+    def onDocumentWindowActivated(self, window):
 
         self.updateTitleBar()
         self.updateMenus(len(self._documentArea.subWindowList()))
