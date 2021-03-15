@@ -53,8 +53,8 @@ class MainWindow(QMainWindow):
         self.setApplicationState(self._applicationState)
         self.setApplicationGeometry(self._applicationGeometry)
 
+        self.updateActions()
         self.updateActionFullScreen()
-        self.updateMenus()
 
         # Central widget
         self._documentArea = QMdiArea()
@@ -308,6 +308,17 @@ class MainWindow(QMainWindow):
         self.toolbarHelp.visibilityChanged.connect(lambda visible: self.actionToolbarHelp.setChecked(visible))
 
 
+    def updateActions(self, windowCount=0):
+
+        hasDocument = windowCount >= 1
+        hasDocuments = windowCount >= 2
+
+        # Actions: Lotteries
+        self.actionClose.setEnabled(hasDocument)
+        self.actionCloseOther.setEnabled(hasDocuments)
+        self.actionCloseAll.setEnabled(hasDocument)
+
+
     def updateActionFullScreen(self):
 
         if not self.isFullScreen():
@@ -320,16 +331,6 @@ class MainWindow(QMainWindow):
             self.actionFullScreen.setIcon(QIcon.fromTheme('view-restore', QIcon(':/icons/actions/16/view-restore.svg')))
             self.actionFullScreen.setChecked(True)
             self.actionFullScreen.setToolTip(self.tr(f'Exit the full screen mode [{self.actionFullScreen.shortcut().toString(QKeySequence.NativeText)}]'))
-
-
-    def updateMenus(self, cntWindows=0):
-
-        hasDocument = cntWindows >= 1
-        hasDocuments = cntWindows >= 2
-
-        self.actionClose.setEnabled(hasDocument)
-        self.actionCloseOther.setEnabled(hasDocuments)
-        self.actionCloseAll.setEnabled(hasDocument)
 
 
     def updateTitleBar(self):
@@ -415,8 +416,8 @@ class MainWindow(QMainWindow):
 
     def onDocumentWindowActivated(self, window):
 
+        self.updateActions(len(self._documentArea.subWindowList()))
         self.updateTitleBar()
-        self.updateMenus(len(self._documentArea.subWindowList()))
 
         if not window:
             return
@@ -424,8 +425,8 @@ class MainWindow(QMainWindow):
 
     def onDocumentAboutToClose(self, canonicalName):
 
-        # Update menu items but first delete the emitter from the list
-        self.updateMenus(len(self._documentArea.subWindowList())-1)
+        # Update menu items; delete the emitter from the list
+        self.updateActions(len(self._documentArea.subWindowList())-1)
 
         for actionLottery in self.actionLotteries:
             if actionLottery.data() == canonicalName:
@@ -483,8 +484,8 @@ class MainWindow(QMainWindow):
             document.show()
 
             # Update application
+            self.updateActions(len(self._documentArea.subWindowList()))
             self.updateTitleBar()
-            self.updateMenus(len(self._documentArea.subWindowList()))
         else:
             document.close()
 
