@@ -5,6 +5,7 @@
         <file alias="document-close.svg">icons/actions/16/document-close.svg</file>
         <file alias="view-fullscreen.svg">icons/actions/16/view-fullscreen.svg</file>
         <file alias="view-restore.svg">icons/actions/16/view-restore.svg</file>
+        <file alias="help-keyboard-shortcuts.svg">icons/actions/16/help-keyboard-shortcuts.svg</file>
     </qresource>
     <qresource prefix="/icons/apps/512">
         <file alias="lotrio.svg">icons/apps/512/lotrio.svg</file>
