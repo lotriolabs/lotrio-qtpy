@@ -35,7 +35,7 @@ class KeyboardShortcutsDialog(QDialog):
         self.resize(640, 480)
 
         # Content
-        keyboardShortcutsPage = KeyboardShortcutsPage(self)
+        keyboardShortcutsPage = KeyboardShortcutsPage(self.parentWidget())
         keyboardShortcutsPage.setZeroMargins()
 
         # Button box

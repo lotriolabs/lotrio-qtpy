@@ -18,18 +18,42 @@
 # along with Lotrio-QtPy.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from PySide2.QtWidgets import QVBoxLayout, QWidget
+from PySide2.QtCore import Qt
+from PySide2.QtGui import QKeySequence
+from PySide2.QtWidgets import QAbstractItemView, QAction, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget
 
 
 class KeyboardShortcutsPage(QWidget):
 
-    def __init__(self, parent=None):
+    def __init__(self, mainWindow, parent=None):
         super().__init__(parent)
 
+        headerLabels = [self.tr('Name'), self.tr('Shortcut'), self.tr('Description')]
+
+        tableBox = QTableWidget(0, len(headerLabels), self)
+        tableBox.setHorizontalHeaderLabels(headerLabels)
+        tableBox.horizontalHeader().setDefaultAlignment(Qt.AlignLeft)
+        tableBox.horizontalHeader().setStretchLastSection(True)
+        tableBox.verticalHeader().setVisible(False)
+        tableBox.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        tableBox.setSelectionMode(QAbstractItemView.NoSelection)
+        tableBox.setFocusPolicy(Qt.NoFocus)
+
+        for actionItem in mainWindow.findChildren(QAction):
+
+            if not actionItem.shortcut().isEmpty():
+                idx = tableBox.rowCount()
+
+                tableBox.setRowCount(idx + 1)
+                tableBox.setItem(idx, 0, QTableWidgetItem(actionItem.icon(), actionItem.text()))
+                tableBox.setItem(idx, 1, QTableWidgetItem(actionItem.shortcut().toString(QKeySequence.NativeText)))
+                tableBox.setItem(idx, 2, QTableWidgetItem(actionItem.toolTip()))
+
+        tableBox.resizeColumnsToContents()
 
         # Main layout
         self.layout = QVBoxLayout(self)
-        self.layout.addStretch(1)
+        self.layout.addWidget(tableBox)
 
 
     def setZeroMargins(self):
