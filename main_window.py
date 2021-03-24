@@ -144,7 +144,7 @@ class MainWindow(QMainWindow):
         self.actionQuit.setObjectName('actionQuit')
         self.actionQuit.setIcon(QIcon.fromTheme('application-exit', QIcon(':/icons/actions/16/application-exit.svg')))
         self.actionQuit.setShortcut(QKeySequence.Quit)
-        self.actionQuit.setToolTip(self.tr(f'Quit the application [{self.actionQuit.shortcut().toString(QKeySequence.NativeText)}]'))
+        self.actionQuit.setToolTip(self.tr(f'Quit the application'))
         self.actionQuit.triggered.connect(self.close)
 
         # Actions: Lotteries
@@ -165,7 +165,7 @@ class MainWindow(QMainWindow):
         self.actionClose.setObjectName('actionClose')
         self.actionClose.setIcon(QIcon.fromTheme('document-close', QIcon(':/icons/actions/16/document-close.svg')))
         self.actionClose.setShortcut(QKeySequence.Close)
-        self.actionClose.setToolTip(f'Close lottery [{self.actionClose.shortcut().toString(QKeySequence.NativeText)}]')
+        self.actionClose.setToolTip(f'Close lottery')
         self.actionClose.triggered.connect(self.onActionCloseTriggered)
 
         self.actionCloseOther = QAction(self.tr('Close Other'), self)
@@ -176,7 +176,7 @@ class MainWindow(QMainWindow):
         self.actionCloseAll = QAction(self.tr('Close All'), self)
         self.actionCloseAll.setObjectName('actionCloseAll')
         self.actionCloseAll.setShortcut(QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_W))
-        self.actionCloseAll.setToolTip(f'Close all lotteries [{self.actionCloseAll.shortcut().toString(QKeySequence.NativeText)}]')
+        self.actionCloseAll.setToolTip(f'Close all lotteries')
         self.actionCloseAll.triggered.connect(self.onActionCloseAllTriggered)
 
         # Actions: View
@@ -294,12 +294,12 @@ class MainWindow(QMainWindow):
             self.actionFullScreen.setText(self.tr('Full Screen Mode'))
             self.actionFullScreen.setIcon(QIcon.fromTheme('view-fullscreen', QIcon(':/icons/actions/16/view-fullscreen.svg')))
             self.actionFullScreen.setChecked(False)
-            self.actionFullScreen.setToolTip(self.tr(f'Display the window in full screen [{self.actionFullScreen.shortcut().toString(QKeySequence.NativeText)}]'))
+            self.actionFullScreen.setToolTip(self.tr(f'Display the window in full screen'))
         else:
             self.actionFullScreen.setText(self.tr('Exit Full Screen Mode'))
             self.actionFullScreen.setIcon(QIcon.fromTheme('view-restore', QIcon(':/icons/actions/16/view-restore.svg')))
             self.actionFullScreen.setChecked(True)
-            self.actionFullScreen.setToolTip(self.tr(f'Exit the full screen mode [{self.actionFullScreen.shortcut().toString(QKeySequence.NativeText)}]'))
+            self.actionFullScreen.setToolTip(self.tr(f'Exit the full screen mode'))
 
 
     def updateTitleBar(self):
