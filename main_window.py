@@ -119,7 +119,6 @@ class MainWindow(QMainWindow):
         # Application and dialog properties
         self._applicationState = settings.value('Application/State', QByteArray()) if self._preferences.restoreApplicationState() else QByteArray()
         self._applicationGeometry = settings.value('Application/Geometry', QByteArray()) if self._preferences.restoreApplicationGeometry() else QByteArray()
-        self._aboutDialogGeometry = settings.value('AboutDialog/Geometry', QByteArray())
         self._colophonDialogGeometry = settings.value('ColophonDialog/Geometry', QByteArray())
         self._preferencesDialogGeometry = settings.value('PreferencesDialog/Geometry', QByteArray())
 
@@ -134,7 +133,6 @@ class MainWindow(QMainWindow):
         # Application and dialog properties
         settings.setValue('Application/State', self._applicationState)
         settings.setValue('Application/Geometry', self._applicationGeometry)
-        settings.setValue('AboutDialog/Geometry', self._aboutDialogGeometry)
         settings.setValue('ColophonDialog/Geometry', self._colophonDialogGeometry)
         settings.setValue('PreferencesDialog/Geometry', self._preferencesDialogGeometry)
 
@@ -346,13 +344,8 @@ class MainWindow(QMainWindow):
 
     def onActionAboutTriggered(self):
 
-        geometry = self._aboutDialogGeometry if self._preferences.restoreDialogGeometry() else QByteArray()
-
         dialog = AboutDialog(self)
-        dialog.setDialogGeometry(geometry)
         dialog.exec_()
-
-        self._aboutDialogGeometry = dialog.dialogGeometry() if self._preferences.restoreDialogGeometry() else QByteArray()
 
 
     def onActionColophonTriggered(self):

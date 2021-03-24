@@ -33,6 +33,8 @@ class AboutDialog(QDialog):
         self.setWindowFlags(self.windowFlags() & ~Qt.WindowContextHelpButtonHint)
         self.setWindowTitle(self.tr(f'About {QApplication.applicationName()}'))
 
+        self.resize(480, 320)
+
         # Title box
         titleBox = DialogTitleBox()
 
@@ -49,16 +51,3 @@ class AboutDialog(QDialog):
         layout.addWidget(titleBox)
         layout.addWidget(aboutPage)
         layout.addWidget(buttonBox)
-
-
-    def setDialogGeometry(self, geometry=QByteArray()):
-
-        if not geometry.isEmpty():
-            self.restoreGeometry(geometry)
-        else:
-            self.resize(480, 320)
-
-
-    def dialogGeometry(self):
-
-        return self.saveGeometry()
