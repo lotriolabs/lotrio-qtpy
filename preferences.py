@@ -18,6 +18,8 @@
 # along with Lotrio-QtPy.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+from PySide2.QtCore import QSettings
+
 
 class Preferences:
 
@@ -28,7 +30,9 @@ class Preferences:
         self._restoreApplicationState = True
 
 
-    def load(self, settings):
+    def load(self):
+
+        settings = QSettings()
 
         settings.beginGroup('Preferences')
 
@@ -39,7 +43,9 @@ class Preferences:
         settings.endGroup()
 
 
-    def save(self, settings):
+    def save(self):
+
+        settings = QSettings()
 
         settings.beginGroup('Preferences')
         settings.remove('')
