@@ -23,20 +23,18 @@ class Preferences:
 
     def __init__(self):
 
-        # General: State & Geometries
-        self._restoreApplicationState = True
+        # General: Geometry & State
         self._restoreApplicationGeometry = True
-        self._restoreDialogGeometry = True
+        self._restoreApplicationState = True
 
 
     def load(self, settings):
 
         settings.beginGroup('Preferences')
 
-        # General: State & Geometries
-        self.setRestoreApplicationState(self.valueToBool(settings.value('RestoreApplicationState', True)))
+        # General: Geometry & State
         self.setRestoreApplicationGeometry(self.valueToBool(settings.value('RestoreApplicationGeometry', True)))
-        self.setRestoreDialogGeometry(self.valueToBool(settings.value('RestoreDialogGeometry', True)))
+        self.setRestoreApplicationState(self.valueToBool(settings.value('RestoreApplicationState', True)))
 
         settings.endGroup()
 
@@ -46,10 +44,9 @@ class Preferences:
         settings.beginGroup('Preferences')
         settings.remove('')
 
-        # General: State & Geometries
-        settings.setValue('RestoreApplicationState', self._restoreApplicationState)
+        # General: Geometry & State
         settings.setValue('RestoreApplicationGeometry', self._restoreApplicationGeometry)
-        settings.setValue('RestoreDialogGeometry', self._restoreDialogGeometry)
+        settings.setValue('RestoreApplicationState', self._restoreApplicationState)
 
         settings.endGroup()
 
@@ -58,16 +55,6 @@ class Preferences:
     def valueToBool(value):
 
         return value.lower() == 'true' if isinstance(value, str) else bool(value)
-
-
-    def setRestoreApplicationState(self, value):
-
-        self._restoreApplicationState = value
-
-
-    def restoreApplicationState(self, isDefault=False):
-
-        return self._restoreApplicationState if not isDefault else True
 
 
     def setRestoreApplicationGeometry(self, value):
@@ -80,11 +67,11 @@ class Preferences:
         return self._restoreApplicationGeometry if not isDefault else True
 
 
-    def setRestoreDialogGeometry(self, value):
+    def setRestoreApplicationState(self, value):
 
-        self._restoreDialogGeometry = value
+        self._restoreApplicationState = value
 
 
-    def restoreDialogGeometry(self, isDefault=False):
+    def restoreApplicationState(self, isDefault=False):
 
-        return self._restoreDialogGeometry if not isDefault else True
+        return self._restoreApplicationState if not isDefault else True

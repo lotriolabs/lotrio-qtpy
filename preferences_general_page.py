@@ -33,28 +33,24 @@ class PreferencesGeneralPage(QWidget):
         # Title
         title = QLabel(self.tr('<strong style="font-size:large;">General</strong>'))
 
-        # State & Geometries
-        self.chkRestoreApplicationState = QCheckBox(self.tr('Save and restore the application state'))
-        self.chkRestoreApplicationState.stateChanged.connect(self.onPreferencesChanged)
-
+        # Geometry & State
         self.chkRestoreApplicationGeometry = QCheckBox(self.tr('Save and restore the application geometry'))
         self.chkRestoreApplicationGeometry.stateChanged.connect(self.onPreferencesChanged)
 
-        self.chkRestoreDialogGeometry = QCheckBox(self.tr('Save and restore dialog geometries'))
-        self.chkRestoreDialogGeometry.stateChanged.connect(self.onPreferencesChanged)
+        self.chkRestoreApplicationState = QCheckBox(self.tr('Save and restore the application state'))
+        self.chkRestoreApplicationState.stateChanged.connect(self.onPreferencesChanged)
 
-        stateGeometriesLayout = QVBoxLayout()
-        stateGeometriesLayout.addWidget(self.chkRestoreApplicationState)
-        stateGeometriesLayout.addWidget(self.chkRestoreApplicationGeometry)
-        stateGeometriesLayout.addWidget(self.chkRestoreDialogGeometry)
+        geometryStateLayout = QVBoxLayout()
+        geometryStateLayout.addWidget(self.chkRestoreApplicationGeometry)
+        geometryStateLayout.addWidget(self.chkRestoreApplicationState)
 
-        stateGeometriesGroup = QGroupBox(self.tr('State && Geometries'))
-        stateGeometriesGroup.setLayout(stateGeometriesLayout)
+        geometryStateGroup = QGroupBox(self.tr('Geometry && State'))
+        geometryStateGroup.setLayout(geometryStateLayout)
 
         # Main layout
         self.layout = QVBoxLayout(self)
         self.layout.addWidget(title)
-        self.layout.addWidget(stateGeometriesGroup)
+        self.layout.addWidget(geometryStateGroup)
         self.layout.addStretch()
 
 
@@ -73,16 +69,6 @@ class PreferencesGeneralPage(QWidget):
         self.preferencesChanged.emit()
 
 
-    def setRestoreApplicationState(self, checked):
-
-        self.chkRestoreApplicationState.setChecked(checked)
-
-
-    def restoreApplicationState(self):
-
-        return self.chkRestoreApplicationState.isChecked()
-
-
     def setRestoreApplicationGeometry(self, checked):
 
         self.chkRestoreApplicationGeometry.setChecked(checked)
@@ -93,11 +79,11 @@ class PreferencesGeneralPage(QWidget):
         return self.chkRestoreApplicationGeometry.isChecked()
 
 
-    def setRestoreDialogGeometry(self, checked):
+    def setRestoreApplicationState(self, checked):
 
-        self.chkRestoreDialogGeometry.setChecked(checked)
+        self.chkRestoreApplicationState.setChecked(checked)
 
 
-    def restoreDialogGeometry(self):
+    def restoreApplicationState(self):
 
-        return self.chkRestoreDialogGeometry.isChecked()
+        return self.chkRestoreApplicationState.isChecked()
