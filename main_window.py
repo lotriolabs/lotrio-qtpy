@@ -51,10 +51,6 @@ class MainWindow(QMainWindow):
 
         self.loadSettings()
 
-        # Application properties
-        self.setApplicationGeometry(self._applicationGeometry)
-        self.setApplicationState(self._applicationState)
-
         self.updateActions()
         self.updateActionFullScreen()
 
@@ -67,46 +63,10 @@ class MainWindow(QMainWindow):
         self._documentArea.subWindowActivated.connect(self.onDocumentWindowActivated)
 
 
-    def setApplicationState(self, state=QByteArray()):
-
-        if not state.isEmpty():
-            self.restoreState(state)
-        else:
-            self.toolbarApplication.setVisible(True)
-            self.toolbarLotteries.setVisible(True)
-            self.toolbarView.setVisible(False)
-            self.toolbarHelp.setVisible(False)
-
-
-    def applicationState(self):
-
-        return self.saveState()
-
-
-    def setApplicationGeometry(self, geometry=QByteArray()):
-
-        if not geometry.isEmpty():
-            self.restoreGeometry(geometry)
-        else:
-            availableGeometry = self.screen().availableGeometry()
-            self.resize(availableGeometry.width() * 2/3, availableGeometry.height() * 2/3)
-            self.move((availableGeometry.width() - self.width()) / 2, (availableGeometry.height() - self.height()) / 2)
-
-
-    def applicationGeometry(self):
-
-        return self.saveGeometry()
-
-
     def closeEvent(self, event):
 
         if True:
-            # Application properties
-            self._applicationGeometry = self.applicationGeometry() if self._preferences.restoreApplicationGeometry() else QByteArray()
-            self._applicationState = self.applicationState() if self._preferences.restoreApplicationState() else QByteArray()
-
             self.saveSettings()
-
             self._preferences.save()
             event.accept()
         else:
@@ -117,18 +77,37 @@ class MainWindow(QMainWindow):
 
         settings = QSettings()
 
-        # Application and dialog properties
-        self._applicationGeometry = settings.value('Application/Geometry', QByteArray()) if self._preferences.restoreApplicationGeometry() else QByteArray()
-        self._applicationState = settings.value('Application/State', QByteArray()) if self._preferences.restoreApplicationState() else QByteArray()
+        # Application properties: Geometry
+        geometry = settings.value('Application/Geometry', QByteArray()) if self._preferences.restoreApplicationGeometry() else QByteArray()
+        if not geometry.isEmpty():
+            self.restoreGeometry(geometry)
+        else:
+            availableGeometry = self.screen().availableGeometry()
+            self.resize(availableGeometry.width() * 2/3, availableGeometry.height() * 2/3)
+            self.move((availableGeometry.width() - self.width()) / 2, (availableGeometry.height() - self.height()) / 2)
+
+        # Application properties: State
+        state = settings.value('Application/State', QByteArray()) if self._preferences.restoreApplicationState() else QByteArray()
+        if not state.isEmpty():
+            self.restoreState(state)
+        else:
+            self.toolbarApplication.setVisible(True)
+            self.toolbarLotteries.setVisible(True)
+            self.toolbarView.setVisible(False)
+            self.toolbarHelp.setVisible(False)
 
 
     def saveSettings(self):
 
         settings = QSettings()
 
-        # Application and dialog properties
-        settings.setValue('Application/Geometry', self._applicationGeometry)
-        settings.setValue('Application/State', self._applicationState)
+        # Application properties: Geometry
+        geometry = self.saveGeometry() if self._preferences.restoreApplicationGeometry() else QByteArray()
+        settings.setValue('Application/Geometry', geometry)
+
+        # Application properties: State
+        state = self.saveState() if self._preferences.restoreApplicationState() else QByteArray()
+        settings.setValue('Application/State', state)
 
 
     def createLotteries(self):
