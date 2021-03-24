@@ -165,18 +165,18 @@ class MainWindow(QMainWindow):
         self.actionClose.setObjectName('actionClose')
         self.actionClose.setIcon(QIcon.fromTheme('document-close', QIcon(':/icons/actions/16/document-close.svg')))
         self.actionClose.setShortcut(QKeySequence.Close)
-        self.actionClose.setToolTip(f'Close document [{self.actionClose.shortcut().toString(QKeySequence.NativeText)}]')
+        self.actionClose.setToolTip(f'Close lottery [{self.actionClose.shortcut().toString(QKeySequence.NativeText)}]')
         self.actionClose.triggered.connect(self.onActionCloseTriggered)
 
         self.actionCloseOther = QAction(self.tr('Close Other'), self)
         self.actionCloseOther.setObjectName('actionCloseOther')
-        self.actionCloseOther.setToolTip('Close all other documents')
+        self.actionCloseOther.setToolTip('Close all other lotteries')
         self.actionCloseOther.triggered.connect(self.onActionCloseOtherTriggered)
 
         self.actionCloseAll = QAction(self.tr('Close All'), self)
         self.actionCloseAll.setObjectName('actionCloseAll')
         self.actionCloseAll.setShortcut(QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_W))
-        self.actionCloseAll.setToolTip(f'Close all documents [{self.actionCloseAll.shortcut().toString(QKeySequence.NativeText)}]')
+        self.actionCloseAll.setToolTip(f'Close all lotteries [{self.actionCloseAll.shortcut().toString(QKeySequence.NativeText)}]')
         self.actionCloseAll.triggered.connect(self.onActionCloseAllTriggered)
 
         # Actions: View
