@@ -49,3 +49,32 @@ class ColophonAboutPage(QWidget):
     def title(self):
 
         return self.tr('About')
+
+
+class ColophonAuthorsPage(QWidget):
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        textBox = QTextBrowser()
+        textBox.setFrameStyle(QFrame.NoFrame)
+        textBox.setStyleSheet('background-color:transparent;')
+        textBox.setOpenExternalLinks(True)
+        textBox.setHtml(self.tr('''<html><body>
+            <dl><dt><strong>NotNypical</strong></dt>
+                <dd>Created and developed by <a href="https://notnypical.github.io" title="Visit author's homepage">NotNypical</a>.</dd></dl>
+            </body></html>'''))
+
+        # Main layout
+        self.layout = QVBoxLayout(self)
+        self.layout.addWidget(textBox)
+
+
+    def setZeroMargins(self):
+
+        self.layout.setContentsMargins(0, 0, 0, 0)
+
+
+    def title(self):
+
+        return self.tr('Authors')
