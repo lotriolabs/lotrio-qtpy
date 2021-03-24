@@ -11,6 +11,7 @@
         "document.py",
         "icons.qrc",
         "keyboard_shortcuts_dialog.py",
+        "keyboard_shortcuts_page.py",
         "main_window.py",
         "main.py",
         "preferences.py",

@@ -18,31 +18,25 @@
 # along with Lotrio-QtPy.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from PySide2.QtCore import Qt
-from PySide2.QtWidgets import QDialog, QDialogButtonBox, QVBoxLayout
-
-from keyboard_shortcuts_page import KeyboardShortcutsPage
+from PySide2.QtWidgets import QVBoxLayout, QWidget
 
 
-class KeyboardShortcutsDialog(QDialog):
+class KeyboardShortcutsPage(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self.setWindowFlags(self.windowFlags() & ~Qt.WindowContextHelpButtonHint)
-        self.setWindowTitle(self.tr('Keyboard Shortcuts'))
-
-        self.resize(640, 480)
-
-        # Content
-        keyboardShortcutsPage = KeyboardShortcutsPage(self)
-        keyboardShortcutsPage.setZeroMargins()
-
-        # Button box
-        buttonBox = QDialogButtonBox(QDialogButtonBox.Close)
-        buttonBox.rejected.connect(self.close)
 
         # Main layout
-        layout = QVBoxLayout(self)
-        layout.addWidget(keyboardShortcutsPage)
-        layout.addWidget(buttonBox)
+        self.layout = QVBoxLayout(self)
+        self.layout.addStretch(1)
+
+
+    def setZeroMargins(self):
+
+        self.layout.setContentsMargins(0, 0, 0, 0)
+
+
+    def title(self):
+
+        return self.tr('Keyboard Shortcuts')
