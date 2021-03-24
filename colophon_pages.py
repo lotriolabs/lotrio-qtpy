@@ -78,3 +78,38 @@ class ColophonAuthorsPage(QWidget):
     def title(self):
 
         return self.tr('Authors')
+
+
+class ColophonCreditsPage(QWidget):
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        textBox = QTextBrowser()
+        textBox.setFrameStyle(QFrame.NoFrame)
+        textBox.setStyleSheet('background-color:transparent;')
+        textBox.setOpenExternalLinks(True)
+        textBox.setHtml(self.tr('''<html><body>
+            <dl><dt><strong>Freepik</strong></dt>
+                <dd>Application logo made by <a href="https://www.flaticon.com/authors/freepik/" title="Visit author's homepage">Freepik</a>
+                    from <a href="https://www.flaticon.com" title="Visit organization's homepage">www.flaticon.com</a>
+                    is licensed under <a href="https://file000.flaticon.com/downloads/license/license.pdf" title="Visit license's homepage">Free License (with attribution)</a>.</dd></dl>
+            <dl><dt><strong>BreezeIcons project</strong></dt>
+                <dd>Application icons made by <a href="https://api.kde.org/frameworks/breeze-icons/html/" title="Visit project's homepage">BreezeIcons project</a>
+                    from <a href="https://kde.org" title="Visit organization's homepage">KDE</a>
+                    are licensed under <a href="https://www.gnu.org/licenses/lgpl-3.0.en.html" title="Visit license's homepage">LGPLv3</a>.</dd></dl>
+            </body></html>'''))
+
+        # Main layout
+        self.layout = QVBoxLayout(self)
+        self.layout.addWidget(textBox)
+
+
+    def setZeroMargins(self):
+
+        self.layout.setContentsMargins(0, 0, 0, 0)
+
+
+    def title(self):
+
+        return self.tr('Credits')

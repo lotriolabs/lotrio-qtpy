@@ -1,7 +1,6 @@
 {
     "files": [
         "about_dialog.py",
-        "colophon_credits_page.py",
         "colophon_dialog.py",
         "colophon_environment_page.py",
         "colophon_license_page.py",
