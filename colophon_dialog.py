@@ -37,6 +37,8 @@ class ColophonDialog(QDialog):
         self.setWindowFlags(self.windowFlags() & ~Qt.WindowContextHelpButtonHint)
         self.setWindowTitle(self.tr('Colophon'))
 
+        self.resize(640, 480)
+
         # Title box
         titleBox = DialogTitleBox()
 
@@ -63,16 +65,3 @@ class ColophonDialog(QDialog):
         layout.addWidget(titleBox)
         layout.addWidget(tabBox)
         layout.addWidget(buttonBox)
-
-
-    def setDialogGeometry(self, geometry=QByteArray()):
-
-        if not geometry.isEmpty():
-            self.restoreGeometry(geometry)
-        else:
-            self.resize(640, 480)
-
-
-    def dialogGeometry(self):
-
-        return self.saveGeometry()
