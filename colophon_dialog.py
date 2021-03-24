@@ -18,7 +18,7 @@
 # along with Lotrio-QtPy.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from PySide2.QtCore import QByteArray, Qt
+from PySide2.QtCore import Qt
 from PySide2.QtWidgets import QDialog, QDialogButtonBox, QTabWidget, QVBoxLayout
 
 from colophon_pages import ColophonAboutPage, ColophonAuthorsPage, ColophonCreditsPage, ColophonEnvironmentPage, ColophonLicensePage
@@ -30,10 +30,9 @@ class ColophonDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
 
+        self.setMinimumSize(640, 480)
         self.setWindowFlags(self.windowFlags() & ~Qt.WindowContextHelpButtonHint)
         self.setWindowTitle(self.tr('Colophon'))
-
-        self.resize(640, 480)
 
         # Title box
         titleBox = DialogTitleBox()

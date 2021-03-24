@@ -18,7 +18,6 @@
 # along with Lotrio-QtPy.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from PySide2.QtCore import QByteArray
 from PySide2.QtWidgets import QDialog, QDialogButtonBox, QHBoxLayout, QListWidget, QStackedWidget, QVBoxLayout
 
 from preferences import Preferences
@@ -36,9 +35,8 @@ class PreferencesDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
 
+        self.setMinimumSize(800, 600)
         self.setWindowTitle(self.tr('Preferences'))
-
-        self.resize(800, 600)
 
         # Preferences box
         self.generalPage = PreferencesGeneralPage(self)

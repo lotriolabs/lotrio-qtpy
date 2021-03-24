@@ -29,10 +29,9 @@ class KeyboardShortcutsDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
 
+        self.setMinimumSize(640, 480)
         self.setWindowFlags(self.windowFlags() & ~Qt.WindowContextHelpButtonHint)
         self.setWindowTitle(self.tr('Keyboard Shortcuts'))
-
-        self.resize(640, 480)
 
         # Content
         keyboardShortcutsPage = KeyboardShortcutsPage(self.parentWidget())
