@@ -44,7 +44,7 @@ class MainWindow(QMainWindow):
 
         self.setWindowIcon(QIcon(':/icons/apps/512/lotrio.svg'))
 
-        self._preferences.load()
+        self._preferences.loadSettings()
 
         self.createLotteries()
 
@@ -70,7 +70,7 @@ class MainWindow(QMainWindow):
 
         if True:
             self.saveSettings()
-            self._preferences.save()
+            self._preferences.saveSettings()
             event.accept()
         else:
             event.ignore()
