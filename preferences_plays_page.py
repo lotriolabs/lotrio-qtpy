@@ -50,6 +50,6 @@ class PreferencesPlaysPage(QWidget):
         return self.tr('Plays')
 
 
-    def onPreferencesChanged(self):
+    def _onPreferencesChanged(self):
 
         self.preferencesChanged.emit()

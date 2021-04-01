@@ -26,14 +26,13 @@ from preferences import Preferences
 
 class Document(QWidget):
 
-    _preferences = Preferences()
-
     aboutToClose = Signal(str)
 
 
     def __init__(self, parent=None):
         super().__init__(parent)
 
+        self._preferences = Preferences()
         self._canonicalName = None
 
         self.setAttribute(Qt.WA_DeleteOnClose)

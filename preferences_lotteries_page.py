@@ -50,6 +50,6 @@ class PreferencesLotteriesPage(QWidget):
         return self.tr('Lotteries')
 
 
-    def onPreferencesChanged(self):
+    def _onPreferencesChanged(self):
 
         self.preferencesChanged.emit()

@@ -29,44 +29,43 @@ from preferences_plays_page import PreferencesPlaysPage
 
 class PreferencesDialog(QDialog):
 
-    _preferences = Preferences()
-
-
     def __init__(self, parent=None):
         super().__init__(parent)
+
+        self._preferences = Preferences()
 
         self.setMinimumSize(800, 600)
         self.setWindowTitle(self.tr('Preferences'))
 
-        # Preferences box
-        self.generalPage = PreferencesGeneralPage(self)
-        self.generalPage.setZeroMargins()
-        self.generalPage.preferencesChanged.connect(self.onPreferencesChanged)
+        # Content
+        self._generalPage = PreferencesGeneralPage(self)
+        self._generalPage.setZeroMargins()
+        self._generalPage.preferencesChanged.connect(self._onPreferencesChanged)
 
-        self.lotteriesPage = PreferencesLotteriesPage(self)
-        self.lotteriesPage.setZeroMargins()
-        self.lotteriesPage.preferencesChanged.connect(self.onPreferencesChanged)
+        self._lotteriesPage = PreferencesLotteriesPage(self)
+        self._lotteriesPage.setZeroMargins()
+        self._lotteriesPage.preferencesChanged.connect(self._onPreferencesChanged)
 
-        self.drawsPage = PreferencesDrawsPage(self)
-        self.drawsPage.setZeroMargins()
-        self.drawsPage.preferencesChanged.connect(self.onPreferencesChanged)
+        self._drawsPage = PreferencesDrawsPage(self)
+        self._drawsPage.setZeroMargins()
+        self._drawsPage.preferencesChanged.connect(self._onPreferencesChanged)
 
-        self.playsPage = PreferencesPlaysPage(self)
-        self.playsPage.setZeroMargins()
-        self.playsPage.preferencesChanged.connect(self.onPreferencesChanged)
+        self._playsPage = PreferencesPlaysPage(self)
+        self._playsPage.setZeroMargins()
+        self._playsPage.preferencesChanged.connect(self._onPreferencesChanged)
 
         stackedBox = QStackedWidget()
-        stackedBox.addWidget(self.generalPage)
-        stackedBox.addWidget(self.lotteriesPage)
-        stackedBox.addWidget(self.drawsPage)
-        stackedBox.addWidget(self.playsPage)
+        stackedBox.addWidget(self._generalPage)
+        stackedBox.addWidget(self._lotteriesPage)
+        stackedBox.addWidget(self._drawsPage)
+        stackedBox.addWidget(self._playsPage)
         stackedBox.setCurrentIndex(0)
 
         listBox = QListWidget()
-        listBox.addItem(self.generalPage.title())
-        listBox.addItem(self.lotteriesPage.title())
-        listBox.addItem(self.drawsPage.title())
-        listBox.addItem(self.playsPage.title())
+        listBox.addItem(self._generalPage.title())
+        listBox.addItem(self._lotteriesPage.title())
+        listBox.addItem(self._drawsPage.title())
+        listBox.addItem(self._playsPage.title())
         listBox.setCurrentRow(stackedBox.currentIndex())
         listBox.currentRowChanged.connect(stackedBox.setCurrentIndex)
 
@@ -76,10 +75,10 @@ class PreferencesDialog(QDialog):
 
         # Button box
         buttonBox = QDialogButtonBox(QDialogButtonBox.RestoreDefaults | QDialogButtonBox.Ok | QDialogButtonBox.Apply | QDialogButtonBox.Cancel)
-        self.buttonApply = buttonBox.button(QDialogButtonBox.Apply)
-        buttonBox.button(QDialogButtonBox.RestoreDefaults).clicked.connect(self.onButtonDefaultsClicked)
-        buttonBox.accepted.connect(self.onButtonOkClicked)
-        buttonBox.button(QDialogButtonBox.Apply).clicked.connect(self.onButtonApplyClicked)
+        self._buttonApply = buttonBox.button(QDialogButtonBox.Apply)
+        buttonBox.button(QDialogButtonBox.RestoreDefaults).clicked.connect(self._onButtonDefaultsClicked)
+        buttonBox.accepted.connect(self._onButtonOkClicked)
+        buttonBox.button(QDialogButtonBox.Apply).clicked.connect(self._onButtonApplyClicked)
         buttonBox.rejected.connect(self.close)
 
         # Main layout
@@ -87,16 +86,16 @@ class PreferencesDialog(QDialog):
         layout.addLayout(preferencesBox)
         layout.addWidget(buttonBox)
 
-        self.updatePreferences()
-        self.buttonApply.setEnabled(False)
+        self._updatePreferences()
+        self._buttonApply.setEnabled(False)
 
 
     def setPreferences(self, preferences):
 
         self._preferences = preferences
 
-        self.updatePreferences()
-        self.buttonApply.setEnabled(False)
+        self._updatePreferences()
+        self._buttonApply.setEnabled(False)
 
 
     def preferences(self):
@@ -104,37 +103,37 @@ class PreferencesDialog(QDialog):
         return self._preferences
 
 
-    def onPreferencesChanged(self):
+    def _onPreferencesChanged(self):
 
-        self.buttonApply.setEnabled(True)
-
-
-    def onButtonDefaultsClicked(self):
-
-        self.updatePreferences(True)
+        self._buttonApply.setEnabled(True)
 
 
-    def onButtonOkClicked(self):
+    def _onButtonDefaultsClicked(self):
 
-        self.savePreferences()
+        self._updatePreferences(True)
+
+
+    def _onButtonOkClicked(self):
+
+        self._savePreferences()
         self.close()
 
 
-    def onButtonApplyClicked(self):
+    def _onButtonApplyClicked(self):
 
-        self.savePreferences()
-        self.buttonApply.setEnabled(False)
-
-
-    def updatePreferences(self, isDefault=False):
-
-        # General: Geometry & State
-        self.generalPage.setRestoreApplicationGeometry(self._preferences.restoreApplicationGeometry(isDefault))
-        self.generalPage.setRestoreApplicationState(self._preferences.restoreApplicationState(isDefault))
+        self._savePreferences()
+        self._buttonApply.setEnabled(False)
 
 
-    def savePreferences(self):
+    def _updatePreferences(self, isDefault=False):
 
         # General: Geometry & State
-        self._preferences.setRestoreApplicationGeometry(self.generalPage.restoreApplicationGeometry())
-        self._preferences.setRestoreApplicationState(self.generalPage.restoreApplicationState())
+        self._generalPage.setRestoreApplicationGeometry(self._preferences.restoreApplicationGeometry(isDefault))
+        self._generalPage.setRestoreApplicationState(self._preferences.restoreApplicationState(isDefault))
+
+
+    def _savePreferences(self):
+
+        # General: Geometry & State
+        self._preferences.setRestoreApplicationGeometry(self._generalPage.restoreApplicationGeometry())
+        self._preferences.setRestoreApplicationState(self._generalPage.restoreApplicationState())

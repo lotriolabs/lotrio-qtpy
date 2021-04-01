@@ -25,6 +25,10 @@ from PySide2.QtCore import QSysInfo
 from PySide2.QtWidgets import QApplication, QFrame, QTextBrowser, QVBoxLayout, QWidget
 
 
+#
+# Colophon page: About
+#
+
 class ColophonAboutPage(QWidget):
 
     def __init__(self, parent=None):
@@ -55,6 +59,10 @@ class ColophonAboutPage(QWidget):
         return self.tr('About')
 
 
+#
+# Colophon page: Authors
+#
+
 class ColophonAuthorsPage(QWidget):
 
     def __init__(self, parent=None):
@@ -83,6 +91,10 @@ class ColophonAuthorsPage(QWidget):
 
         return self.tr('Authors')
 
+
+#
+# Colophon page: Credits
+#
 
 class ColophonCreditsPage(QWidget):
 
@@ -118,6 +130,10 @@ class ColophonCreditsPage(QWidget):
 
         return self.tr('Credits')
 
+
+#
+# Colophon page: Environment
+#
 
 class ColophonEnvironmentPage(QWidget):
 
@@ -161,6 +177,10 @@ class ColophonEnvironmentPage(QWidget):
 
         return self.tr('Environment')
 
+
+#
+# Colophon page: License
+#
 
 class ColophonLicensePage(QWidget):
 

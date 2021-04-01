@@ -37,8 +37,8 @@ class Preferences:
         settings.beginGroup('Preferences')
 
         # General: Geometry & State
-        self.setRestoreApplicationGeometry(self.valueToBool(settings.value('RestoreApplicationGeometry', True)))
-        self.setRestoreApplicationState(self.valueToBool(settings.value('RestoreApplicationState', True)))
+        self.setRestoreApplicationGeometry(self._valueToBool(settings.value('RestoreApplicationGeometry', True)))
+        self.setRestoreApplicationState(self._valueToBool(settings.value('RestoreApplicationState', True)))
 
         settings.endGroup()
 
@@ -58,7 +58,7 @@ class Preferences:
 
 
     @staticmethod
-    def valueToBool(value):
+    def _valueToBool(value):
 
         return value.lower() == 'true' if isinstance(value, str) else bool(value)
 

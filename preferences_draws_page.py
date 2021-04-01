@@ -50,6 +50,6 @@ class PreferencesDrawsPage(QWidget):
         return self.tr('Draws')
 
 
-    def onPreferencesChanged(self):
+    def _onPreferencesChanged(self):
 
         self.preferencesChanged.emit()
