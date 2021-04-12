@@ -33,16 +33,18 @@ class PreferencesLotteriesPage(QWidget):
         # Title
         title = QLabel(self.tr('<strong style="font-size:large;">Lotteries</strong>'))
 
+        # Content
+
 
         # Main layout
-        self.layout = QVBoxLayout(self)
-        self.layout.addWidget(title)
-        self.layout.addStretch()
+        self._layout = QVBoxLayout(self)
+        self._layout.addWidget(title)
+        self._layout.addStretch(1)
 
 
     def setZeroMargins(self):
 
-        self.layout.setContentsMargins(0, 0, 0, 0)
+        self._layout.setContentsMargins(0, 0, 0, 0)
 
 
     def title(self):

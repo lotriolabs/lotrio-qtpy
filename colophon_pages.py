@@ -45,13 +45,13 @@ class ColophonAboutPage(QWidget):
             </body></html>'''))
 
         # Main layout
-        self.layout = QVBoxLayout(self)
-        self.layout.addWidget(textBox)
+        self._layout = QVBoxLayout(self)
+        self._layout.addWidget(textBox)
 
 
     def setZeroMargins(self):
 
-        self.layout.setContentsMargins(0, 0, 0, 0)
+        self._layout.setContentsMargins(0, 0, 0, 0)
 
 
     def title(self):
@@ -78,13 +78,13 @@ class ColophonAuthorsPage(QWidget):
             </body></html>'''))
 
         # Main layout
-        self.layout = QVBoxLayout(self)
-        self.layout.addWidget(textBox)
+        self._layout = QVBoxLayout(self)
+        self._layout.addWidget(textBox)
 
 
     def setZeroMargins(self):
 
-        self.layout.setContentsMargins(0, 0, 0, 0)
+        self._layout.setContentsMargins(0, 0, 0, 0)
 
 
     def title(self):
@@ -117,13 +117,13 @@ class ColophonCreditsPage(QWidget):
             </body></html>'''))
 
         # Main layout
-        self.layout = QVBoxLayout(self)
-        self.layout.addWidget(textBox)
+        self._layout = QVBoxLayout(self)
+        self._layout.addWidget(textBox)
 
 
     def setZeroMargins(self):
 
-        self.layout.setContentsMargins(0, 0, 0, 0)
+        self._layout.setContentsMargins(0, 0, 0, 0)
 
 
     def title(self):
@@ -164,13 +164,13 @@ class ColophonEnvironmentPage(QWidget):
             </body></html>'''))
 
         # Main layout
-        self.layout = QVBoxLayout(self)
-        self.layout.addWidget(textBox)
+        self._layout = QVBoxLayout(self)
+        self._layout.addWidget(textBox)
 
 
     def setZeroMargins(self):
 
-        self.layout.setContentsMargins(0, 0, 0, 0)
+        self._layout.setContentsMargins(0, 0, 0, 0)
 
 
     def title(self):
@@ -203,13 +203,13 @@ class ColophonLicensePage(QWidget):
             </body></html>'''))
 
         # Main layout
-        self.layout = QVBoxLayout(self)
-        self.layout.addWidget(textBox)
+        self._layout = QVBoxLayout(self)
+        self._layout.addWidget(textBox)
 
 
     def setZeroMargins(self):
 
-        self.layout.setContentsMargins(0, 0, 0, 0)
+        self._layout.setContentsMargins(0, 0, 0, 0)
 
 
     def title(self):

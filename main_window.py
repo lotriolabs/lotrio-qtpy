@@ -37,9 +37,9 @@ class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self._keyboardShortcutsDialog = None
-
         self.setWindowIcon(QIcon(':/icons/apps/512/lotrio.svg'))
+
+        self._keyboardShortcutsDialog = None
 
         self._preferences = Preferences()
         self._preferences.loadSettings()
@@ -67,8 +67,10 @@ class MainWindow(QMainWindow):
     def closeEvent(self, event):
 
         if True:
+            # Store application properties and preferences
             self._saveSettings()
             self._preferences.saveSettings()
+
             event.accept()
         else:
             event.ignore()
@@ -78,8 +80,7 @@ class MainWindow(QMainWindow):
 
         settings = QSettings()
 
-        # Application properties
-
+        # Application properties: Geometry
         geometry = settings.value('Application/Geometry', QByteArray()) if self._preferences.restoreApplicationGeometry() else QByteArray()
         if not geometry.isEmpty():
             self.restoreGeometry(geometry)
@@ -88,6 +89,7 @@ class MainWindow(QMainWindow):
             self.resize(availableGeometry.width() * 2/3, availableGeometry.height() * 2/3)
             self.move((availableGeometry.width() - self.width()) / 2, (availableGeometry.height() - self.height()) / 2)
 
+        # Application properties: State
         state = settings.value('Application/State', QByteArray()) if self._preferences.restoreApplicationState() else QByteArray()
         if not state.isEmpty():
             self.restoreState(state)
@@ -102,11 +104,11 @@ class MainWindow(QMainWindow):
 
         settings = QSettings()
 
-        # Application properties
-
+        # Application properties: Geometry
         geometry = self.saveGeometry() if self._preferences.restoreApplicationGeometry() else QByteArray()
         settings.setValue('Application/Geometry', geometry)
 
+        # Application properties: State
         state = self.saveState() if self._preferences.restoreApplicationState() else QByteArray()
         settings.setValue('Application/State', state)
 
@@ -168,7 +170,7 @@ class MainWindow(QMainWindow):
         self._actionClose.setObjectName('actionClose')
         self._actionClose.setIcon(QIcon.fromTheme('document-close', QIcon(':/icons/actions/16/document-close.svg')))
         self._actionClose.setShortcut(QKeySequence.Close)
-        self._actionClose.setToolTip(f'Close lottery')
+        self._actionClose.setToolTip('Close lottery')
         self._actionClose.triggered.connect(self._onActionCloseTriggered)
 
         self._actionCloseOther = QAction(self.tr('Close Other'), self)
@@ -179,7 +181,7 @@ class MainWindow(QMainWindow):
         self._actionCloseAll = QAction(self.tr('Close All'), self)
         self._actionCloseAll.setObjectName('actionCloseAll')
         self._actionCloseAll.setShortcut(QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_W))
-        self._actionCloseAll.setToolTip(f'Close all lotteries')
+        self._actionCloseAll.setToolTip('Close all lotteries')
         self._actionCloseAll.triggered.connect(self._onActionCloseAllTriggered)
 
         # Actions: View
@@ -292,10 +294,10 @@ class MainWindow(QMainWindow):
         self._toolbarHelp.visibilityChanged.connect(lambda visible: self._actionToolbarHelp.setChecked(visible))
 
 
-    def _updateActions(self, windowCount=0):
+    def _updateActions(self, subWindowCount=0):
 
-        hasDocument = windowCount >= 1
-        hasDocuments = windowCount >= 2
+        hasDocument = subWindowCount >= 1
+        hasDocuments = subWindowCount >= 2
 
         # Actions: Lotteries
         self._actionClose.setEnabled(hasDocument)
@@ -309,12 +311,12 @@ class MainWindow(QMainWindow):
             self._actionFullScreen.setText(self.tr('Full Screen Mode'))
             self._actionFullScreen.setIcon(QIcon.fromTheme('view-fullscreen', QIcon(':/icons/actions/16/view-fullscreen.svg')))
             self._actionFullScreen.setChecked(False)
-            self._actionFullScreen.setToolTip(self.tr(f'Display the window in full screen'))
+            self._actionFullScreen.setToolTip(self.tr('Display the window in full screen'))
         else:
             self._actionFullScreen.setText(self.tr('Exit Full Screen Mode'))
             self._actionFullScreen.setIcon(QIcon.fromTheme('view-restore', QIcon(':/icons/actions/16/view-restore.svg')))
             self._actionFullScreen.setChecked(True)
-            self._actionFullScreen.setToolTip(self.tr(f'Exit the full screen mode'))
+            self._actionFullScreen.setToolTip(self.tr('Exit the full screen mode'))
 
 
     def _updateTitleBar(self):
@@ -364,9 +366,9 @@ class MainWindow(QMainWindow):
 
     def _onActionCloseOtherTriggered(self):
 
-        for window in self._documentArea.subWindowList():
-            if window != self._documentArea.activeSubWindow():
-                window.close()
+        for subWindow in self._documentArea.subWindowList():
+            if subWindow != self._documentArea.activeSubWindow():
+                subWindow.close()
 
 
     def _onActionCloseAllTriggered(self):
@@ -381,7 +383,7 @@ class MainWindow(QMainWindow):
         else:
             self.setWindowState(self.windowState() & ~Qt.WindowFullScreen)
 
-        self.updateActionFullScreen()
+        self._updateActionFullScreen()
 
 
     def _onActionKeyboardShortcutsTriggered(self):
@@ -394,23 +396,24 @@ class MainWindow(QMainWindow):
         self._keyboardShortcutsDialog.activateWindow()
 
 
-    def _onDocumentWindowActivated(self, window):
+    def _onDocumentWindowActivated(self, subWindow):
 
+        # Update the application window
         self._updateActions(len(self._documentArea.subWindowList()))
         self._updateTitleBar()
 
-        if not window:
+        if not subWindow:
             return
 
 
     def _onDocumentAboutToClose(self, canonicalName):
 
         # Workaround to show subwindows always maximized
-        for window in self._documentArea.subWindowList():
-            if not window.isMaximized():
-                window.showMaximized()
+        for subWindow in self._documentArea.subWindowList():
+            if not subWindow.isMaximized():
+                subWindow.showMaximized()
 
-        # Update menu items; delete the emitter from the list
+        # Update menu items without the emitter
         self._updateActions(len(self._documentArea.subWindowList()) - 1)
 
         # Disable the Lottery action
@@ -422,39 +425,39 @@ class MainWindow(QMainWindow):
 
     def _createDocument(self):
 
-        document = Document(self)
+        document = Document()
         document.setPreferences(self._preferences)
         document.aboutToClose.connect(self._onDocumentAboutToClose)
 
-        window = self._documentArea.addSubWindow(document)
-        window.setWindowIcon(QIcon())
-        window.showMaximized()
+        subWindow = self._documentArea.addSubWindow(document)
+        subWindow.setWindowIcon(QIcon())
+        subWindow.showMaximized()
 
         return document
 
 
     def _findDocumentWindow(self, canonicalName):
 
-        for window in self._documentArea.subWindowList():
-            if window.widget().canonicalName() == canonicalName:
-                return window
+        for subWindow in self._documentArea.subWindowList():
+            if subWindow.widget().canonicalName() == canonicalName:
+                return subWindow
 
         return None
 
 
     def _activeDocument(self):
 
-        window = self._documentArea.activeSubWindow()
+        subWindow = self._documentArea.activeSubWindow()
 
-        return window.widget() if window else None
+        return subWindow.widget() if subWindow else None
 
 
     def _openDocument(self, canonicalName):
 
-        window = self._findDocumentWindow(canonicalName)
-        if window:
-            # Given document is already open; activate the window
-            self._documentArea.setActiveSubWindow(window)
+        subWindow = self._findDocumentWindow(canonicalName)
+        if subWindow:
+            # Given document is already loaded; activate the subwindow
+            self._documentArea.setActiveSubWindow(subWindow)
             return True
 
         return self._loadDocument(canonicalName)
@@ -469,7 +472,7 @@ class MainWindow(QMainWindow):
             document.updateDocumentTitle()
             document.show()
 
-            # Update application
+            # Update the application window
             self._updateActions(len(self._documentArea.subWindowList()))
             self._updateTitleBar()
         else:
@@ -482,8 +485,8 @@ class MainWindow(QMainWindow):
 
         succeeded = False
 
-        window = self._findDocumentWindow(canonicalName)
-        if window:
-            succeeded = window.close()
+        subWindow = self._findDocumentWindow(canonicalName)
+        if subWindow:
+            succeeded = subWindow.close()
 
         return succeeded

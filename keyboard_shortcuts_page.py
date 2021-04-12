@@ -30,7 +30,7 @@ class KeyboardShortcutsPage(QWidget):
 
         headerLabels = [self.tr('Name'), self.tr('Shortcut'), self.tr('Description')]
 
-        tableBox = QTableWidget(0, len(headerLabels), self)
+        tableBox = QTableWidget(0, len(headerLabels))
         tableBox.setHorizontalHeaderLabels(headerLabels)
         tableBox.horizontalHeader().setDefaultAlignment(Qt.AlignLeft)
         tableBox.horizontalHeader().setStretchLastSection(True)
@@ -52,13 +52,13 @@ class KeyboardShortcutsPage(QWidget):
         tableBox.resizeColumnsToContents()
 
         # Main layout
-        self.layout = QVBoxLayout(self)
-        self.layout.addWidget(tableBox)
+        self._layout = QVBoxLayout(self)
+        self._layout.addWidget(tableBox)
 
 
     def setZeroMargins(self):
 
-        self.layout.setContentsMargins(0, 0, 0, 0)
+        self._layout.setContentsMargins(0, 0, 0, 0)
 
 
     def title(self):

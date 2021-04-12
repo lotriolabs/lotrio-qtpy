@@ -38,6 +38,7 @@ class ColophonDialog(QDialog):
         titleBox = DialogTitleBox()
 
         # Content
+
         aboutPage = ColophonAboutPage()
         environmentPage = ColophonEnvironmentPage()
         licensePage = ColophonLicensePage()

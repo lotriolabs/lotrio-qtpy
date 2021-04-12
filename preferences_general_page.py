@@ -34,6 +34,7 @@ class PreferencesGeneralPage(QWidget):
         title = QLabel(self.tr('<strong style="font-size:large;">General</strong>'))
 
         # Content: Geometry & State
+
         self._chkRestoreApplicationGeometry = QCheckBox(self.tr('Save and restore the application geometry'))
         self._chkRestoreApplicationGeometry.stateChanged.connect(self._onPreferencesChanged)
 
@@ -48,15 +49,15 @@ class PreferencesGeneralPage(QWidget):
         geometryStateGroup.setLayout(geometryStateLayout)
 
         # Main layout
-        self.layout = QVBoxLayout(self)
-        self.layout.addWidget(title)
-        self.layout.addWidget(geometryStateGroup)
-        self.layout.addStretch()
+        self._layout = QVBoxLayout(self)
+        self._layout.addWidget(title)
+        self._layout.addWidget(geometryStateGroup)
+        self._layout.addStretch(1)
 
 
     def setZeroMargins(self):
 
-        self.layout.setContentsMargins(0, 0, 0, 0)
+        self._layout.setContentsMargins(0, 0, 0, 0)
 
 
     def title(self):

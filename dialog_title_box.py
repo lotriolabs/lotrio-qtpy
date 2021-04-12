@@ -40,9 +40,9 @@ class DialogTitleBox(QWidget):
         labels.addWidget(description)
 
         # Main layout
-        self.layout = QHBoxLayout(self)
-        self.layout.addWidget(logo)
-        self.layout.addLayout(labels)
+        self._layout = QHBoxLayout(self)
+        self._layout.addWidget(logo)
+        self._layout.addLayout(labels)
 
         # Set logo size
         height = name.sizeHint().height() + labels.layout().spacing() + description.sizeHint().height()
@@ -51,4 +51,4 @@ class DialogTitleBox(QWidget):
 
     def setZeroMargins(self):
 
-        self.layout.setContentsMargins(0, 0, 0, 0)
+        self._layout.setContentsMargins(0, 0, 0, 0)

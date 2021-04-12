@@ -32,25 +32,26 @@ class PreferencesDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self._preferences = Preferences()
-
         self.setMinimumSize(800, 600)
         self.setWindowTitle(self.tr('Preferences'))
 
+        self._preferences = Preferences()
+
         # Content
-        self._generalPage = PreferencesGeneralPage(self)
+
+        self._generalPage = PreferencesGeneralPage()
         self._generalPage.setZeroMargins()
         self._generalPage.preferencesChanged.connect(self._onPreferencesChanged)
 
-        self._lotteriesPage = PreferencesLotteriesPage(self)
+        self._lotteriesPage = PreferencesLotteriesPage()
         self._lotteriesPage.setZeroMargins()
         self._lotteriesPage.preferencesChanged.connect(self._onPreferencesChanged)
 
-        self._drawsPage = PreferencesDrawsPage(self)
+        self._drawsPage = PreferencesDrawsPage()
         self._drawsPage.setZeroMargins()
         self._drawsPage.preferencesChanged.connect(self._onPreferencesChanged)
 
-        self._playsPage = PreferencesPlaysPage(self)
+        self._playsPage = PreferencesPlaysPage()
         self._playsPage.setZeroMargins()
         self._playsPage.preferencesChanged.connect(self._onPreferencesChanged)
 

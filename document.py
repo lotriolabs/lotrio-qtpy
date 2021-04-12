@@ -32,10 +32,10 @@ class Document(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
 
+        self.setAttribute(Qt.WA_DeleteOnClose)
+
         self._preferences = Preferences()
         self._canonicalName = None
-
-        self.setAttribute(Qt.WA_DeleteOnClose)
 
 
     def setPreferences(self, preferences):
