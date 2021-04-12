@@ -216,4 +216,4 @@ Thumbs.db
 #
 
 *.pyproject.user*
-icons.py
+*_rc.py
