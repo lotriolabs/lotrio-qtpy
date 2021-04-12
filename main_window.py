@@ -96,6 +96,7 @@ class MainWindow(QMainWindow):
         else:
             self._toolbarApplication.setVisible(True)
             self._toolbarLotteries.setVisible(True)
+            self._toolbarTools.setVisible(True)
             self._toolbarView.setVisible(False)
             self._toolbarHelp.setVisible(False)
 
@@ -205,6 +206,12 @@ class MainWindow(QMainWindow):
         self._actionToolbarLotteries.setToolTip(self.tr('Display the Lotteries toolbar'))
         self._actionToolbarLotteries.toggled.connect(lambda checked: self._toolbarLotteries.setVisible(checked))
 
+        self._actionToolbarTools = QAction(self.tr('Show Tools Toolbar'), self)
+        self._actionToolbarTools.setObjectName('actionToolbarTools')
+        self._actionToolbarTools.setCheckable(True)
+        self._actionToolbarTools.setToolTip(self.tr('Display the Tools toolbar'))
+        self._actionToolbarTools.toggled.connect(lambda checked: self._toolbarTools.setVisible(checked))
+
         self._actionToolbarView = QAction(self.tr('Show View Toolbar'), self)
         self._actionToolbarView.setObjectName('actionToolbarView')
         self._actionToolbarView.setCheckable(True)
@@ -248,6 +255,10 @@ class MainWindow(QMainWindow):
         menuLotteries.addAction(self._actionCloseOther)
         menuLotteries.addAction(self._actionCloseAll)
 
+        # Menu: Tools
+        menuTools = self.menuBar().addMenu(self.tr('Tools'))
+        menuTools.setObjectName('menuTools')
+
         # Menu: View
         menuView = self.menuBar().addMenu(self.tr('View'))
         menuView.setObjectName('menuView')
@@ -255,6 +266,7 @@ class MainWindow(QMainWindow):
         menuView.addSeparator()
         menuView.addAction(self._actionToolbarApplication)
         menuView.addAction(self._actionToolbarLotteries)
+        menuView.addAction(self._actionToolbarTools)
         menuView.addAction(self._actionToolbarView)
         menuView.addAction(self._actionToolbarHelp)
 
@@ -280,6 +292,11 @@ class MainWindow(QMainWindow):
         self._toolbarLotteries.setObjectName('toolbarLotteries')
         self._toolbarLotteries.addActions(self._actionLotteries)
         self._toolbarLotteries.visibilityChanged.connect(lambda visible: self._actionToolbarLotteries.setChecked(visible))
+
+        # Toolbar: Tools
+        self._toolbarTools = self.addToolBar(self.tr('Tools Toolbar'))
+        self._toolbarTools.setObjectName('toolbarTools')
+        self._toolbarTools.visibilityChanged.connect(lambda visible: self._actionToolbarTools.setChecked(visible))
 
         # Toolbar: View
         self._toolbarView = self.addToolBar(self.tr('View Toolbar'))
