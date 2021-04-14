@@ -215,5 +215,5 @@ Thumbs.db
 # Custom
 #
 
-*.pyproject.user*
+*.pyproject.user
 *_rc.py
