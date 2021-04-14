@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/translations">
+        <file alias="de">translations/lotrio-qt_de.qm</file>
+        <file alias="en">translations/lotrio-qt_en.qm</file>
+        <file alias="he">translations/lotrio-qt_he.qm</file>
+    </qresource>
+</RCC>
