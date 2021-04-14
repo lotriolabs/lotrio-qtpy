@@ -32,7 +32,7 @@ class AboutDialog(QDialog):
 
         self.setMinimumSize(480, 320)
         self.setWindowFlags(self.windowFlags() & ~Qt.WindowContextHelpButtonHint)
-        self.setWindowTitle(self.tr(f'About {QApplication.applicationName()}'))
+        self.setWindowTitle(self.tr("About {0}").format(QApplication.applicationName()))
 
         # Title box
         titleBox = DialogTitleBox()

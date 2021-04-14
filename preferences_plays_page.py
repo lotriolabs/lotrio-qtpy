@@ -31,8 +31,9 @@ class PreferencesPlaysPage(QWidget):
         super().__init__(parent)
 
         # Title
-        title = QLabel(self.tr('<strong style="font-size:large;">Plays</strong>'))
+        title = QLabel(self.tr("<strong style=\"font-size:large;\">{0}</strong>").format(self.title()))
 
+        #
         # Content
 
 
@@ -49,7 +50,7 @@ class PreferencesPlaysPage(QWidget):
 
     def title(self):
 
-        return self.tr('Plays')
+        return self.tr("Plays")
 
 
     def _onPreferencesChanged(self):

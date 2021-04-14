@@ -29,14 +29,14 @@ from main_window import MainWindow
 if __name__ == "__main__":
 
     app = QApplication(sys.argv)
-    app.setOrganizationName('LotrioLabs')
-    app.setOrganizationDomain('https://lotriolabs.github.io')
-    app.setApplicationName('Lotrio-QtPy')
-    app.setApplicationDisplayName('Lotrio-QtPy')
-    app.setApplicationVersion('0.1.0')
+    app.setOrganizationName("LotrioLabs")
+    app.setOrganizationDomain("https://lotriolabs.github.io")
+    app.setApplicationName("Lotrio-QtPy")
+    app.setApplicationDisplayName("Lotrio-QtPy")
+    app.setApplicationVersion("0.1.0")
 
     parser = QCommandLineParser()
-    parser.setApplicationDescription(QCoreApplication.translate('main', f'{app.applicationName()} - A visualization tool for lottery data'))
+    parser.setApplicationDescription(QCoreApplication.translate("main", "{0} - A visualization tool for lottery data").format(app.applicationName()))
     parser.addHelpOption()
     parser.addVersionOption()
     parser.process(app)

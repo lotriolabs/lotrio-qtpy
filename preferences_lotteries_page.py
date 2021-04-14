@@ -31,8 +31,9 @@ class PreferencesLotteriesPage(QWidget):
         super().__init__(parent)
 
         # Title
-        title = QLabel(self.tr('<strong style="font-size:large;">Lotteries</strong>'))
+        title = QLabel(self.tr("<strong style=\"font-size:large;\">{0}</strong>").format(self.title()))
 
+        #
         # Content
 
 
@@ -49,7 +50,7 @@ class PreferencesLotteriesPage(QWidget):
 
     def title(self):
 
-        return self.tr('Lotteries')
+        return self.tr("Lotteries")
 
 
     def _onPreferencesChanged(self):

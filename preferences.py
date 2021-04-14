@@ -34,11 +34,11 @@ class Preferences:
 
         settings = QSettings()
 
-        settings.beginGroup('Preferences')
+        settings.beginGroup("Preferences")
 
         # General: Geometry & State
-        self.setRestoreApplicationGeometry(self._valueToBool(settings.value('RestoreApplicationGeometry', True)))
-        self.setRestoreApplicationState(self._valueToBool(settings.value('RestoreApplicationState', True)))
+        self.setRestoreApplicationGeometry(self._valueToBool(settings.value("RestoreApplicationGeometry", True)))
+        self.setRestoreApplicationState(self._valueToBool(settings.value("RestoreApplicationState", True)))
 
         settings.endGroup()
 
@@ -47,12 +47,12 @@ class Preferences:
 
         settings = QSettings()
 
-        settings.remove('Preferences')
-        settings.beginGroup('Preferences')
+        settings.remove("Preferences")
+        settings.beginGroup("Preferences")
 
         # General: Geometry & State
-        settings.setValue('RestoreApplicationGeometry', self._restoreApplicationGeometry)
-        settings.setValue('RestoreApplicationState', self._restoreApplicationState)
+        settings.setValue("RestoreApplicationGeometry", self._restoreApplicationGeometry)
+        settings.setValue("RestoreApplicationState", self._restoreApplicationState)
 
         settings.endGroup()
 
@@ -60,7 +60,7 @@ class Preferences:
     @staticmethod
     def _valueToBool(value):
 
-        return value.lower() == 'true' if isinstance(value, str) else bool(value)
+        return value.lower() == "true" if isinstance(value, str) else bool(value)
 
 
     def setRestoreApplicationGeometry(self, value):

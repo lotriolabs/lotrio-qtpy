@@ -30,10 +30,10 @@ class DialogTitleBox(QWidget):
         super().__init__(parent)
 
         logo = QSvgWidget()
-        logo.load(':/icons/apps/512/lotrio.svg')
+        logo.load(":/icons/apps/512/lotrio.svg")
 
-        name = QLabel(self.tr(f'<strong style="font-size:large;">{QApplication.applicationName()}</strong> v{QApplication.applicationVersion()}'))
-        description = QLabel(self.tr('A visualization tool for lottery data'))
+        name = QLabel(self.tr("<strong style=\"font-size:large;\">{0}</strong> v{1}").format(QApplication.applicationName(), QApplication.applicationVersion()))
+        description = QLabel(self.tr("A visualization tool for lottery data"))
 
         labels = QVBoxLayout()
         labels.addWidget(name)

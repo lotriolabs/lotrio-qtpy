@@ -32,11 +32,12 @@ class ColophonDialog(QDialog):
 
         self.setMinimumSize(640, 480)
         self.setWindowFlags(self.windowFlags() & ~Qt.WindowContextHelpButtonHint)
-        self.setWindowTitle(self.tr('Colophon'))
+        self.setWindowTitle(self.tr("Colophon"))
 
         # Title box
         titleBox = DialogTitleBox()
 
+        #
         # Content
 
         aboutPage = ColophonAboutPage()

@@ -60,7 +60,7 @@ class Document(QWidget):
 
     def updateDocumentTitle(self):
 
-        fileName = QFileInfo(self._canonicalName).fileName() if self._canonicalName else self.tr('Untitled')
+        fileName = QFileInfo(self._canonicalName).fileName() if self._canonicalName else self.tr("Untitled")
 
         self.setWindowTitle(fileName)
 

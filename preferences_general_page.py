@@ -31,21 +31,22 @@ class PreferencesGeneralPage(QWidget):
         super().__init__(parent)
 
         # Title
-        title = QLabel(self.tr('<strong style="font-size:large;">General</strong>'))
+        title = QLabel(self.tr("<strong style=\"font-size:large;\">{0}</strong>").format(self.title()))
 
+        #
         # Content: Geometry & State
 
-        self._chkRestoreApplicationGeometry = QCheckBox(self.tr('Save and restore the application geometry'))
+        self._chkRestoreApplicationGeometry = QCheckBox(self.tr("Save and restore the application geometry"))
         self._chkRestoreApplicationGeometry.stateChanged.connect(self._onPreferencesChanged)
 
-        self._chkRestoreApplicationState = QCheckBox(self.tr('Save and restore the application state'))
+        self._chkRestoreApplicationState = QCheckBox(self.tr("Save and restore the application state"))
         self._chkRestoreApplicationState.stateChanged.connect(self._onPreferencesChanged)
 
         geometryStateLayout = QVBoxLayout()
         geometryStateLayout.addWidget(self._chkRestoreApplicationGeometry)
         geometryStateLayout.addWidget(self._chkRestoreApplicationState)
 
-        geometryStateGroup = QGroupBox(self.tr('Geometry && State'))
+        geometryStateGroup = QGroupBox(self.tr("Geometry && State"))
         geometryStateGroup.setLayout(geometryStateLayout)
 
         # Main layout
@@ -62,7 +63,7 @@ class PreferencesGeneralPage(QWidget):
 
     def title(self):
 
-        return self.tr('General')
+        return self.tr("General")
 
 
     def _onPreferencesChanged(self):

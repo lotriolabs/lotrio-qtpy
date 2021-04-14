@@ -28,7 +28,7 @@ class KeyboardShortcutsPage(QWidget):
     def __init__(self, mainWindow, parent=None):
         super().__init__(parent)
 
-        headerLabels = [self.tr('Name'), self.tr('Shortcut'), self.tr('Description')]
+        headerLabels = [self.tr("Name"), self.tr("Shortcut"), self.tr("Description")]
 
         tableBox = QTableWidget(0, len(headerLabels))
         tableBox.setHorizontalHeaderLabels(headerLabels)
@@ -63,4 +63,4 @@ class KeyboardShortcutsPage(QWidget):
 
     def title(self):
 
-        return self.tr('Keyboard Shortcuts')
+        return self.tr("Keyboard Shortcuts")

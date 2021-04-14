@@ -33,10 +33,11 @@ class PreferencesDialog(QDialog):
         super().__init__(parent)
 
         self.setMinimumSize(800, 600)
-        self.setWindowTitle(self.tr('Preferences'))
+        self.setWindowTitle(self.tr("Preferences"))
 
         self._preferences = Preferences()
 
+        #
         # Content
 
         self._generalPage = PreferencesGeneralPage()

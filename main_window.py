@@ -37,7 +37,7 @@ class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self.setWindowIcon(QIcon(':/icons/apps/512/lotrio.svg'))
+        self.setWindowIcon(QIcon(":/icons/apps/512/lotrio.svg"))
 
         self._keyboardShortcutsDialog = None
 
@@ -81,7 +81,7 @@ class MainWindow(QMainWindow):
         settings = QSettings()
 
         # Application properties: Geometry
-        geometry = settings.value('Application/Geometry', QByteArray()) if self._preferences.restoreApplicationGeometry() else QByteArray()
+        geometry = settings.value("Application/Geometry", QByteArray()) if self._preferences.restoreApplicationGeometry() else QByteArray()
         if not geometry.isEmpty():
             self.restoreGeometry(geometry)
         else:
@@ -90,7 +90,7 @@ class MainWindow(QMainWindow):
             self.move((availableGeometry.width() - self.width()) / 2, (availableGeometry.height() - self.height()) / 2)
 
         # Application properties: State
-        state = settings.value('Application/State', QByteArray()) if self._preferences.restoreApplicationState() else QByteArray()
+        state = settings.value("Application/State", QByteArray()) if self._preferences.restoreApplicationState() else QByteArray()
         if not state.isEmpty():
             self.restoreState(state)
         else:
@@ -107,138 +107,142 @@ class MainWindow(QMainWindow):
 
         # Application properties: Geometry
         geometry = self.saveGeometry() if self._preferences.restoreApplicationGeometry() else QByteArray()
-        settings.setValue('Application/Geometry', geometry)
+        settings.setValue("Application/Geometry", geometry)
 
         # Application properties: State
         state = self.saveState() if self._preferences.restoreApplicationState() else QByteArray()
-        settings.setValue('Application/State', state)
+        settings.setValue("Application/State", state)
 
 
     def _createLotteries(self):
 
         self._listLotteries = {
-            'eurojackpot': ['euEurojackpot', self.tr('Eurojackpot'), self.tr('Eurojackpot is a transnational European lottery')],
-            'euromillions': ['euEuroMillions', self.tr('EuroMillions'), self.tr('EuroMillions is a transnational European lottery')],
-            'vikinglotto': ['euVikinglotto', self.tr('Vikinglotto'), self.tr('Vikinglotto is a transnational European lottery')],
+            "eurojackpot": ["euEurojackpot", self.tr("Eurojackpot"), self.tr("Eurojackpot is a transnational European lottery")],
+            "euromillions": ["euEuroMillions", self.tr("EuroMillions"), self.tr("EuroMillions is a transnational European lottery")],
+            "vikinglotto": ["euVikinglotto", self.tr("Vikinglotto"), self.tr("Vikinglotto is a transnational European lottery")],
         }
 
 
     def _createActions(self):
 
+        #
         # Actions: Application
 
-        self._actionAbout = QAction(self.tr(f'About {QApplication.applicationName()}'), self)
-        self._actionAbout.setObjectName('actionAbout')
-        self._actionAbout.setIcon(QIcon(':/icons/apps/512/lotrio.svg'))
-        self._actionAbout.setIconText(self.tr('About'))
-        self._actionAbout.setToolTip(self.tr('Brief description of the application'))
+        self._actionAbout = QAction(self.tr("About {0}").format(QApplication.applicationName()), self)
+        self._actionAbout.setObjectName("actionAbout")
+        self._actionAbout.setIcon(QIcon(":/icons/apps/512/lotrio.svg"))
+        self._actionAbout.setIconText(self.tr("About"))
+        self._actionAbout.setToolTip(self.tr("Brief description of the application"))
         self._actionAbout.triggered.connect(self._onActionAboutTriggered)
 
-        self._actionColophon = QAction(self.tr('Colophon'), self)
-        self._actionColophon.setObjectName('actionColophon')
-        self._actionColophon.setToolTip(self.tr('Lengthy description of the application'))
+        self._actionColophon = QAction(self.tr("Colophon"), self)
+        self._actionColophon.setObjectName("actionColophon")
+        self._actionColophon.setToolTip(self.tr("Lengthy description of the application"))
         self._actionColophon.triggered.connect(self._onActionColophonTriggered)
 
-        self._actionPreferences = QAction(self.tr('Preferences…'), self)
-        self._actionPreferences.setObjectName('actionPreferences')
-        self._actionPreferences.setIcon(QIcon.fromTheme('configure', QIcon(':/icons/actions/16/application-configure.svg')))
-        self._actionPreferences.setToolTip(self.tr('Customize the appearance and behavior of the application'))
+        self._actionPreferences = QAction(self.tr("Preferences…"), self)
+        self._actionPreferences.setObjectName("actionPreferences")
+        self._actionPreferences.setIcon(QIcon.fromTheme("configure", QIcon(":/icons/actions/16/application-configure.svg")))
+        self._actionPreferences.setToolTip(self.tr("Customize the appearance and behavior of the application"))
         self._actionPreferences.triggered.connect(self._onActionPreferencesTriggered)
 
-        self._actionQuit = QAction(self.tr('Quit'), self)
-        self._actionQuit.setObjectName('actionQuit')
-        self._actionQuit.setIcon(QIcon.fromTheme('application-exit', QIcon(':/icons/actions/16/application-exit.svg')))
+        self._actionQuit = QAction(self.tr("Quit"), self)
+        self._actionQuit.setObjectName("actionQuit")
+        self._actionQuit.setIcon(QIcon.fromTheme("application-exit", QIcon(":/icons/actions/16/application-exit.svg")))
         self._actionQuit.setShortcut(QKeySequence.Quit)
-        self._actionQuit.setToolTip(self.tr(f'Quit the application'))
+        self._actionQuit.setToolTip(self.tr("Quit the application"))
         self._actionQuit.triggered.connect(self.close)
 
+        #
         # Actions: Lotteries
 
         self._actionLotteries = []
         for key, value in sorted(self._listLotteries.items()):
 
             actionLottery = QAction(value[1], self)
-            actionLottery.setObjectName(f'actionLottery_{value[0]}')
+            actionLottery.setObjectName(f"actionLottery_{value[0]}")
             actionLottery.setIconText(value[1])
             actionLottery.setCheckable(True)
             actionLottery.setToolTip(value[2])
-            actionLottery.setData(f'{key}/{value[1]}')
+            actionLottery.setData(f"{key}/{value[1]}")
             actionLottery.toggled.connect(lambda checked, lottery=actionLottery.data(): self._onActionLotteriesToggled(checked, lottery))
 
             self._actionLotteries.append(actionLottery)
 
-        self._actionClose = QAction(self.tr('Close'), self)
-        self._actionClose.setObjectName('actionClose')
-        self._actionClose.setIcon(QIcon.fromTheme('document-close', QIcon(':/icons/actions/16/document-close.svg')))
+        self._actionClose = QAction(self.tr("Close"), self)
+        self._actionClose.setObjectName("actionClose")
+        self._actionClose.setIcon(QIcon.fromTheme("document-close", QIcon(":/icons/actions/16/document-close.svg")))
         self._actionClose.setShortcut(QKeySequence.Close)
-        self._actionClose.setToolTip('Close lottery')
+        self._actionClose.setToolTip(self.tr("Close lottery"))
         self._actionClose.triggered.connect(self._onActionCloseTriggered)
 
-        self._actionCloseOther = QAction(self.tr('Close Other'), self)
-        self._actionCloseOther.setObjectName('actionCloseOther')
-        self._actionCloseOther.setToolTip('Close all other lotteries')
+        self._actionCloseOther = QAction(self.tr("Close Other"), self)
+        self._actionCloseOther.setObjectName("actionCloseOther")
+        self._actionCloseOther.setToolTip(self.tr("Close all other lotteries"))
         self._actionCloseOther.triggered.connect(self._onActionCloseOtherTriggered)
 
-        self._actionCloseAll = QAction(self.tr('Close All'), self)
-        self._actionCloseAll.setObjectName('actionCloseAll')
+        self._actionCloseAll = QAction(self.tr("Close All"), self)
+        self._actionCloseAll.setObjectName("actionCloseAll")
         self._actionCloseAll.setShortcut(QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_W))
-        self._actionCloseAll.setToolTip('Close all lotteries')
+        self._actionCloseAll.setToolTip(self.tr("Close all lotteries"))
         self._actionCloseAll.triggered.connect(self._onActionCloseAllTriggered)
 
+        #
         # Actions: View
 
         self._actionFullScreen = QAction(self)
-        self._actionFullScreen.setObjectName('actionFullScreen')
-        self._actionFullScreen.setIconText(self.tr('Full Screen'))
+        self._actionFullScreen.setObjectName("actionFullScreen")
+        self._actionFullScreen.setIconText(self.tr("Full Screen"))
         self._actionFullScreen.setCheckable(True)
         self._actionFullScreen.setShortcuts([QKeySequence(Qt.Key_F11), QKeySequence.FullScreen])
         self._actionFullScreen.triggered.connect(self._onActionFullScreenTriggered)
 
-        self._actionToolbarApplication = QAction(self.tr('Show Application Toolbar'), self)
-        self._actionToolbarApplication.setObjectName('actionToolbarApplication')
+        self._actionToolbarApplication = QAction(self.tr("Show Application Toolbar"), self)
+        self._actionToolbarApplication.setObjectName("actionToolbarApplication")
         self._actionToolbarApplication.setCheckable(True)
-        self._actionToolbarApplication.setToolTip(self.tr('Display the Application toolbar'))
+        self._actionToolbarApplication.setToolTip(self.tr("Display the Application toolbar"))
         self._actionToolbarApplication.toggled.connect(lambda checked: self._toolbarApplication.setVisible(checked))
 
-        self._actionToolbarLotteries = QAction(self.tr('Show Lotteries Toolbar'), self)
-        self._actionToolbarLotteries.setObjectName('actionToolbarLotteries')
+        self._actionToolbarLotteries = QAction(self.tr("Show Lotteries Toolbar"), self)
+        self._actionToolbarLotteries.setObjectName("actionToolbarLotteries")
         self._actionToolbarLotteries.setCheckable(True)
-        self._actionToolbarLotteries.setToolTip(self.tr('Display the Lotteries toolbar'))
+        self._actionToolbarLotteries.setToolTip(self.tr("Display the Lotteries toolbar"))
         self._actionToolbarLotteries.toggled.connect(lambda checked: self._toolbarLotteries.setVisible(checked))
 
-        self._actionToolbarTools = QAction(self.tr('Show Tools Toolbar'), self)
-        self._actionToolbarTools.setObjectName('actionToolbarTools')
+        self._actionToolbarTools = QAction(self.tr("Show Tools Toolbar"), self)
+        self._actionToolbarTools.setObjectName("actionToolbarTools")
         self._actionToolbarTools.setCheckable(True)
-        self._actionToolbarTools.setToolTip(self.tr('Display the Tools toolbar'))
+        self._actionToolbarTools.setToolTip(self.tr("Display the Tools toolbar"))
         self._actionToolbarTools.toggled.connect(lambda checked: self._toolbarTools.setVisible(checked))
 
-        self._actionToolbarView = QAction(self.tr('Show View Toolbar'), self)
-        self._actionToolbarView.setObjectName('actionToolbarView')
+        self._actionToolbarView = QAction(self.tr("Show View Toolbar"), self)
+        self._actionToolbarView.setObjectName("actionToolbarView")
         self._actionToolbarView.setCheckable(True)
-        self._actionToolbarView.setToolTip(self.tr('Display the View toolbar'))
+        self._actionToolbarView.setToolTip(self.tr("Display the View toolbar"))
         self._actionToolbarView.toggled.connect(lambda checked: self._toolbarView.setVisible(checked))
 
-        self._actionToolbarHelp = QAction(self.tr('Show Help Toolbar'), self)
-        self._actionToolbarHelp.setObjectName('actionToolbarHelp')
+        self._actionToolbarHelp = QAction(self.tr("Show Help Toolbar"), self)
+        self._actionToolbarHelp.setObjectName("actionToolbarHelp")
         self._actionToolbarHelp.setCheckable(True)
-        self._actionToolbarHelp.setToolTip(self.tr('Display the Help toolbar'))
+        self._actionToolbarHelp.setToolTip(self.tr("Display the Help toolbar"))
         self._actionToolbarHelp.toggled.connect(lambda checked: self._toolbarHelp.setVisible(checked))
 
+        #
         # Actions: Help
 
-        self._actionKeyboardShortcuts = QAction(self.tr('Keyboard Shortcuts'), self)
-        self._actionKeyboardShortcuts.setObjectName('actionKeyboardShortcuts')
-        self._actionKeyboardShortcuts.setIcon(QIcon.fromTheme('help-keyboard-shortcuts', QIcon(':/icons/actions/16/help-keyboard-shortcuts.svg')))
-        self._actionKeyboardShortcuts.setIconText(self.tr('Shortcuts'))
-        self._actionKeyboardShortcuts.setToolTip(self.tr('List of all keyboard shortcuts'))
+        self._actionKeyboardShortcuts = QAction(self.tr("Keyboard Shortcuts"), self)
+        self._actionKeyboardShortcuts.setObjectName("actionKeyboardShortcuts")
+        self._actionKeyboardShortcuts.setIcon(QIcon.fromTheme("help-keyboard-shortcuts", QIcon(":/icons/actions/16/help-keyboard-shortcuts.svg")))
+        self._actionKeyboardShortcuts.setIconText(self.tr("Shortcuts"))
+        self._actionKeyboardShortcuts.setToolTip(self.tr("List of all keyboard shortcuts"))
         self._actionKeyboardShortcuts.triggered.connect(self._onActionKeyboardShortcutsTriggered)
 
 
     def _createMenus(self):
 
         # Menu: Application
-        menuApplication = self.menuBar().addMenu(self.tr('Application'))
-        menuApplication.setObjectName('menuApplication')
+        menuApplication = self.menuBar().addMenu(self.tr("Application"))
+        menuApplication.setObjectName("menuApplication")
         menuApplication.addAction(self._actionAbout)
         menuApplication.addAction(self._actionColophon)
         menuApplication.addSeparator()
@@ -247,8 +251,8 @@ class MainWindow(QMainWindow):
         menuApplication.addAction(self._actionQuit)
 
         # Menu: Lotteries
-        menuLotteries = self.menuBar().addMenu(self.tr('Lotteries'))
-        menuLotteries.setObjectName('menuLotteries')
+        menuLotteries = self.menuBar().addMenu(self.tr("Lotteries"))
+        menuLotteries.setObjectName("menuLotteries")
         menuLotteries.addActions(self._actionLotteries)
         menuLotteries.addSeparator()
         menuLotteries.addAction(self._actionClose)
@@ -256,12 +260,12 @@ class MainWindow(QMainWindow):
         menuLotteries.addAction(self._actionCloseAll)
 
         # Menu: Tools
-        menuTools = self.menuBar().addMenu(self.tr('Tools'))
-        menuTools.setObjectName('menuTools')
+        menuTools = self.menuBar().addMenu(self.tr("Tools"))
+        menuTools.setObjectName("menuTools")
 
         # Menu: View
-        menuView = self.menuBar().addMenu(self.tr('View'))
-        menuView.setObjectName('menuView')
+        menuView = self.menuBar().addMenu(self.tr("View"))
+        menuView.setObjectName("menuView")
         menuView.addAction(self._actionFullScreen)
         menuView.addSeparator()
         menuView.addAction(self._actionToolbarApplication)
@@ -271,16 +275,16 @@ class MainWindow(QMainWindow):
         menuView.addAction(self._actionToolbarHelp)
 
         # Menu: Help
-        menuHelp = self.menuBar().addMenu(self.tr('Help'))
-        menuHelp.setObjectName('menuHelp')
+        menuHelp = self.menuBar().addMenu(self.tr("Help"))
+        menuHelp.setObjectName("menuHelp")
         menuHelp.addAction(self._actionKeyboardShortcuts)
 
 
     def _createToolBars(self):
 
         # Toolbar: Application
-        self._toolbarApplication = self.addToolBar(self.tr('Application Toolbar'))
-        self._toolbarApplication.setObjectName('toolbarApplication')
+        self._toolbarApplication = self.addToolBar(self.tr("Application Toolbar"))
+        self._toolbarApplication.setObjectName("toolbarApplication")
         self._toolbarApplication.addAction(self._actionAbout)
         self._toolbarApplication.addAction(self._actionPreferences)
         self._toolbarApplication.addSeparator()
@@ -288,25 +292,25 @@ class MainWindow(QMainWindow):
         self._toolbarApplication.visibilityChanged.connect(lambda visible: self._actionToolbarApplication.setChecked(visible))
 
         # Toolbar: Lotteries
-        self._toolbarLotteries = self.addToolBar(self.tr('Lotteries Toolbar'))
-        self._toolbarLotteries.setObjectName('toolbarLotteries')
+        self._toolbarLotteries = self.addToolBar(self.tr("Lotteries Toolbar"))
+        self._toolbarLotteries.setObjectName("toolbarLotteries")
         self._toolbarLotteries.addActions(self._actionLotteries)
         self._toolbarLotteries.visibilityChanged.connect(lambda visible: self._actionToolbarLotteries.setChecked(visible))
 
         # Toolbar: Tools
-        self._toolbarTools = self.addToolBar(self.tr('Tools Toolbar'))
-        self._toolbarTools.setObjectName('toolbarTools')
+        self._toolbarTools = self.addToolBar(self.tr("Tools Toolbar"))
+        self._toolbarTools.setObjectName("toolbarTools")
         self._toolbarTools.visibilityChanged.connect(lambda visible: self._actionToolbarTools.setChecked(visible))
 
         # Toolbar: View
-        self._toolbarView = self.addToolBar(self.tr('View Toolbar'))
-        self._toolbarView.setObjectName('toolbarView')
+        self._toolbarView = self.addToolBar(self.tr("View Toolbar"))
+        self._toolbarView.setObjectName("toolbarView")
         self._toolbarView.addAction(self._actionFullScreen)
         self._toolbarView.visibilityChanged.connect(lambda visible: self._actionToolbarView.setChecked(visible))
 
         # Toolbar: Help
-        self._toolbarHelp = self.addToolBar(self.tr('Help Toolbar'))
-        self._toolbarHelp.setObjectName('toolbarHelp')
+        self._toolbarHelp = self.addToolBar(self.tr("Help Toolbar"))
+        self._toolbarHelp.setObjectName("toolbarHelp")
         self._toolbarHelp.addAction(self._actionKeyboardShortcuts)
         self._toolbarHelp.visibilityChanged.connect(lambda visible: self._actionToolbarHelp.setChecked(visible))
 
@@ -325,15 +329,15 @@ class MainWindow(QMainWindow):
     def _updateActionFullScreen(self):
 
         if not self.isFullScreen():
-            self._actionFullScreen.setText(self.tr('Full Screen Mode'))
-            self._actionFullScreen.setIcon(QIcon.fromTheme('view-fullscreen', QIcon(':/icons/actions/16/view-fullscreen.svg')))
+            self._actionFullScreen.setText(self.tr("Full Screen Mode"))
+            self._actionFullScreen.setIcon(QIcon.fromTheme("view-fullscreen", QIcon(":/icons/actions/16/view-fullscreen.svg")))
             self._actionFullScreen.setChecked(False)
-            self._actionFullScreen.setToolTip(self.tr('Display the window in full screen'))
+            self._actionFullScreen.setToolTip(self.tr("Display the window in full screen"))
         else:
-            self._actionFullScreen.setText(self.tr('Exit Full Screen Mode'))
-            self._actionFullScreen.setIcon(QIcon.fromTheme('view-restore', QIcon(':/icons/actions/16/view-restore.svg')))
+            self._actionFullScreen.setText(self.tr("Exit Full Screen Mode"))
+            self._actionFullScreen.setIcon(QIcon.fromTheme("view-restore", QIcon(":/icons/actions/16/view-restore.svg")))
             self._actionFullScreen.setChecked(True)
-            self._actionFullScreen.setToolTip(self.tr('Exit the full screen mode'))
+            self._actionFullScreen.setToolTip(self.tr("Exit the full screen mode"))
 
 
     def _updateTitleBar(self):
