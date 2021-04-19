@@ -20,10 +20,22 @@
 
 import sys
 
-from PySide2.QtCore import QCommandLineParser, QCoreApplication
+from PySide2.QtCore import QCommandLineOption, QCommandLineParser, QCoreApplication
 from PySide2.QtWidgets import QApplication
 
 from main_window import MainWindow
+
+
+def showLanguageList():
+
+    usage = QCoreApplication.instance().arguments()[0]
+    usage += " " + "--language"
+    usage += " " + QCoreApplication.translate("main", "[Language code]")
+
+    print(QCoreApplication.translate("main", "Usage: {0}").format(usage) + "\n")
+
+
+    return 0
 
 
 if __name__ == "__main__":
@@ -35,11 +47,17 @@ if __name__ == "__main__":
     app.setApplicationDisplayName("Lotrio-QtPy")
     app.setApplicationVersion("0.1.0")
 
+    languageListOption = QCommandLineOption(["language-list"], QCoreApplication.translate("main", "Lists available application languages."))
+
     parser = QCommandLineParser()
     parser.setApplicationDescription(QCoreApplication.translate("main", "{0} - A visualization tool for lottery data").format(app.applicationName()))
     parser.addHelpOption()
     parser.addVersionOption()
+    parser.addOption(languageListOption)
     parser.process(app)
+
+    if parser.isSet(languageListOption):
+        sys.exit(showLanguageList())
 
     window = MainWindow()
     window.show()
