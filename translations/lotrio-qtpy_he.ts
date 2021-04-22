@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="he">
+<!DOCTYPE TS>
+<TS version="2.1" language="he">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -377,7 +378,7 @@
     </message>
     <message>
         <location filename="main_window.py" line="143"/>
-        <source>Preferences&#xe2;&#x80;&#xa6;</source>
+        <source>Preferencesâ¦</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -459,7 +460,7 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="main.py" line="83"/>
+        <location filename="main.py" line="82"/>
         <source>{0} - A visualization tool for lottery data</source>
         <translation type="unfinished"></translation>
     </message>
@@ -469,28 +470,28 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.py" line="61"/>
-        <source>[Language code]</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main.py" line="61"/>
+        <location filename="main.py" line="60"/>
         <source>Usage: {0}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.py" line="62"/>
+        <location filename="main.py" line="61"/>
         <source>Languages:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.py" line="79"/>
+        <location filename="main.py" line="78"/>
         <source>Lists available application languages.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.py" line="80"/>
+        <location filename="main.py" line="79"/>
         <source>Adjusts application language.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main.py" line="79"/>
+        <source>language code</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
