@@ -55,8 +55,7 @@ def languageDescription(translation):
 def showLanguageList():
 
     usage = QCoreApplication.instance().arguments()[0]
-    usage += " " + "--language"
-    usage += " " + QCoreApplication.translate("main", "[Language code]")
+    usage += " --language <" + QCoreApplication.translate("main", "language code") + ">"
 
     print(QCoreApplication.translate("main", "Usage: {0}").format(usage) + "\n")
     print(QCoreApplication.translate("main", "Languages:"))
@@ -77,7 +76,7 @@ if __name__ == "__main__":
     app.setApplicationVersion("0.1.0")
 
     languageListOption = QCommandLineOption(["language-list"], QCoreApplication.translate("main", "Lists available application languages."))
-    languageOption = QCommandLineOption(["language"], QCoreApplication.translate("main", "Adjusts application language."), "language")
+    languageOption = QCommandLineOption(["language"], QCoreApplication.translate("main", "Adjusts application language."), QCoreApplication.translate("main", "language code"))
 
     parser = QCommandLineParser()
     parser.setApplicationDescription(QCoreApplication.translate("main", "{0} - A visualization tool for lottery data").format(app.applicationName()))
