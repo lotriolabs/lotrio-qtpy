@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="he">
+<!DOCTYPE TS><TS version="1.1" language="he">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -192,11 +191,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_window.py" line="143"/>
-        <source>Preferencesâ¦</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="main_window.py" line="146"/>
         <source>Customize the appearance and behavior of the application</source>
         <translation type="unfinished"></translation>
@@ -381,6 +375,11 @@
         <source>Exit the full screen mode</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="main_window.py" line="143"/>
+        <source>Preferences&#xe2;&#x80;&#xa6;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PreferencesDialog</name>
@@ -460,8 +459,38 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="main.py" line="39"/>
+        <location filename="main.py" line="83"/>
         <source>{0} - A visualization tool for lottery data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main.py" line="52"/>
+        <source>{0} ({1})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main.py" line="61"/>
+        <source>[Language code]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main.py" line="61"/>
+        <source>Usage: {0}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main.py" line="62"/>
+        <source>Languages:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main.py" line="79"/>
+        <source>Lists available application languages.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main.py" line="80"/>
+        <source>Adjusts application language.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
