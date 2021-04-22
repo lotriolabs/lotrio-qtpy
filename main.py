@@ -77,17 +77,24 @@ if __name__ == "__main__":
     app.setApplicationVersion("0.1.0")
 
     languageListOption = QCommandLineOption(["language-list"], QCoreApplication.translate("main", "Lists available application languages."))
+    languageOption = QCommandLineOption(["language"], QCoreApplication.translate("main", "Adjusts application language."), "language")
 
     parser = QCommandLineParser()
     parser.setApplicationDescription(QCoreApplication.translate("main", "{0} - A visualization tool for lottery data").format(app.applicationName()))
     parser.addHelpOption()
     parser.addVersionOption()
     parser.addOption(languageListOption)
+    parser.addOption(languageOption)
     parser.process(app)
 
     # Language list
     if parser.isSet(languageListOption):
         sys.exit(showLanguageList())
+
+    #
+    # Translations
+    language = parser.value(languageOption)
+
 
     window = MainWindow()
     window.show()
