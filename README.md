@@ -14,8 +14,9 @@ Lotrio-QtPy is an open source visualization tool written in Qt for Python and de
 
 ### Resources
 
-The resource collection file is converted to a Python module by using the resource compiler rcc:  
-```rcc -g python icons.qrc -o icons_rc.py```
+The resource collection files are converted to Python modules by using the resource compiler rcc:  
+```rcc -g python icons.qrc -o icons_rc.py```  
+```rcc -g python translations.qrc -o translations_rc.py```
 
 
 ## Copyright
