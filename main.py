@@ -75,8 +75,16 @@ if __name__ == "__main__":
     app.setApplicationDisplayName("Lotrio-QtPy")
     app.setApplicationVersion("0.1.0")
 
-    languageListOption = QCommandLineOption(["language-list"], QCoreApplication.translate("main", "Lists available application languages."))
-    languageOption = QCommandLineOption(["language"], QCoreApplication.translate("main", "Adjusts application language."), QCoreApplication.translate("main", "language code"))
+
+    #
+    # Command line
+
+    languageListOption = QCommandLineOption(["language-list"],
+        QCoreApplication.translate("main", "Lists available application languages."))
+
+    languageOption = QCommandLineOption(["language"],
+        QCoreApplication.translate("main", "Adjusts application language."),
+        QCoreApplication.translate("main", "language code"))
 
     parser = QCommandLineParser()
     parser.setApplicationDescription(QCoreApplication.translate("main", "{0} - A visualization tool for lottery data").format(app.applicationName()))
@@ -86,22 +94,25 @@ if __name__ == "__main__":
     parser.addOption(languageOption)
     parser.process(app)
 
-    # Language list
+    # Command line: Language list
     if parser.isSet(languageListOption):
         sys.exit(showLanguageList())
+
+    # Command line: Language
+    language = parser.value(languageOption)
+
 
     #
     # Translations
 
-    language = parser.value(languageOption)
     locale = QLocale(language) if language else QLocale.system()
 
     translator = QTranslator()
-    if translator.load(locale, ":/translations/"):
+    if translator.load(locale, None, None, ":/translations"):
         app.installTranslator(translator)
 
     translatorQtBase = QTranslator()
-    if translatorQtBase.load(locale, "qtbase_", None, QLibraryInfo.location(QLibraryInfo.TranslationsPath)):
+    if translatorQtBase.load(locale, "qtbase", "_", QLibraryInfo.location(QLibraryInfo.TranslationsPath)):
         app.installTranslator(translatorQtBase)
 
 
