@@ -133,9 +133,15 @@ class PreferencesDialog(QDialog):
         self._pageGeneral.setRestoreApplicationGeometry(self._preferences.restoreApplicationGeometry(isDefault))
         self._pageGeneral.setRestoreApplicationState(self._preferences.restoreApplicationState(isDefault))
 
+        # General: Tab Bars
+        self._pageGeneral.setDefaultTabPositionLotteries(self._preferences.defaultTabPositionLotteries(isDefault))
+
 
     def _savePreferences(self):
 
         # General: Geometry & State
         self._preferences.setRestoreApplicationGeometry(self._pageGeneral.restoreApplicationGeometry())
         self._preferences.setRestoreApplicationState(self._pageGeneral.restoreApplicationState())
+
+        # General: Tab Bars
+        self._preferences.setDefaultTabPositionLotteries(self._pageGeneral.defaultTabPositionLotteries())

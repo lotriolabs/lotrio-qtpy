@@ -19,6 +19,7 @@
 #
 
 from PySide2.QtCore import QSettings
+from PySide2.QtWidgets import QTabWidget
 
 
 class Preferences:
@@ -28,6 +29,9 @@ class Preferences:
         # General: Geometry & State
         self._restoreApplicationGeometry = True
         self._restoreApplicationState = True
+
+        # General: Tab Bars
+        self._defaultTabPositionLotteries = QTabWidget.North
 
 
     def loadSettings(self):
@@ -39,6 +43,9 @@ class Preferences:
         # General: Geometry & State
         self.setRestoreApplicationGeometry(self._valueToBool(settings.value("RestoreApplicationGeometry", True)))
         self.setRestoreApplicationState(self._valueToBool(settings.value("RestoreApplicationState", True)))
+
+        # General: Tab Bars
+        self.setDefaultTabPositionLotteries(QTabWidget.TabPosition(int(settings.value("DefaultTabPositionLotteries", QTabWidget.North))))
 
         settings.endGroup()
 
@@ -53,6 +60,9 @@ class Preferences:
         # General: Geometry & State
         settings.setValue("RestoreApplicationGeometry", self._restoreApplicationGeometry)
         settings.setValue("RestoreApplicationState", self._restoreApplicationState)
+
+        # General: Tab Bars
+        settings.setValue("DefaultTabPositionLotteries", self._defaultTabPositionLotteries)
 
         settings.endGroup()
 
@@ -81,3 +91,13 @@ class Preferences:
     def restoreApplicationState(self, isDefault=False):
 
         return self._restoreApplicationState if not isDefault else True
+
+
+    def setDefaultTabPositionLotteries(self, value):
+
+        self._defaultTabPositionLotteries = value
+
+
+    def defaultTabPositionLotteries(self, isDefault=False):
+
+        return self._defaultTabPositionLotteries if not isDefault else QTabWidget.North

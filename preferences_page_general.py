@@ -19,7 +19,7 @@
 #
 
 from PySide2.QtCore import Signal
-from PySide2.QtWidgets import QCheckBox, QGroupBox, QLabel, QVBoxLayout, QWidget
+from PySide2.QtWidgets import QButtonGroup, QCheckBox, QFormLayout, QGroupBox, QHBoxLayout, QLabel, QRadioButton, QTabWidget, QVBoxLayout, QWidget
 
 
 class PreferencesPageGeneral(QWidget):
@@ -32,6 +32,7 @@ class PreferencesPageGeneral(QWidget):
 
         # Title
         title = QLabel(self.tr("<strong style=\"font-size:large;\">{0}</strong>").format(self.title()))
+
 
         #
         # Content: Geometry & State
@@ -49,10 +50,37 @@ class PreferencesPageGeneral(QWidget):
         geometryStateGroup = QGroupBox(self.tr("Geometry && State"))
         geometryStateGroup.setLayout(geometryStateLayout)
 
+
+        #
+        # Content: Tab Bars
+
+        rdbDefaultTabPositionLotteriesTop = QRadioButton(self.tr("Top"))
+        rdbDefaultTabPositionLotteriesTop.setToolTip(self.tr("The lottery tabs are displayed above the pages"))
+
+        rdbDefaultTabPositionLotteriesBottom = QRadioButton(self.tr("Bottom"))
+        rdbDefaultTabPositionLotteriesBottom.setToolTip(self.tr("The lottery tabs are displayed below the pages"))
+
+        self._grpDefaultTabPositionLotteries = QButtonGroup(self)
+        self._grpDefaultTabPositionLotteries.addButton(rdbDefaultTabPositionLotteriesTop, QTabWidget.North)
+        self._grpDefaultTabPositionLotteries.addButton(rdbDefaultTabPositionLotteriesBottom, QTabWidget.South)
+        self._grpDefaultTabPositionLotteries.buttonClicked.connect(self._onPreferencesChanged)
+
+        defaultTabPositionLotteriesBox = QHBoxLayout()
+        defaultTabPositionLotteriesBox.addWidget(rdbDefaultTabPositionLotteriesTop)
+        defaultTabPositionLotteriesBox.addWidget(rdbDefaultTabPositionLotteriesBottom)
+
+        defaultTabPositionLayout = QFormLayout()
+        defaultTabPositionLayout.addRow(self.tr("Position of the lottery tabs"), defaultTabPositionLotteriesBox)
+
+        tabBarsGroup = QGroupBox(self.tr("Tab Bars"))
+        tabBarsGroup.setLayout(defaultTabPositionLayout)
+
+
         # Main layout
         self._layout = QVBoxLayout(self)
         self._layout.addWidget(title)
         self._layout.addWidget(geometryStateGroup)
+        self._layout.addWidget(tabBarsGroup)
         self._layout.addStretch(1)
 
 
@@ -89,3 +117,18 @@ class PreferencesPageGeneral(QWidget):
     def restoreApplicationState(self):
 
         return self._chkRestoreApplicationState.isChecked()
+
+
+    def setDefaultTabPositionLotteries(self, type):
+
+        if type != self._grpDefaultTabPositionLotteries.checkedId():
+            self._onPreferencesChanged()
+
+        for button in self._grpDefaultTabPositionLotteries.buttons():
+            if self._grpDefaultTabPositionLotteries.id(button) == type:
+                button.setChecked(True)
+
+
+    def defaultTabPositionLotteries(self):
+
+        return QTabWidget.TabPosition(self._grpDefaultTabPositionLotteries.checkedId())
