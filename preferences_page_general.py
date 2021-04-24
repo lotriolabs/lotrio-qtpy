@@ -65,12 +65,28 @@ class PreferencesPageGeneral(QWidget):
         self._grpDefaultTabPositionLotteries.addButton(rdbDefaultTabPositionLotteriesBottom, QTabWidget.South)
         self._grpDefaultTabPositionLotteries.buttonClicked.connect(self._onPreferencesChanged)
 
+        rdbDefaultTabPositionSheetsTop = QRadioButton(self.tr("Top"))
+        rdbDefaultTabPositionSheetsTop.setToolTip(self.tr("The sheet tabs are displayed above the pages"))
+
+        rdbDefaultTabPositionSheetsBottom = QRadioButton(self.tr("Bottom"))
+        rdbDefaultTabPositionSheetsBottom.setToolTip(self.tr("The sheet tabs are displayed below the pages"))
+
+        self._grpDefaultTabPositionSheets = QButtonGroup(self)
+        self._grpDefaultTabPositionSheets.addButton(rdbDefaultTabPositionSheetsTop, QTabWidget.North)
+        self._grpDefaultTabPositionSheets.addButton(rdbDefaultTabPositionSheetsBottom, QTabWidget.South)
+        self._grpDefaultTabPositionSheets.buttonClicked.connect(self._onPreferencesChanged)
+
         defaultTabPositionLotteriesBox = QHBoxLayout()
         defaultTabPositionLotteriesBox.addWidget(rdbDefaultTabPositionLotteriesTop)
         defaultTabPositionLotteriesBox.addWidget(rdbDefaultTabPositionLotteriesBottom)
 
+        defaultTabPositionSheetsBox = QHBoxLayout()
+        defaultTabPositionSheetsBox.addWidget(rdbDefaultTabPositionSheetsTop)
+        defaultTabPositionSheetsBox.addWidget(rdbDefaultTabPositionSheetsBottom)
+
         defaultTabPositionLayout = QFormLayout()
         defaultTabPositionLayout.addRow(self.tr("Position of the lottery tabs"), defaultTabPositionLotteriesBox)
+        defaultTabPositionLayout.addRow(self.tr("Position of the sheet tabs"), defaultTabPositionSheetsBox)
 
         tabBarsGroup = QGroupBox(self.tr("Tab Bars"))
         tabBarsGroup.setLayout(defaultTabPositionLayout)
@@ -132,3 +148,18 @@ class PreferencesPageGeneral(QWidget):
     def defaultTabPositionLotteries(self):
 
         return QTabWidget.TabPosition(self._grpDefaultTabPositionLotteries.checkedId())
+
+
+    def setDefaultTabPositionSheets(self, type):
+
+        if type != self._grpDefaultTabPositionSheets.checkedId():
+            self._onPreferencesChanged()
+
+        for button in self._grpDefaultTabPositionSheets.buttons():
+            if self._grpDefaultTabPositionSheets.id(button) == type:
+                button.setChecked(True)
+
+
+    def defaultTabPositionSheets(self):
+
+        return QTabWidget.TabPosition(self._grpDefaultTabPositionSheets.checkedId())

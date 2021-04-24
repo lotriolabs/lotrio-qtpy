@@ -135,6 +135,7 @@ class PreferencesDialog(QDialog):
 
         # General: Tab Bars
         self._pageGeneral.setDefaultTabPositionLotteries(self._preferences.defaultTabPositionLotteries(isDefault))
+        self._pageGeneral.setDefaultTabPositionSheets(self._preferences.defaultTabPositionSheets(isDefault))
 
 
     def _savePreferences(self):
@@ -145,3 +146,4 @@ class PreferencesDialog(QDialog):
 
         # General: Tab Bars
         self._preferences.setDefaultTabPositionLotteries(self._pageGeneral.defaultTabPositionLotteries())
+        self._preferences.setDefaultTabPositionSheets(self._pageGeneral.defaultTabPositionSheets())

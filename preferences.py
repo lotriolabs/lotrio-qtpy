@@ -32,6 +32,7 @@ class Preferences:
 
         # General: Tab Bars
         self._defaultTabPositionLotteries = QTabWidget.North
+        self._defaultTabPositionSheets = QTabWidget.South
 
 
     def loadSettings(self):
@@ -46,6 +47,7 @@ class Preferences:
 
         # General: Tab Bars
         self.setDefaultTabPositionLotteries(QTabWidget.TabPosition(int(settings.value("DefaultTabPositionLotteries", QTabWidget.North))))
+        self.setDefaultTabPositionSheets(QTabWidget.TabPosition(int(settings.value("DefaultTabPositionSheets", QTabWidget.South))))
 
         settings.endGroup()
 
@@ -63,6 +65,7 @@ class Preferences:
 
         # General: Tab Bars
         settings.setValue("DefaultTabPositionLotteries", self._defaultTabPositionLotteries)
+        settings.setValue("DefaultTabPositionSheets", self._defaultTabPositionSheets)
 
         settings.endGroup()
 
@@ -101,3 +104,13 @@ class Preferences:
     def defaultTabPositionLotteries(self, isDefault=False):
 
         return self._defaultTabPositionLotteries if not isDefault else QTabWidget.North
+
+
+    def setDefaultTabPositionSheets(self, value):
+
+        self._defaultTabPositionSheets = value
+
+
+    def defaultTabPositionSheets(self, isDefault=False):
+
+        return self._defaultTabPositionSheets if not isDefault else QTabWidget.South
