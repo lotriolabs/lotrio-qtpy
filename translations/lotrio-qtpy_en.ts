@@ -391,75 +391,132 @@
 </context>
 <context>
     <name>PreferencesDrawsPage</name>
+</context>
+<context>
+    <name>PreferencesGeneralPage</name>
+</context>
+<context>
+    <name>PreferencesLotteriesPage</name>
+</context>
+<context>
+    <name>PreferencesPageDraws</name>
     <message>
-        <location filename="preferences_draws_page.py" line="34"/>
+        <location filename="preferences_page_draws.py" line="34"/>
         <source>&lt;strong style=&quot;font-size:large;&quot;&gt;{0}&lt;/strong&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="preferences_draws_page.py" line="56"/>
+        <location filename="preferences_page_draws.py" line="56"/>
         <source>Draws</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>PreferencesGeneralPage</name>
+    <name>PreferencesPageGeneral</name>
     <message>
-        <location filename="preferences_general_page.py" line="34"/>
+        <location filename="preferences_page_general.py" line="34"/>
         <source>&lt;strong style=&quot;font-size:large;&quot;&gt;{0}&lt;/strong&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="preferences_general_page.py" line="39"/>
+        <location filename="preferences_page_general.py" line="40"/>
         <source>Save and restore the application geometry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="preferences_general_page.py" line="42"/>
+        <location filename="preferences_page_general.py" line="43"/>
         <source>Save and restore the application state</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="preferences_general_page.py" line="49"/>
+        <location filename="preferences_page_general.py" line="50"/>
         <source>Geometry &amp;&amp; State</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="preferences_general_page.py" line="69"/>
+        <location filename="preferences_page_general.py" line="68"/>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="preferences_page_general.py" line="58"/>
+        <source>The lottery tabs are displayed above the pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="preferences_page_general.py" line="71"/>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="preferences_page_general.py" line="61"/>
+        <source>The lottery tabs are displayed below the pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="preferences_page_general.py" line="69"/>
+        <source>The sheet tabs are displayed above the pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="preferences_page_general.py" line="72"/>
+        <source>The sheet tabs are displayed below the pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="preferences_page_general.py" line="88"/>
+        <source>Position of the lottery tabs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="preferences_page_general.py" line="89"/>
+        <source>Position of the sheet tabs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="preferences_page_general.py" line="91"/>
+        <source>Tab Bars</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="preferences_page_general.py" line="113"/>
         <source>General</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>PreferencesLotteriesPage</name>
+    <name>PreferencesPageLotteries</name>
     <message>
-        <location filename="preferences_lotteries_page.py" line="34"/>
+        <location filename="preferences_page_lotteries.py" line="34"/>
         <source>&lt;strong style=&quot;font-size:large;&quot;&gt;{0}&lt;/strong&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="preferences_lotteries_page.py" line="56"/>
+        <location filename="preferences_page_lotteries.py" line="56"/>
         <source>Lotteries</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>PreferencesPlaysPage</name>
+    <name>PreferencesPagePlays</name>
     <message>
-        <location filename="preferences_plays_page.py" line="34"/>
+        <location filename="preferences_page_plays.py" line="34"/>
         <source>&lt;strong style=&quot;font-size:large;&quot;&gt;{0}&lt;/strong&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="preferences_plays_page.py" line="56"/>
+        <location filename="preferences_page_plays.py" line="56"/>
         <source>Plays</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
+    <name>PreferencesPlaysPage</name>
+</context>
+<context>
     <name>main</name>
     <message>
-        <location filename="main.py" line="82"/>
+        <location filename="main.py" line="90"/>
         <source>{0} - A visualization tool for lottery data</source>
         <translation type="unfinished"></translation>
     </message>
@@ -479,17 +536,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.py" line="78"/>
+        <location filename="main.py" line="83"/>
         <source>Lists available application languages.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.py" line="79"/>
+        <location filename="main.py" line="86"/>
         <source>Adjusts application language.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.py" line="79"/>
+        <location filename="main.py" line="87"/>
         <source>language code</source>
         <translation type="unfinished"></translation>
     </message>
