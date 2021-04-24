@@ -24,7 +24,7 @@ from preferences import Preferences
 from preferences_draws_page import PreferencesDrawsPage
 from preferences_general_page import PreferencesGeneralPage
 from preferences_lotteries_page import PreferencesLotteriesPage
-from preferences_plays_page import PreferencesPlaysPage
+from preferences_page_plays import PreferencesPagePlays
 
 
 class PreferencesDialog(QDialog):
@@ -52,22 +52,22 @@ class PreferencesDialog(QDialog):
         self._drawsPage.setZeroMargins()
         self._drawsPage.preferencesChanged.connect(self._onPreferencesChanged)
 
-        self._playsPage = PreferencesPlaysPage()
-        self._playsPage.setZeroMargins()
-        self._playsPage.preferencesChanged.connect(self._onPreferencesChanged)
+        self._pagePlays = PreferencesPagePlays()
+        self._pagePlays.setZeroMargins()
+        self._pagePlays.preferencesChanged.connect(self._onPreferencesChanged)
 
         stackedBox = QStackedWidget()
         stackedBox.addWidget(self._generalPage)
         stackedBox.addWidget(self._lotteriesPage)
         stackedBox.addWidget(self._drawsPage)
-        stackedBox.addWidget(self._playsPage)
+        stackedBox.addWidget(self._pagePlays)
         stackedBox.setCurrentIndex(0)
 
         listBox = QListWidget()
         listBox.addItem(self._generalPage.title())
         listBox.addItem(self._lotteriesPage.title())
         listBox.addItem(self._drawsPage.title())
-        listBox.addItem(self._playsPage.title())
+        listBox.addItem(self._pagePlays.title())
         listBox.setCurrentRow(stackedBox.currentIndex())
         listBox.currentRowChanged.connect(stackedBox.setCurrentIndex)
 

@@ -15,7 +15,7 @@
         "preferences_draws_page.py",
         "preferences_general_page.py",
         "preferences_lotteries_page.py",
-        "preferences_plays_page.py",
+        "preferences_page_plays.py",
         "translations.qrc"
     ]
 }
