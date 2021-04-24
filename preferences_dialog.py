@@ -21,9 +21,9 @@
 from PySide2.QtWidgets import QDialog, QDialogButtonBox, QHBoxLayout, QListWidget, QStackedWidget, QVBoxLayout
 
 from preferences import Preferences
-from preferences_draws_page import PreferencesDrawsPage
 from preferences_general_page import PreferencesGeneralPage
 from preferences_lotteries_page import PreferencesLotteriesPage
+from preferences_page_draws import PreferencesPageDraws
 from preferences_page_plays import PreferencesPagePlays
 
 
@@ -48,9 +48,9 @@ class PreferencesDialog(QDialog):
         self._lotteriesPage.setZeroMargins()
         self._lotteriesPage.preferencesChanged.connect(self._onPreferencesChanged)
 
-        self._drawsPage = PreferencesDrawsPage()
-        self._drawsPage.setZeroMargins()
-        self._drawsPage.preferencesChanged.connect(self._onPreferencesChanged)
+        self._pageDraws = PreferencesPageDraws()
+        self._pageDraws.setZeroMargins()
+        self._pageDraws.preferencesChanged.connect(self._onPreferencesChanged)
 
         self._pagePlays = PreferencesPagePlays()
         self._pagePlays.setZeroMargins()
@@ -59,14 +59,14 @@ class PreferencesDialog(QDialog):
         stackedBox = QStackedWidget()
         stackedBox.addWidget(self._generalPage)
         stackedBox.addWidget(self._lotteriesPage)
-        stackedBox.addWidget(self._drawsPage)
+        stackedBox.addWidget(self._pageDraws)
         stackedBox.addWidget(self._pagePlays)
         stackedBox.setCurrentIndex(0)
 
         listBox = QListWidget()
         listBox.addItem(self._generalPage.title())
         listBox.addItem(self._lotteriesPage.title())
-        listBox.addItem(self._drawsPage.title())
+        listBox.addItem(self._pageDraws.title())
         listBox.addItem(self._pagePlays.title())
         listBox.setCurrentRow(stackedBox.currentIndex())
         listBox.currentRowChanged.connect(stackedBox.setCurrentIndex)

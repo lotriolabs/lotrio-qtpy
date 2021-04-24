@@ -12,9 +12,9 @@
         "main.py",
         "preferences.py",
         "preferences_dialog.py",
-        "preferences_draws_page.py",
         "preferences_general_page.py",
         "preferences_lotteries_page.py",
+        "preferences_page_draws.py",
         "preferences_page_plays.py",
         "translations.qrc"
     ]
