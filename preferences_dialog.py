@@ -21,8 +21,8 @@
 from PySide2.QtWidgets import QDialog, QDialogButtonBox, QHBoxLayout, QListWidget, QStackedWidget, QVBoxLayout
 
 from preferences import Preferences
-from preferences_general_page import PreferencesGeneralPage
 from preferences_page_draws import PreferencesPageDraws
+from preferences_page_general import PreferencesPageGeneral
 from preferences_page_lotteries import PreferencesPageLotteries
 from preferences_page_plays import PreferencesPagePlays
 
@@ -40,9 +40,9 @@ class PreferencesDialog(QDialog):
         #
         # Content
 
-        self._generalPage = PreferencesGeneralPage()
-        self._generalPage.setZeroMargins()
-        self._generalPage.preferencesChanged.connect(self._onPreferencesChanged)
+        self._pageGeneral = PreferencesPageGeneral()
+        self._pageGeneral.setZeroMargins()
+        self._pageGeneral.preferencesChanged.connect(self._onPreferencesChanged)
 
         self._pageLotteries = PreferencesPageLotteries()
         self._pageLotteries.setZeroMargins()
@@ -57,14 +57,14 @@ class PreferencesDialog(QDialog):
         self._pagePlays.preferencesChanged.connect(self._onPreferencesChanged)
 
         stackedBox = QStackedWidget()
-        stackedBox.addWidget(self._generalPage)
+        stackedBox.addWidget(self._pageGeneral)
         stackedBox.addWidget(self._pageLotteries)
         stackedBox.addWidget(self._pageDraws)
         stackedBox.addWidget(self._pagePlays)
         stackedBox.setCurrentIndex(0)
 
         listBox = QListWidget()
-        listBox.addItem(self._generalPage.title())
+        listBox.addItem(self._pageGeneral.title())
         listBox.addItem(self._pageLotteries.title())
         listBox.addItem(self._pageDraws.title())
         listBox.addItem(self._pagePlays.title())
@@ -130,12 +130,12 @@ class PreferencesDialog(QDialog):
     def _updatePreferences(self, isDefault=False):
 
         # General: Geometry & State
-        self._generalPage.setRestoreApplicationGeometry(self._preferences.restoreApplicationGeometry(isDefault))
-        self._generalPage.setRestoreApplicationState(self._preferences.restoreApplicationState(isDefault))
+        self._pageGeneral.setRestoreApplicationGeometry(self._preferences.restoreApplicationGeometry(isDefault))
+        self._pageGeneral.setRestoreApplicationState(self._preferences.restoreApplicationState(isDefault))
 
 
     def _savePreferences(self):
 
         # General: Geometry & State
-        self._preferences.setRestoreApplicationGeometry(self._generalPage.restoreApplicationGeometry())
-        self._preferences.setRestoreApplicationState(self._generalPage.restoreApplicationState())
+        self._preferences.setRestoreApplicationGeometry(self._pageGeneral.restoreApplicationGeometry())
+        self._preferences.setRestoreApplicationState(self._pageGeneral.restoreApplicationState())
