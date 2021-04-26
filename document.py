@@ -19,7 +19,7 @@
 #
 
 from PySide2.QtCore import QFileInfo, Qt, Signal
-from PySide2.QtWidgets import QWidget
+from PySide2.QtWidgets import QTabWidget, QVBoxLayout, QWidget
 
 from preferences import Preferences
 
@@ -36,6 +36,14 @@ class Document(QWidget):
 
         self._preferences = Preferences()
         self._canonicalName = None
+
+        # Content
+        self._tabBox = QTabWidget()
+        self._tabBox.setTabPosition(QTabWidget.South)
+
+        # Main layout
+        layout = QVBoxLayout(self)
+        layout.addWidget(self._tabBox)
 
 
     def setPreferences(self, preferences):
@@ -65,6 +73,16 @@ class Document(QWidget):
         self.setWindowTitle(fileName)
 
 
+    def setDocumentTabPosition(self, tabPosition):
+
+        self._tabBox.setTabPosition(tabPosition)
+
+
+    def documentTabPosition(self):
+
+        return self._tabBox.tabPosition()
+
+
     def closeEvent(self, event):
 
         if True:
@@ -80,5 +98,6 @@ class Document(QWidget):
 
         self.setCanonicalName(canonicalName)
 
+        self._tabBox.setTabPosition(self._preferences.defaultTabPositionSheets())
 
         return True
