@@ -55,6 +55,7 @@ class MainWindow(QMainWindow):
         self._updateActions()
         self._updateActionFullScreen()
         self._updateActionTabPositionLotteries()
+        self._updateActionTabPositionSheets(self._preferences.defaultTabPositionSheets())
 
         # Central widget
         self._documentArea = QMdiArea()
@@ -217,6 +218,24 @@ class MainWindow(QMainWindow):
         self._actionTabPositionLotteries.addAction(actionTabPositionLotteriesBottom)
         self._actionTabPositionLotteries.triggered.connect(self._onActionTabPositionLotteriesTriggered)
 
+        actionTabPositionSheetsTop = QAction(self.tr("Top"), self)
+        actionTabPositionSheetsTop.setObjectName("actionTabPositionSheetsTop")
+        actionTabPositionSheetsTop.setCheckable(True)
+        actionTabPositionSheetsTop.setToolTip(self.tr("The sheet tabs are displayed above the pages"))
+        actionTabPositionSheetsTop.setData(QTabWidget.North)
+
+        actionTabPositionSheetsBottom = QAction(self.tr("Bottom"), self)
+        actionTabPositionSheetsBottom.setObjectName("actionTabPositionSheetsBottom")
+        actionTabPositionSheetsBottom.setCheckable(True)
+        actionTabPositionSheetsBottom.setToolTip(self.tr("The sheet tabs are displayed below the pages"))
+        actionTabPositionSheetsBottom.setData(QTabWidget.South)
+
+        self._actionTabPositionSheets = QActionGroup(self)
+        self._actionTabPositionSheets.setObjectName("actionTabPositionSheets")
+        self._actionTabPositionSheets.addAction(actionTabPositionSheetsTop)
+        self._actionTabPositionSheets.addAction(actionTabPositionSheetsBottom)
+        self._actionTabPositionSheets.triggered.connect(self._onActionTabPositionSheetsTriggered)
+
         self._actionToolbarApplication = QAction(self.tr("Show Application Toolbar"), self)
         self._actionToolbarApplication.setObjectName("actionToolbarApplication")
         self._actionToolbarApplication.setCheckable(True)
@@ -291,11 +310,16 @@ class MainWindow(QMainWindow):
         menuLotteryTabs.setObjectName("menuLotteryTabs")
         menuLotteryTabs.addActions(self._actionTabPositionLotteries.actions())
 
+        self._menuSheetTabs = QMenu(self.tr("Sheet Tabs…"), self)
+        self._menuSheetTabs.setObjectName("menuSheetTabs")
+        self._menuSheetTabs.addActions(self._actionTabPositionSheets.actions())
+
         menuView = self.menuBar().addMenu(self.tr("View"))
         menuView.setObjectName("menuView")
         menuView.addAction(self._actionFullScreen)
         menuView.addSeparator()
         menuView.addMenu(menuLotteryTabs)
+        menuView.addMenu(self._menuSheetTabs)
         menuView.addSeparator()
         menuView.addAction(self._actionToolbarApplication)
         menuView.addAction(self._actionToolbarLotteries)
@@ -378,6 +402,22 @@ class MainWindow(QMainWindow):
                 break
 
 
+    def _updateActionTabPositionSheets(self, tabPosition):
+
+        for action in self._actionTabPositionSheets.actions():
+            if action.data() == tabPosition:
+                action.setChecked(True)
+                break
+
+
+    def _updateMenus(self, subWindowCount):
+
+        hasDocument = subWindowCount >= 1
+
+        # Menu: View
+        self._menuSheetTabs.setEnabled(hasDocument)
+
+
     def _updateTitleBar(self):
 
         title = None
@@ -452,6 +492,15 @@ class MainWindow(QMainWindow):
         self._documentArea.setTabPosition(tabPosition)
 
 
+    def _onActionTabPositionSheetsTriggered(self, actionTabPositionSheets):
+
+        tabPosition = QTabWidget.TabPosition(actionTabPositionSheets.data())
+
+        document = self._activeDocument()
+        if document:
+            document.setDocumentTabPosition(tabPosition)
+
+
     def _onActionKeyboardShortcutsTriggered(self):
 
         if not self._keyboardShortcutsDialog:
@@ -466,10 +515,15 @@ class MainWindow(QMainWindow):
 
         # Update the application window
         self._updateActions(len(self._documentArea.subWindowList()))
+        self._updateMenus(len(self._documentArea.subWindowList()))
         self._updateTitleBar()
 
         if not subWindow:
             return
+
+        document = subWindow.widget()
+
+        self._updateActionTabPositionSheets(document.documentTabPosition())
 
 
     def _onDocumentAboutToClose(self, canonicalName):
@@ -481,6 +535,7 @@ class MainWindow(QMainWindow):
 
         # Update menu items without the emitter
         self._updateActions(len(self._documentArea.subWindowList()) - 1)
+        self._updateMenus(len(self._documentArea.subWindowList()) - 1)
 
         # Disable the Lottery action
         for actionLottery in self._actionLotteries:
@@ -540,6 +595,8 @@ class MainWindow(QMainWindow):
 
             # Update the application window
             self._updateActions(len(self._documentArea.subWindowList()))
+            self._updateActionTabPositionSheets(document.documentTabPosition())
+            self._updateMenus(len(self._documentArea.subWindowList()))
             self._updateTitleBar()
         else:
             document.close()
