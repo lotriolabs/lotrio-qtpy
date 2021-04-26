@@ -23,6 +23,7 @@ from PySide2.QtWidgets import QTabWidget, QVBoxLayout, QWidget
 
 from lottery_page_about import LotteryPageAbout
 from lottery_page_draws import LotteryPageDraws
+from lottery_page_plays import LotteryPagePlays
 from preferences import Preferences
 
 
@@ -108,9 +109,11 @@ class Document(QWidget):
 
         pageAbout = LotteryPageAbout(self._canonicalName)
         pageDraws = LotteryPageDraws(self._canonicalName)
+        pagePlays = LotteryPagePlays(self._canonicalName)
 
         self._tabBox.addTab(pageAbout, pageAbout.title())
         self._tabBox.addTab(pageDraws, pageDraws.title())
+        self._tabBox.addTab(pagePlays, pagePlays.title())
 
 
         return True
