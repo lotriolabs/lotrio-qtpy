@@ -9,6 +9,7 @@
         "keyboard_shortcuts_dialog.py",
         "keyboard_shortcuts_page.py",
         "lottery_page_about.py",
+        "lottery_page_draws.py",
         "main_window.py",
         "main.py",
         "preferences.py",
