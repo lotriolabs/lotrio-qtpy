@@ -20,7 +20,7 @@
 
 from PySide2.QtCore import QByteArray, QSettings, Qt
 from PySide2.QtGui import QIcon, QKeySequence
-from PySide2.QtWidgets import QAction, QApplication, QMainWindow, QMdiArea
+from PySide2.QtWidgets import QAction, QActionGroup, QApplication, QMainWindow, QMdiArea, QMenu, QTabWidget
 
 from about_dialog import AboutDialog
 from colophon_dialog import ColophonDialog
@@ -54,12 +54,14 @@ class MainWindow(QMainWindow):
 
         self._updateActions()
         self._updateActionFullScreen()
+        self._updateActionTabPositionLotteries()
 
         # Central widget
         self._documentArea = QMdiArea()
         self._documentArea.setViewMode(QMdiArea.TabbedView)
         self._documentArea.setTabsMovable(True)
         self._documentArea.setTabsClosable(True)
+        self._documentArea.setTabPosition(self._preferences.defaultTabPositionLotteries())
         self.setCentralWidget(self._documentArea)
         self._documentArea.subWindowActivated.connect(self._onDocumentWindowActivated)
 
@@ -197,6 +199,24 @@ class MainWindow(QMainWindow):
         self._actionFullScreen.setShortcuts([QKeySequence(Qt.Key_F11), QKeySequence.FullScreen])
         self._actionFullScreen.triggered.connect(self._onActionFullScreenTriggered)
 
+        actionTabPositionLotteriesTop = QAction(self.tr("Top"), self)
+        actionTabPositionLotteriesTop.setObjectName("actionTabPositionLotteriesTop")
+        actionTabPositionLotteriesTop.setCheckable(True)
+        actionTabPositionLotteriesTop.setToolTip(self.tr("The lottery tabs are displayed above the pages"))
+        actionTabPositionLotteriesTop.setData(QTabWidget.North)
+
+        actionTabPositionLotteriesBottom = QAction(self.tr("Bottom"), self)
+        actionTabPositionLotteriesBottom.setObjectName("actionTabPositionLotteriesBottom")
+        actionTabPositionLotteriesBottom.setCheckable(True)
+        actionTabPositionLotteriesBottom.setToolTip(self.tr("The lottery tabs are displayed below the pages"))
+        actionTabPositionLotteriesBottom.setData(QTabWidget.South)
+
+        self._actionTabPositionLotteries = QActionGroup(self)
+        self._actionTabPositionLotteries.setObjectName("actionTabPositionLotteries")
+        self._actionTabPositionLotteries.addAction(actionTabPositionLotteriesTop)
+        self._actionTabPositionLotteries.addAction(actionTabPositionLotteriesBottom)
+        self._actionTabPositionLotteries.triggered.connect(self._onActionTabPositionLotteriesTriggered)
+
         self._actionToolbarApplication = QAction(self.tr("Show Application Toolbar"), self)
         self._actionToolbarApplication.setObjectName("actionToolbarApplication")
         self._actionToolbarApplication.setCheckable(True)
@@ -263,16 +283,26 @@ class MainWindow(QMainWindow):
         menuTools = self.menuBar().addMenu(self.tr("Tools"))
         menuTools.setObjectName("menuTools")
 
+
+        #
         # Menu: View
+
+        menuLotteryTabs = QMenu(self.tr("Lottery Tabs…"), self)
+        menuLotteryTabs.setObjectName("menuLotteryTabs")
+        menuLotteryTabs.addActions(self._actionTabPositionLotteries.actions())
+
         menuView = self.menuBar().addMenu(self.tr("View"))
         menuView.setObjectName("menuView")
         menuView.addAction(self._actionFullScreen)
+        menuView.addSeparator()
+        menuView.addMenu(menuLotteryTabs)
         menuView.addSeparator()
         menuView.addAction(self._actionToolbarApplication)
         menuView.addAction(self._actionToolbarLotteries)
         menuView.addAction(self._actionToolbarTools)
         menuView.addAction(self._actionToolbarView)
         menuView.addAction(self._actionToolbarHelp)
+
 
         # Menu: Help
         menuHelp = self.menuBar().addMenu(self.tr("Help"))
@@ -340,6 +370,14 @@ class MainWindow(QMainWindow):
             self._actionFullScreen.setToolTip(self.tr("Exit the full screen mode"))
 
 
+    def _updateActionTabPositionLotteries(self):
+
+        for action in self._actionTabPositionLotteries.actions():
+            if action.data() == self._preferences.defaultTabPositionLotteries():
+                action.setChecked(True)
+                break
+
+
     def _updateTitleBar(self):
 
         title = None
@@ -405,6 +443,13 @@ class MainWindow(QMainWindow):
             self.setWindowState(self.windowState() & ~Qt.WindowFullScreen)
 
         self._updateActionFullScreen()
+
+
+    def _onActionTabPositionLotteriesTriggered(self, actionTabPositionLotteries):
+
+        tabPosition = QTabWidget.TabPosition(actionTabPositionLotteries.data())
+
+        self._documentArea.setTabPosition(tabPosition)
 
 
     def _onActionKeyboardShortcutsTriggered(self):
