@@ -21,6 +21,7 @@
 from PySide2.QtCore import QFileInfo, Qt, Signal
 from PySide2.QtWidgets import QTabWidget, QVBoxLayout, QWidget
 
+from lottery_page_about import LotteryPageAbout
 from preferences import Preferences
 
 
@@ -99,5 +100,14 @@ class Document(QWidget):
         self.setCanonicalName(canonicalName)
 
         self._tabBox.setTabPosition(self._preferences.defaultTabPositionSheets())
+
+
+        #
+        # Pages
+
+        pageAbout = LotteryPageAbout(self._canonicalName)
+
+        self._tabBox.addTab(pageAbout, pageAbout.title())
+
 
         return True
