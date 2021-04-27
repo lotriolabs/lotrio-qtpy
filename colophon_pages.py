@@ -139,7 +139,7 @@ class ColophonPageCredits(QWidget):
 # Colophon page: Environment
 #
 
-class ColophonEnvironmentPage(QWidget):
+class ColophonPageEnvironment(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
