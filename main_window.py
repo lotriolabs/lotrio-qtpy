@@ -267,6 +267,13 @@ class MainWindow(QMainWindow):
         self._actionToolbarHelp.setToolTip(self.tr("Display the Help toolbar"))
         self._actionToolbarHelp.toggled.connect(lambda checked: self._toolbarHelp.setVisible(checked))
 
+        self._actionStatusbar = QAction(self.tr("Show Statusbar"), self)
+        self._actionStatusbar.setObjectName("actionStatusbar")
+        self._actionStatusbar.setCheckable(True)
+        self._actionStatusbar.setChecked(True)
+        self._actionStatusbar.setToolTip(self.tr("Display the statusbar"))
+        self._actionStatusbar.toggled.connect(lambda checked: self._statusbar.setVisible(checked))
+
         #
         # Actions: Help
 
@@ -327,6 +334,8 @@ class MainWindow(QMainWindow):
         menuView.addAction(self._actionToolbarTools)
         menuView.addAction(self._actionToolbarView)
         menuView.addAction(self._actionToolbarHelp)
+        menuView.addSeparator()
+        menuView.addAction(self._actionStatusbar)
 
 
         # Menu: Help
