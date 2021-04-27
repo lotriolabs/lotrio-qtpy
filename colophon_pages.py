@@ -99,7 +99,7 @@ class ColophonPageAuthors(QWidget):
 # Colophon page: Credits
 #
 
-class ColophonCreditsPage(QWidget):
+class ColophonPageCredits(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
