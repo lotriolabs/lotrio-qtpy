@@ -134,8 +134,8 @@ class PreferencesDialog(QDialog):
         self._pageGeneral.setRestoreApplicationState(self._preferences.restoreApplicationState(isDefault))
 
         # General: Tab Bars
-        self._pageGeneral.setDefaultTabPositionLotteries(self._preferences.defaultTabPositionLotteries(isDefault))
-        self._pageGeneral.setDefaultTabPositionSheets(self._preferences.defaultTabPositionSheets(isDefault))
+        self._pageGeneral.setDefaultTabbarLotteriesPosition(self._preferences.defaultTabbarLotteriesPosition(isDefault))
+        self._pageGeneral.setDefaultTabbarSheetsPosition(self._preferences.defaultTabbarSheetsPosition(isDefault))
 
 
     def _savePreferences(self):
@@ -145,5 +145,5 @@ class PreferencesDialog(QDialog):
         self._preferences.setRestoreApplicationState(self._pageGeneral.restoreApplicationState())
 
         # General: Tab Bars
-        self._preferences.setDefaultTabPositionLotteries(self._pageGeneral.defaultTabPositionLotteries())
-        self._preferences.setDefaultTabPositionSheets(self._pageGeneral.defaultTabPositionSheets())
+        self._preferences.setDefaultTabbarLotteriesPosition(self._pageGeneral.defaultTabbarLotteriesPosition())
+        self._preferences.setDefaultTabbarSheetsPosition(self._pageGeneral.defaultTabbarSheetsPosition())

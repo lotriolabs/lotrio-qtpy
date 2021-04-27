@@ -101,7 +101,7 @@ class Document(QWidget):
 
         self.setCanonicalName(canonicalName)
 
-        self._tabBox.setTabPosition(self._preferences.defaultTabPositionSheets())
+        self._tabBox.setTabPosition(self._preferences.defaultTabbarSheetsPosition())
 
 
         #

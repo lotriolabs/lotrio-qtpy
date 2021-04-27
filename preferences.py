@@ -31,8 +31,8 @@ class Preferences:
         self._restoreApplicationState = True
 
         # General: Tab Bars
-        self._defaultTabPositionLotteries = QTabWidget.North
-        self._defaultTabPositionSheets = QTabWidget.South
+        self._defaultTabbarLotteriesPosition = QTabWidget.North
+        self._defaultTabbarSheetsPosition = QTabWidget.South
 
 
     def loadSettings(self):
@@ -46,8 +46,8 @@ class Preferences:
         self.setRestoreApplicationState(self._valueToBool(settings.value("RestoreApplicationState", True)))
 
         # General: Tab Bars
-        self.setDefaultTabPositionLotteries(QTabWidget.TabPosition(int(settings.value("DefaultTabPositionLotteries", QTabWidget.North))))
-        self.setDefaultTabPositionSheets(QTabWidget.TabPosition(int(settings.value("DefaultTabPositionSheets", QTabWidget.South))))
+        self.setDefaultTabbarLotteriesPosition(QTabWidget.TabPosition(int(settings.value("DefaultTabbarLotteriesPosition", QTabWidget.North))))
+        self.setDefaultTabbarSheetsPosition(QTabWidget.TabPosition(int(settings.value("DefaultTabbarSheetsPosition", QTabWidget.South))))
 
         settings.endGroup()
 
@@ -64,8 +64,8 @@ class Preferences:
         settings.setValue("RestoreApplicationState", self._restoreApplicationState)
 
         # General: Tab Bars
-        settings.setValue("DefaultTabPositionLotteries", self._defaultTabPositionLotteries)
-        settings.setValue("DefaultTabPositionSheets", self._defaultTabPositionSheets)
+        settings.setValue("DefaultTabbarLotteriesPosition", self._defaultTabbarLotteriesPosition)
+        settings.setValue("DefaultTabbarSheetsPosition", self._defaultTabbarSheetsPosition)
 
         settings.endGroup()
 
@@ -96,21 +96,21 @@ class Preferences:
         return self._restoreApplicationState if not isDefault else True
 
 
-    def setDefaultTabPositionLotteries(self, value):
+    def setDefaultTabbarLotteriesPosition(self, value):
 
-        self._defaultTabPositionLotteries = value
-
-
-    def defaultTabPositionLotteries(self, isDefault=False):
-
-        return self._defaultTabPositionLotteries if not isDefault else QTabWidget.North
+        self._defaultTabbarLotteriesPosition = value
 
 
-    def setDefaultTabPositionSheets(self, value):
+    def defaultTabbarLotteriesPosition(self, isDefault=False):
 
-        self._defaultTabPositionSheets = value
+        return self._defaultTabbarLotteriesPosition if not isDefault else QTabWidget.North
 
 
-    def defaultTabPositionSheets(self, isDefault=False):
+    def setDefaultTabbarSheetsPosition(self, value):
 
-        return self._defaultTabPositionSheets if not isDefault else QTabWidget.South
+        self._defaultTabbarSheetsPosition = value
+
+
+    def defaultTabbarSheetsPosition(self, isDefault=False):
+
+        return self._defaultTabbarSheetsPosition if not isDefault else QTabWidget.South
