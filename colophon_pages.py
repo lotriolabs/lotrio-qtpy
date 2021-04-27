@@ -65,7 +65,7 @@ class ColophonPageAbout(QWidget):
 # Colophon page: Authors
 #
 
-class ColophonAuthorsPage(QWidget):
+class ColophonPageAuthors(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
