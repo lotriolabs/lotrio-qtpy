@@ -30,7 +30,7 @@ from PySide2.QtWidgets import QApplication, QFrame, QTextBrowser, QVBoxLayout, Q
 # Colophon page: About
 #
 
-class ColophonAboutPage(QWidget):
+class ColophonPageAbout(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
