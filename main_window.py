@@ -57,6 +57,7 @@ class MainWindow(QMainWindow):
         self._updateActionFullScreen()
         self._updateActionTabbarLotteriesPosition()
         self._updateActionTabbarSheetsPosition(self._preferences.defaultTabbarSheetsPosition())
+        self._updateMenus()
 
         # Central widget
         self._documentArea = QMdiArea()
@@ -428,7 +429,7 @@ class MainWindow(QMainWindow):
                 break
 
 
-    def _updateMenus(self, subWindowCount):
+    def _updateMenus(self, subWindowCount=0):
 
         hasDocument = subWindowCount >= 1
 
