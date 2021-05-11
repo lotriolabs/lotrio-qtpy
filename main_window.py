@@ -53,11 +53,11 @@ class MainWindow(QMainWindow):
 
         self._loadSettings()
 
-        self._updateActions()
         self._updateActionFullScreen()
         self._updateActionTabbarLotteriesPosition()
         self._updateActionTabbarSheetsPosition(self._preferences.defaultTabbarSheetsPosition())
-        self._updateMenus()
+
+        self._enableUiElements()
 
         # Central widget
         self._documentArea = QMdiArea()
@@ -388,17 +388,6 @@ class MainWindow(QMainWindow):
         self._statusbar = self.statusBar()
 
 
-    def _updateActions(self, subWindowCount=0):
-
-        hasDocument = subWindowCount >= 1
-        hasDocuments = subWindowCount >= 2
-
-        # Actions: Lotteries
-        self._actionClose.setEnabled(hasDocument)
-        self._actionCloseOther.setEnabled(hasDocuments)
-        self._actionCloseAll.setEnabled(hasDocument)
-
-
     def _updateActionFullScreen(self):
 
         if not self.isFullScreen():
@@ -429,14 +418,6 @@ class MainWindow(QMainWindow):
                 break
 
 
-    def _updateMenus(self, subWindowCount=0):
-
-        hasDocument = subWindowCount >= 1
-
-        # Menu: View
-        self._menuSheetTabs.setEnabled(hasDocument)
-
-
     def _updateTitleBar(self):
 
         title = None
@@ -446,6 +427,20 @@ class MainWindow(QMainWindow):
             title = document.documentTitle()
 
         self.setWindowTitle(title)
+
+
+    def _enableUiElements(self, subWindowCount=0):
+
+        hasDocument = subWindowCount >= 1
+        hasDocuments = subWindowCount >= 2
+
+        # Actions: Lotteries
+        self._actionClose.setEnabled(hasDocument)
+        self._actionCloseOther.setEnabled(hasDocuments)
+        self._actionCloseAll.setEnabled(hasDocument)
+
+        # Menu: View
+        self._menuSheetTabs.setEnabled(hasDocument)
 
 
     def _onActionAboutTriggered(self):
@@ -532,10 +527,9 @@ class MainWindow(QMainWindow):
 
     def _onDocumentWindowActivated(self, subWindow):
 
-        # Update the application window
-        self._updateActions(len(self._documentArea.subWindowList()))
-        self._updateMenus(len(self._documentArea.subWindowList()))
+        # Update application window and UI elements
         self._updateTitleBar()
+        self._enableUiElements(len(self._documentArea.subWindowList()))
 
         if not subWindow:
             return
@@ -552,9 +546,8 @@ class MainWindow(QMainWindow):
             if not subWindow.isMaximized():
                 subWindow.showMaximized()
 
-        # Update menu items without the emitter
-        self._updateActions(len(self._documentArea.subWindowList()) - 1)
-        self._updateMenus(len(self._documentArea.subWindowList()) - 1)
+        # Update UI elements without the emitter
+        self._enableUiElements(len(self._documentArea.subWindowList()) - 1)
 
         # Disable the Lottery action
         for actionLottery in self._actionLotteries:
@@ -613,9 +606,7 @@ class MainWindow(QMainWindow):
             document.show()
 
             # Update the application window
-            self._updateActions(len(self._documentArea.subWindowList()))
             self._updateActionTabbarSheetsPosition(document.documentTabPosition())
-            self._updateMenus(len(self._documentArea.subWindowList()))
             self._updateTitleBar()
         else:
             document.close()
