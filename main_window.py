@@ -55,7 +55,6 @@ class MainWindow(QMainWindow):
 
         self._updateActionFullScreen()
         self._updateActionsTabPositionLotteries()
-        self._updateActionTabbarSheetsPosition(self._preferences.defaultTabbarSheetsPosition())
 
         self._enableUiElements()
 
@@ -204,24 +203,6 @@ class MainWindow(QMainWindow):
         self._actionFullScreen.setShortcuts([QKeySequence(Qt.Key_F11), QKeySequence.FullScreen])
         self._actionFullScreen.triggered.connect(self._onActionFullScreenTriggered)
 
-        actionTabbarSheetsPositionTop = QAction(self.tr("Top"), self)
-        actionTabbarSheetsPositionTop.setObjectName("actionTabbarSheetsPositionTop")
-        actionTabbarSheetsPositionTop.setCheckable(True)
-        actionTabbarSheetsPositionTop.setToolTip(self.tr("The sheet tabs are displayed above the pages"))
-        actionTabbarSheetsPositionTop.setData(QTabWidget.North)
-
-        actionTabbarSheetsPositionBottom = QAction(self.tr("Bottom"), self)
-        actionTabbarSheetsPositionBottom.setObjectName("actionTabbarSheetsPositionBottom")
-        actionTabbarSheetsPositionBottom.setCheckable(True)
-        actionTabbarSheetsPositionBottom.setToolTip(self.tr("The sheet tabs are displayed below the pages"))
-        actionTabbarSheetsPositionBottom.setData(QTabWidget.South)
-
-        self._actionTabbarSheetsPosition = QActionGroup(self)
-        self._actionTabbarSheetsPosition.setObjectName("actionTabbarSheetsPosition")
-        self._actionTabbarSheetsPosition.addAction(actionTabbarSheetsPositionTop)
-        self._actionTabbarSheetsPosition.addAction(actionTabbarSheetsPositionBottom)
-        self._actionTabbarSheetsPosition.triggered.connect(self._onActionTabbarSheetsPositionTriggered)
-
         self._actionToolbarApplication = QAction(self.tr("Show Application Toolbar"), self)
         self._actionToolbarApplication.setObjectName("actionToolbarApplication")
         self._actionToolbarApplication.setCheckable(True)
@@ -293,11 +274,37 @@ class MainWindow(QMainWindow):
         self._actionsTabPositionLotteries.triggered.connect(self._onActionsTabPositionLotteriesTriggered)
 
 
+        #
+        # Tab Position Sheets
+
+        actionTabPositionSheetsTop = QAction(self.tr("Top"), self)
+        actionTabPositionSheetsTop.setObjectName("actionTabPositionSheetsTop")
+        actionTabPositionSheetsTop.setCheckable(True)
+        actionTabPositionSheetsTop.setToolTip(self.tr("The sheet tabs are displayed above the pages"))
+        actionTabPositionSheetsTop.setData(QTabWidget.North)
+
+        actionTabPositionSheetsBottom = QAction(self.tr("Bottom"), self)
+        actionTabPositionSheetsBottom.setObjectName("actionTabPositionSheetsBottom")
+        actionTabPositionSheetsBottom.setCheckable(True)
+        actionTabPositionSheetsBottom.setToolTip(self.tr("The sheet tabs are displayed below the pages"))
+        actionTabPositionSheetsBottom.setData(QTabWidget.South)
+
+        self._actionsTabPositionSheets = QActionGroup(self)
+        self._actionsTabPositionSheets.setObjectName("actionsTabPositionSheets")
+        self._actionsTabPositionSheets.addAction(actionTabPositionSheetsTop)
+        self._actionsTabPositionSheets.addAction(actionTabPositionSheetsBottom)
+        self._actionsTabPositionSheets.triggered.connect(self._onActionsTabPositionSheetsTriggered)
+
+
     def _createMenus(self):
 
         menuLotteryTabs = QMenu(self.tr("Show Lottery Tabs…"), self)
         menuLotteryTabs.setObjectName("menuLotteryTabs")
         menuLotteryTabs.addActions(self._actionsTabPositionLotteries.actions())
+
+        self._menuSheetTabs = QMenu(self.tr("Show Sheet Tabs…"), self)
+        self._menuSheetTabs.setObjectName("menuSheetTabs")
+        self._menuSheetTabs.addActions(self._actionsTabPositionSheets.actions())
 
 
         # Menu: Application
@@ -323,14 +330,7 @@ class MainWindow(QMainWindow):
         menuTools = self.menuBar().addMenu(self.tr("Tools"))
         menuTools.setObjectName("menuTools")
 
-
-        #
         # Menu: View
-
-        self._menuSheetTabs = QMenu(self.tr("Show Sheet Tabs…"), self)
-        self._menuSheetTabs.setObjectName("menuSheetTabs")
-        self._menuSheetTabs.addActions(self._actionTabbarSheetsPosition.actions())
-
         menuView = self.menuBar().addMenu(self.tr("View"))
         menuView.setObjectName("menuView")
         menuView.addAction(self._actionFullScreen)
@@ -345,7 +345,6 @@ class MainWindow(QMainWindow):
         menuView.addAction(self._actionToolbarHelp)
         menuView.addSeparator()
         menuView.addAction(self._actionStatusbar)
-
 
         # Menu: Help
         menuHelp = self.menuBar().addMenu(self.tr("Help"))
@@ -415,9 +414,9 @@ class MainWindow(QMainWindow):
                 break
 
 
-    def _updateActionTabbarSheetsPosition(self, tabPosition):
+    def _updateActionsTabPositionSheets(self, tabPosition):
 
-        for action in self._actionTabbarSheetsPosition.actions():
+        for action in self._actionsTabPositionSheets.actions():
             if action.data() == tabPosition:
                 action.setChecked(True)
                 break
@@ -504,22 +503,6 @@ class MainWindow(QMainWindow):
         self._updateActionFullScreen()
 
 
-    def _onActionsTabPositionLotteriesTriggered(self, actionTabPositionLotteries):
-
-        tabPosition = QTabWidget.TabPosition(actionTabPositionLotteries.data())
-
-        self._documentArea.setTabPosition(tabPosition)
-
-
-    def _onActionTabbarSheetsPositionTriggered(self, actionTabbarSheetsPosition):
-
-        tabPosition = QTabWidget.TabPosition(actionTabbarSheetsPosition.data())
-
-        document = self._activeDocument()
-        if document:
-            document.setDocumentTabPosition(tabPosition)
-
-
     def _onActionKeyboardShortcutsTriggered(self):
 
         if not self._keyboardShortcutsDialog:
@@ -528,6 +511,22 @@ class MainWindow(QMainWindow):
         self._keyboardShortcutsDialog.show()
         self._keyboardShortcutsDialog.raise_()
         self._keyboardShortcutsDialog.activateWindow()
+
+
+    def _onActionsTabPositionLotteriesTriggered(self, actionTabPositionLotteries):
+
+        tabPosition = QTabWidget.TabPosition(actionTabPositionLotteries.data())
+
+        self._documentArea.setTabPosition(tabPosition)
+
+
+    def _onActionsTabPositionSheetsTriggered(self, actionTabPositionSheets):
+
+        tabPosition = QTabWidget.TabPosition(actionTabPositionSheets.data())
+
+        document = self._activeDocument()
+        if document:
+            document.setDocumentTabPosition(tabPosition)
 
 
     def _onDocumentWindowActivated(self, subWindow):
@@ -541,7 +540,7 @@ class MainWindow(QMainWindow):
 
         document = subWindow.widget()
 
-        self._updateActionTabbarSheetsPosition(document.documentTabPosition())
+        self._updateActionsTabPositionSheets(document.documentTabPosition())
 
 
     def _onDocumentAboutToClose(self, canonicalName):
@@ -565,6 +564,7 @@ class MainWindow(QMainWindow):
 
         document = Document()
         document.setPreferences(self._preferences)
+        document.setDocumentTabPosition(self._preferences.defaultTabbarSheetsPosition())
         document.aboutToClose.connect(self._onDocumentAboutToClose)
 
         subWindow = self._documentArea.addSubWindow(document)
@@ -610,8 +610,7 @@ class MainWindow(QMainWindow):
             document.updateDocumentTitle()
             document.show()
 
-            # Update the application window
-            self._updateActionTabbarSheetsPosition(document.documentTabPosition())
+            # Update application window
             self._updateTitleBar()
         else:
             document.close()
