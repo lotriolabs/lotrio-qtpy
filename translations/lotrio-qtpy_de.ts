@@ -9,27 +9,12 @@
     </message>
 </context>
 <context>
-    <name>ColophonAboutPage</name>
-</context>
-<context>
-    <name>ColophonAuthorsPage</name>
-</context>
-<context>
-    <name>ColophonCreditsPage</name>
-</context>
-<context>
     <name>ColophonDialog</name>
     <message>
         <location filename="colophon_dialog.py" line="35"/>
         <source>Colophon</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>ColophonEnvironmentPage</name>
-</context>
-<context>
-    <name>ColophonLicensePage</name>
 </context>
 <context>
     <name>ColophonPageAbout</name>
@@ -111,11 +96,6 @@
 </context>
 <context>
     <name>Document</name>
-    <message>
-        <location filename="document.py" line="76"/>
-        <source>Untitled</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>KeyboardShortcutsDialog</name>
@@ -149,6 +129,14 @@
     </message>
 </context>
 <context>
+    <name>LotteryDocument</name>
+    <message>
+        <location filename="lottery_document.py" line="76"/>
+        <source>Untitled</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>LotteryPageAbout</name>
     <message>
         <location filename="lottery_page_about.py" line="44"/>
@@ -175,299 +163,29 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main_window.py" line="124"/>
-        <source>Eurojackpot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="124"/>
-        <source>Eurojackpot is a transnational European lottery</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="125"/>
-        <source>EuroMillions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="125"/>
-        <source>EuroMillions is a transnational European lottery</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="126"/>
-        <source>Vikinglotto</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="126"/>
-        <source>Vikinglotto is a transnational European lottery</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="135"/>
-        <source>About {0}</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="138"/>
-        <source>About</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="139"/>
-        <source>Brief description of the application</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="142"/>
-        <source>Colophon</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="144"/>
-        <source>Lengthy description of the application</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="150"/>
-        <source>Customize the appearance and behavior of the application</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="153"/>
-        <source>Quit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="157"/>
-        <source>Quit the application</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="177"/>
-        <source>Close</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="181"/>
-        <source>Close lottery</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="184"/>
-        <source>Close Other</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="186"/>
-        <source>Close all other lotteries</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="189"/>
-        <source>Close All</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="192"/>
-        <source>Close all lotteries</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="201"/>
-        <source>Full Screen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="242"/>
-        <source>Show Application Toolbar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="245"/>
-        <source>Display the Application toolbar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="248"/>
-        <source>Show Lotteries Toolbar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="251"/>
-        <source>Display the Lotteries toolbar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="254"/>
-        <source>Show Tools Toolbar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="257"/>
-        <source>Display the Tools toolbar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="260"/>
-        <source>Show View Toolbar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="263"/>
-        <source>Display the View toolbar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="266"/>
-        <source>Show Help Toolbar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="269"/>
-        <source>Display the Help toolbar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="283"/>
-        <source>Keyboard Shortcuts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="286"/>
-        <source>Shortcuts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="287"/>
-        <source>List of all keyboard shortcuts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="main_window.py" line="294"/>
         <source>Application</source>
-        <translation>Anwendung</translation>
+        <translation type="obsolete">Anwendung</translation>
     </message>
     <message>
         <location filename="main_window.py" line="304"/>
         <source>Lotteries</source>
-        <translation>Lotterien</translation>
+        <translation type="obsolete">Lotterien</translation>
     </message>
     <message>
         <location filename="main_window.py" line="313"/>
         <source>Tools</source>
-        <translation>Werkzeuge</translation>
+        <translation type="obsolete">Werkzeuge</translation>
     </message>
     <message>
         <location filename="main_window.py" line="328"/>
         <source>View</source>
-        <translation>Ansicht</translation>
+        <translation type="obsolete">Ansicht</translation>
     </message>
     <message>
         <location filename="main_window.py" line="345"/>
         <source>Help</source>
-        <translation>Hilfe</translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="353"/>
-        <source>Application Toolbar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="362"/>
-        <source>Lotteries Toolbar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="368"/>
-        <source>Tools Toolbar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="373"/>
-        <source>View Toolbar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="379"/>
-        <source>Help Toolbar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="404"/>
-        <source>Full Screen Mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="407"/>
-        <source>Display the window in full screen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="409"/>
-        <source>Exit Full Screen Mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="412"/>
-        <source>Exit the full screen mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="147"/>
-        <source>Preferences&#xe2;&#x80;&#xa6;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="224"/>
-        <source>Top</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="209"/>
-        <source>The lottery tabs are displayed above the pages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="230"/>
-        <source>Bottom</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="215"/>
-        <source>The lottery tabs are displayed below the pages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="227"/>
-        <source>The sheet tabs are displayed above the pages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="233"/>
-        <source>The sheet tabs are displayed below the pages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="272"/>
-        <source>Show Statusbar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="276"/>
-        <source>Display the statusbar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="320"/>
-        <source>Show Lottery Tabs&#xe2;&#x80;&#xa6;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.py" line="324"/>
-        <source>Show Sheet Tabs&#xe2;&#x80;&#xa6;</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Hilfe</translation>
     </message>
 </context>
 <context>
@@ -587,6 +305,304 @@
     <message>
         <location filename="preferences_page_plays.py" line="56"/>
         <source>Plays</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Window</name>
+    <message>
+        <location filename="window.py" line="127"/>
+        <source>Eurojackpot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="127"/>
+        <source>Eurojackpot is a transnational European lottery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="128"/>
+        <source>EuroMillions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="128"/>
+        <source>EuroMillions is a transnational European lottery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="129"/>
+        <source>Vikinglotto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="129"/>
+        <source>Vikinglotto is a transnational European lottery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="138"/>
+        <source>About {0}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="141"/>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="142"/>
+        <source>Brief description of the application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="145"/>
+        <source>Colophon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="147"/>
+        <source>Lengthy description of the application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="150"/>
+        <source>Preferences&#xe2;&#x80;&#xa6;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="153"/>
+        <source>Customize the appearance and behavior of the application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="156"/>
+        <source>Quit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="160"/>
+        <source>Quit the application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="180"/>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="184"/>
+        <source>Close lottery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="187"/>
+        <source>Close Other</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="189"/>
+        <source>Close all other lotteries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="192"/>
+        <source>Close All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="195"/>
+        <source>Close all lotteries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="204"/>
+        <source>Full Screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="209"/>
+        <source>Show Application Toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="212"/>
+        <source>Display the Application toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="215"/>
+        <source>Show Lotteries Toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="218"/>
+        <source>Display the Lotteries toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="221"/>
+        <source>Show Tools Toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="224"/>
+        <source>Display the Tools toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="227"/>
+        <source>Show View Toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="230"/>
+        <source>Display the View toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="233"/>
+        <source>Show Help Toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="236"/>
+        <source>Display the Help toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="239"/>
+        <source>Show Statusbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="243"/>
+        <source>Display the statusbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="250"/>
+        <source>Keyboard Shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="253"/>
+        <source>Shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="254"/>
+        <source>List of all keyboard shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="283"/>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="264"/>
+        <source>The lottery tabs are displayed above the pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="289"/>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="270"/>
+        <source>The lottery tabs are displayed below the pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="286"/>
+        <source>The sheet tabs are displayed above the pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="292"/>
+        <source>The sheet tabs are displayed below the pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="304"/>
+        <source>Show Lottery Tabs&#xe2;&#x80;&#xa6;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="308"/>
+        <source>Show Sheet Tabs&#xe2;&#x80;&#xa6;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="314"/>
+        <source>Application</source>
+        <translation type="unfinished">Anwendung</translation>
+    </message>
+    <message>
+        <location filename="window.py" line="324"/>
+        <source>Lotteries</source>
+        <translation type="unfinished">Lotterien</translation>
+    </message>
+    <message>
+        <location filename="window.py" line="333"/>
+        <source>Tools</source>
+        <translation type="unfinished">Werkzeuge</translation>
+    </message>
+    <message>
+        <location filename="window.py" line="337"/>
+        <source>View</source>
+        <translation type="unfinished">Ansicht</translation>
+    </message>
+    <message>
+        <location filename="window.py" line="353"/>
+        <source>Help</source>
+        <translation type="unfinished">Hilfe</translation>
+    </message>
+    <message>
+        <location filename="window.py" line="361"/>
+        <source>Application Toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="370"/>
+        <source>Lotteries Toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="376"/>
+        <source>Tools Toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="381"/>
+        <source>View Toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="387"/>
+        <source>Help Toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="401"/>
+        <source>Full Screen Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="404"/>
+        <source>Display the window in full screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="406"/>
+        <source>Exit Full Screen Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="window.py" line="409"/>
+        <source>Exit the full screen mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
