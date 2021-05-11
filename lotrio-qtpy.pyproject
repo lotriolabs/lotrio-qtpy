@@ -7,6 +7,7 @@
         "icons.qrc",
         "keyboard_shortcuts_dialog.py",
         "keyboard_shortcuts_page.py",
+        "lottery.py",
         "lottery_document.py",
         "lottery_page_about.py",
         "lottery_page_draws.py",

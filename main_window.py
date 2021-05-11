@@ -25,6 +25,7 @@ from PySide2.QtWidgets import QAction, QActionGroup, QApplication, QMainWindow, 
 from about_dialog import AboutDialog
 from colophon_dialog import ColophonDialog
 from keyboard_shortcuts_dialog import KeyboardShortcutsDialog
+from lottery import Lottery
 from lottery_document import LotteryDocument
 from preferences import Preferences
 from preferences_dialog import PreferencesDialog
