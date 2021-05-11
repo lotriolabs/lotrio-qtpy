@@ -54,7 +54,7 @@ class MainWindow(QMainWindow):
         self._loadSettings()
 
         self._updateActionFullScreen()
-        self._updateActionTabbarLotteriesPosition()
+        self._updateActionsTabPositionLotteries()
         self._updateActionTabbarSheetsPosition(self._preferences.defaultTabbarSheetsPosition())
 
         self._enableUiElements()
@@ -204,24 +204,6 @@ class MainWindow(QMainWindow):
         self._actionFullScreen.setShortcuts([QKeySequence(Qt.Key_F11), QKeySequence.FullScreen])
         self._actionFullScreen.triggered.connect(self._onActionFullScreenTriggered)
 
-        actionTabbarLotteriesPositionTop = QAction(self.tr("Top"), self)
-        actionTabbarLotteriesPositionTop.setObjectName("actionTabbarLotteriesPositionTop")
-        actionTabbarLotteriesPositionTop.setCheckable(True)
-        actionTabbarLotteriesPositionTop.setToolTip(self.tr("The lottery tabs are displayed above the pages"))
-        actionTabbarLotteriesPositionTop.setData(QTabWidget.North)
-
-        actionTabbarLotteriesPositionBottom = QAction(self.tr("Bottom"), self)
-        actionTabbarLotteriesPositionBottom.setObjectName("actionTabbarLotteriesPositionBottom")
-        actionTabbarLotteriesPositionBottom.setCheckable(True)
-        actionTabbarLotteriesPositionBottom.setToolTip(self.tr("The lottery tabs are displayed below the pages"))
-        actionTabbarLotteriesPositionBottom.setData(QTabWidget.South)
-
-        self._actionTabbarLotteriesPosition = QActionGroup(self)
-        self._actionTabbarLotteriesPosition.setObjectName("actionTabbarLotteriesPosition")
-        self._actionTabbarLotteriesPosition.addAction(actionTabbarLotteriesPositionTop)
-        self._actionTabbarLotteriesPosition.addAction(actionTabbarLotteriesPositionBottom)
-        self._actionTabbarLotteriesPosition.triggered.connect(self._onActionTabbarLotteriesPositionTriggered)
-
         actionTabbarSheetsPositionTop = QAction(self.tr("Top"), self)
         actionTabbarSheetsPositionTop.setObjectName("actionTabbarSheetsPositionTop")
         actionTabbarSheetsPositionTop.setCheckable(True)
@@ -289,7 +271,34 @@ class MainWindow(QMainWindow):
         self._actionKeyboardShortcuts.triggered.connect(self._onActionKeyboardShortcutsTriggered)
 
 
+        #
+        # Tab Position Lotteries
+
+        actionTabPositionLotteriesTop = QAction(self.tr("Top"), self)
+        actionTabPositionLotteriesTop.setObjectName("actionTabPositionLotteriesTop")
+        actionTabPositionLotteriesTop.setCheckable(True)
+        actionTabPositionLotteriesTop.setToolTip(self.tr("The lottery tabs are displayed above the pages"))
+        actionTabPositionLotteriesTop.setData(QTabWidget.North)
+
+        actionTabPositionLotteriesBottom = QAction(self.tr("Bottom"), self)
+        actionTabPositionLotteriesBottom.setObjectName("actionTabPositionLotteriesBottom")
+        actionTabPositionLotteriesBottom.setCheckable(True)
+        actionTabPositionLotteriesBottom.setToolTip(self.tr("The lottery tabs are displayed below the pages"))
+        actionTabPositionLotteriesBottom.setData(QTabWidget.South)
+
+        self._actionsTabPositionLotteries = QActionGroup(self)
+        self._actionsTabPositionLotteries.setObjectName("actionsTabPositionLotteries")
+        self._actionsTabPositionLotteries.addAction(actionTabPositionLotteriesTop)
+        self._actionsTabPositionLotteries.addAction(actionTabPositionLotteriesBottom)
+        self._actionsTabPositionLotteries.triggered.connect(self._onActionsTabPositionLotteriesTriggered)
+
+
     def _createMenus(self):
+
+        menuLotteryTabs = QMenu(self.tr("Show Lottery Tabs…"), self)
+        menuLotteryTabs.setObjectName("menuLotteryTabs")
+        menuLotteryTabs.addActions(self._actionsTabPositionLotteries.actions())
+
 
         # Menu: Application
         menuApplication = self.menuBar().addMenu(self.tr("Application"))
@@ -317,10 +326,6 @@ class MainWindow(QMainWindow):
 
         #
         # Menu: View
-
-        menuLotteryTabs = QMenu(self.tr("Show Lottery Tabs…"), self)
-        menuLotteryTabs.setObjectName("menuLotteryTabs")
-        menuLotteryTabs.addActions(self._actionTabbarLotteriesPosition.actions())
 
         self._menuSheetTabs = QMenu(self.tr("Show Sheet Tabs…"), self)
         self._menuSheetTabs.setObjectName("menuSheetTabs")
@@ -402,9 +407,9 @@ class MainWindow(QMainWindow):
             self._actionFullScreen.setToolTip(self.tr("Exit the full screen mode"))
 
 
-    def _updateActionTabbarLotteriesPosition(self):
+    def _updateActionsTabPositionLotteries(self):
 
-        for action in self._actionTabbarLotteriesPosition.actions():
+        for action in self._actionsTabPositionLotteries.actions():
             if action.data() == self._preferences.defaultTabbarLotteriesPosition():
                 action.setChecked(True)
                 break
@@ -499,9 +504,9 @@ class MainWindow(QMainWindow):
         self._updateActionFullScreen()
 
 
-    def _onActionTabbarLotteriesPositionTriggered(self, actionTabbarLotteriesPosition):
+    def _onActionsTabPositionLotteriesTriggered(self, actionTabPositionLotteries):
 
-        tabPosition = QTabWidget.TabPosition(actionTabbarLotteriesPosition.data())
+        tabPosition = QTabWidget.TabPosition(actionTabPositionLotteries.data())
 
         self._documentArea.setTabPosition(tabPosition)
 
