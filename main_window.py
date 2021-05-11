@@ -24,8 +24,8 @@ from PySide2.QtWidgets import QAction, QActionGroup, QApplication, QMainWindow, 
 
 from about_dialog import AboutDialog
 from colophon_dialog import ColophonDialog
-from document import Document
 from keyboard_shortcuts_dialog import KeyboardShortcutsDialog
+from lottery_document import LotteryDocument
 from preferences import Preferences
 from preferences_dialog import PreferencesDialog
 
@@ -562,7 +562,7 @@ class MainWindow(QMainWindow):
 
     def _createDocument(self):
 
-        document = Document()
+        document = LotteryDocument()
         document.setPreferences(self._preferences)
         document.setDocumentTabPosition(self._preferences.defaultTabbarSheetsPosition())
         document.aboutToClose.connect(self._onDocumentAboutToClose)

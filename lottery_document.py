@@ -27,7 +27,7 @@ from lottery_page_plays import LotteryPagePlays
 from preferences import Preferences
 
 
-class Document(QWidget):
+class LotteryDocument(QWidget):
 
     aboutToClose = Signal(str)
 
