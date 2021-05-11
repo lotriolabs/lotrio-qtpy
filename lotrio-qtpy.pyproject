@@ -12,7 +12,6 @@
         "lottery_page_about.py",
         "lottery_page_draws.py",
         "lottery_page_plays.py",
-        "main_window.py",
         "main.py",
         "preferences.py",
         "preferences_dialog.py",
@@ -20,6 +19,7 @@
         "preferences_page_general.py",
         "preferences_page_lotteries.py",
         "preferences_page_plays.py",
-        "translations.qrc"
+        "translations.qrc",
+        "window.py"
     ]
 }

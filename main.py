@@ -23,7 +23,7 @@ import sys
 from PySide2.QtCore import QCommandLineOption, QCommandLineParser, QCoreApplication, QDir, QFileInfo, QLibraryInfo, QLocale, QTranslator
 from PySide2.QtWidgets import QApplication
 
-from main_window import MainWindow
+from window import Window
 
 import translations_rc
 
@@ -116,7 +116,7 @@ if __name__ == "__main__":
         app.installTranslator(translatorQtBase)
 
 
-    window = MainWindow()
-    window.show()
+    win = Window()
+    win.show()
 
     sys.exit(app.exec_())
