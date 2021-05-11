@@ -182,7 +182,7 @@ class Window(QMainWindow):
         self._actionClose.setIcon(QIcon.fromTheme("document-close", QIcon(":/icons/actions/16/document-close.svg")))
         self._actionClose.setShortcut(QKeySequence.Close)
         self._actionClose.setToolTip(self.tr("Close lottery"))
-        self._actionClose.triggered.connect(self._onActionCloseTriggered)
+        self._actionClose.triggered.connect(self._windowArea.closeActiveSubWindow)
 
         self._actionCloseOther = QAction(self.tr("Close Other"), self)
         self._actionCloseOther.setObjectName("actionCloseOther")
@@ -477,11 +477,6 @@ class Window(QMainWindow):
             self._openDocument(lottery)
         else:
             self._closeDocument(lottery)
-
-
-    def _onActionCloseTriggered(self):
-
-        self._windowArea.closeActiveSubWindow()
 
 
     def _onActionFullScreenTriggered(self):
