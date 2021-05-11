@@ -20,7 +20,7 @@
 
 from PySide2.QtCore import QByteArray, QSettings, Qt
 from PySide2.QtGui import QIcon, QKeySequence
-from PySide2.QtWidgets import QAction, QActionGroup, QApplication, QMainWindow, QMdiArea, QMenu, QStatusBar, QTabWidget
+from PySide2.QtWidgets import QAction, QActionGroup, QApplication, QMainWindow, QMenu, QStatusBar, QTabWidget
 
 from about_dialog import AboutDialog
 from colophon_dialog import ColophonDialog
@@ -29,6 +29,7 @@ from lottery import Lottery
 from lottery_document import LotteryDocument
 from preferences import Preferences
 from preferences_dialog import PreferencesDialog
+from window_area import WindowArea
 
 import icons_rc
 
@@ -60,13 +61,13 @@ class Window(QMainWindow):
         self._enableUiElements()
 
         # Central widget
-        self._documentArea = QMdiArea()
-        self._documentArea.setViewMode(QMdiArea.TabbedView)
-        self._documentArea.setTabsMovable(True)
-        self._documentArea.setTabsClosable(True)
-        self._documentArea.setTabPosition(self._preferences.defaultTabbarLotteriesPosition())
-        self.setCentralWidget(self._documentArea)
-        self._documentArea.subWindowActivated.connect(self._onDocumentWindowActivated)
+        self._windowArea = WindowArea()
+        self._windowArea.setViewMode(WindowArea.TabbedView)
+        self._windowArea.setTabsMovable(True)
+        self._windowArea.setTabsClosable(True)
+        self._windowArea.setTabPosition(self._preferences.defaultTabbarLotteriesPosition())
+        self.setCentralWidget(self._windowArea)
+        self._windowArea.subWindowActivated.connect(self._onDocumentWindowActivated)
 
 
     def closeEvent(self, event):
@@ -479,19 +480,19 @@ class Window(QMainWindow):
 
     def _onActionCloseTriggered(self):
 
-        self._documentArea.closeActiveSubWindow()
+        self._windowArea.closeActiveSubWindow()
 
 
     def _onActionCloseOtherTriggered(self):
 
-        for subWindow in self._documentArea.subWindowList():
-            if subWindow != self._documentArea.activeSubWindow():
+        for subWindow in self._windowArea.subWindowList():
+            if subWindow != self._windowArea.activeSubWindow():
                 subWindow.close()
 
 
     def _onActionCloseAllTriggered(self):
 
-        self._documentArea.closeAllSubWindows()
+        self._windowArea.closeAllSubWindows()
 
 
     def _onActionFullScreenTriggered(self):
@@ -518,7 +519,7 @@ class Window(QMainWindow):
 
         tabPosition = QTabWidget.TabPosition(actionTabPositionLotteries.data())
 
-        self._documentArea.setTabPosition(tabPosition)
+        self._windowArea.setTabPosition(tabPosition)
 
 
     def _onActionsTabPositionSheetsTriggered(self, actionTabPositionSheets):
@@ -534,7 +535,7 @@ class Window(QMainWindow):
 
         # Update application window and UI elements
         self._updateTitleBar()
-        self._enableUiElements(len(self._documentArea.subWindowList()))
+        self._enableUiElements(len(self._windowArea.subWindowList()))
 
         if not subWindow:
             return
@@ -547,12 +548,12 @@ class Window(QMainWindow):
     def _onDocumentAboutToClose(self, canonicalName):
 
         # Workaround to show subwindows always maximized
-        for subWindow in self._documentArea.subWindowList():
+        for subWindow in self._windowArea.subWindowList():
             if not subWindow.isMaximized():
                 subWindow.showMaximized()
 
         # Update UI elements without the emitter
-        self._enableUiElements(len(self._documentArea.subWindowList()) - 1)
+        self._enableUiElements(len(self._windowArea.subWindowList()) - 1)
 
         # Disable the Lottery action
         for actionLottery in self._actionLotteries:
@@ -568,7 +569,7 @@ class Window(QMainWindow):
         document.setTabPosition(self._preferences.defaultTabbarSheetsPosition())
         document.aboutToClose.connect(self._onDocumentAboutToClose)
 
-        subWindow = self._documentArea.addSubWindow(document)
+        subWindow = self._windowArea.addSubWindow(document)
         subWindow.setWindowIcon(QIcon())
         subWindow.showMaximized()
 
@@ -577,7 +578,7 @@ class Window(QMainWindow):
 
     def _findDocumentWindow(self, canonicalName):
 
-        for subWindow in self._documentArea.subWindowList():
+        for subWindow in self._windowArea.subWindowList():
             if subWindow.widget().canonicalName() == canonicalName:
                 return subWindow
 
@@ -586,7 +587,7 @@ class Window(QMainWindow):
 
     def _activeDocument(self):
 
-        subWindow = self._documentArea.activeSubWindow()
+        subWindow = self._windowArea.activeSubWindow()
 
         return subWindow.widget() if subWindow else None
 
@@ -596,7 +597,7 @@ class Window(QMainWindow):
         subWindow = self._findDocumentWindow(canonicalName)
         if subWindow:
             # Given document is already loaded; activate the subwindow
-            self._documentArea.setActiveSubWindow(subWindow)
+            self._windowArea.setActiveSubWindow(subWindow)
             return True
 
         return self._loadDocument(canonicalName)

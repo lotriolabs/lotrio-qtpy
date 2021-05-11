@@ -20,6 +20,7 @@
         "preferences_page_lotteries.py",
         "preferences_page_plays.py",
         "translations.qrc",
-        "window.py"
+        "window.py",
+        "window_area.py"
     ]
 }
