@@ -76,12 +76,12 @@ class LotteryDocument(QWidget):
         self.setWindowTitle(fileName)
 
 
-    def setDocumentTabPosition(self, tabPosition):
+    def setTabPosition(self, tabPosition):
 
         self._tabBox.setTabPosition(tabPosition)
 
 
-    def documentTabPosition(self):
+    def tabPosition(self):
 
         return self._tabBox.tabPosition()
 

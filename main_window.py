@@ -526,7 +526,7 @@ class MainWindow(QMainWindow):
 
         document = self._activeDocument()
         if document:
-            document.setDocumentTabPosition(tabPosition)
+            document.setTabPosition(tabPosition)
 
 
     def _onDocumentWindowActivated(self, subWindow):
@@ -540,7 +540,7 @@ class MainWindow(QMainWindow):
 
         document = subWindow.widget()
 
-        self._updateActionsTabPositionSheets(document.documentTabPosition())
+        self._updateActionsTabPositionSheets(document.tabPosition())
 
 
     def _onDocumentAboutToClose(self, canonicalName):
@@ -564,7 +564,7 @@ class MainWindow(QMainWindow):
 
         document = LotteryDocument()
         document.setPreferences(self._preferences)
-        document.setDocumentTabPosition(self._preferences.defaultTabbarSheetsPosition())
+        document.setTabPosition(self._preferences.defaultTabbarSheetsPosition())
         document.aboutToClose.connect(self._onDocumentAboutToClose)
 
         subWindow = self._documentArea.addSubWindow(document)
