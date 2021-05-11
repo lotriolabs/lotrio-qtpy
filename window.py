@@ -46,6 +46,13 @@ class Window(QMainWindow):
         self._preferences = Preferences()
         self._preferences.loadSettings()
 
+        self._windowArea = WindowArea()
+        self._windowArea.setViewMode(WindowArea.TabbedView)
+        self._windowArea.setTabsMovable(True)
+        self._windowArea.setTabsClosable(True)
+        self._windowArea.setTabPosition(self._preferences.defaultTabbarLotteriesPosition())
+        self._windowArea.subWindowActivated.connect(self._onDocumentWindowActivated)
+
         self._createLotteries()
 
         self._createActions()
@@ -61,13 +68,7 @@ class Window(QMainWindow):
         self._enableUiElements()
 
         # Central widget
-        self._windowArea = WindowArea()
-        self._windowArea.setViewMode(WindowArea.TabbedView)
-        self._windowArea.setTabsMovable(True)
-        self._windowArea.setTabsClosable(True)
-        self._windowArea.setTabPosition(self._preferences.defaultTabbarLotteriesPosition())
         self.setCentralWidget(self._windowArea)
-        self._windowArea.subWindowActivated.connect(self._onDocumentWindowActivated)
 
 
     def closeEvent(self, event):
@@ -186,7 +187,7 @@ class Window(QMainWindow):
         self._actionCloseOther = QAction(self.tr("Close Other"), self)
         self._actionCloseOther.setObjectName("actionCloseOther")
         self._actionCloseOther.setToolTip(self.tr("Close all other lotteries"))
-        self._actionCloseOther.triggered.connect(self._onActionCloseOtherTriggered)
+        self._actionCloseOther.triggered.connect(self._windowArea.closeOtherSubWindows)
 
         self._actionCloseAll = QAction(self.tr("Close All"), self)
         self._actionCloseAll.setObjectName("actionCloseAll")
@@ -481,13 +482,6 @@ class Window(QMainWindow):
     def _onActionCloseTriggered(self):
 
         self._windowArea.closeActiveSubWindow()
-
-
-    def _onActionCloseOtherTriggered(self):
-
-        for subWindow in self._windowArea.subWindowList():
-            if subWindow != self._windowArea.activeSubWindow():
-                subWindow.close()
 
 
     def _onActionCloseAllTriggered(self):

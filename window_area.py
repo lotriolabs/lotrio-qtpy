@@ -25,3 +25,20 @@ class WindowArea(QMdiArea):
 
     def __init__(self, parent=None):
         super().__init__(parent)
+
+
+    def closeOtherSubWindows(self):
+
+        subWindows = self.subWindowList()
+
+        if not len(subWindows):
+            return
+
+        # Remove current subwindow from the list
+        subWindow = self.activeSubWindow()
+        while subWindow in subWindows:
+            subWindows.remove(subWindow)
+
+        # Close all other subwindows
+        for subWindow in subWindows:
+            subWindow.close()
