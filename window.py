@@ -193,7 +193,7 @@ class Window(QMainWindow):
         self._actionCloseAll.setObjectName("actionCloseAll")
         self._actionCloseAll.setShortcut(QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_W))
         self._actionCloseAll.setToolTip(self.tr("Close all lotteries"))
-        self._actionCloseAll.triggered.connect(self._onActionCloseAllTriggered)
+        self._actionCloseAll.triggered.connect(self._windowArea.closeAllSubWindows)
 
 
         #
@@ -482,11 +482,6 @@ class Window(QMainWindow):
     def _onActionCloseTriggered(self):
 
         self._windowArea.closeActiveSubWindow()
-
-
-    def _onActionCloseAllTriggered(self):
-
-        self._windowArea.closeAllSubWindows()
 
 
     def _onActionFullScreenTriggered(self):
